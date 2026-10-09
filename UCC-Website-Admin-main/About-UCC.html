@@ -1,0 +1,2724 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UCC Admin | About UCC</title>
+
+    <link rel="icon" type="image/png" href="images/ucc-LOGO.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="stylesheet" href="About-UCC.css">
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        .history-item,
+        .progress-item {
+            position: relative;
+        }
+
+        .item-actions {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 12px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .history-item:hover .item-actions,
+        .progress-item:hover .item-actions {
+            opacity: 1;
+        }
+
+        .item-edit,
+        .item-delete {
+            width: 34px;
+            height: 34px;
+
+            border: 1px solid #e1e5e9;
+            background: #fff;
+
+            border-radius: 8px;
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+        }
+
+        .item-edit {
+            color: #174a2c;
+        }
+
+        .item-delete {
+            color: #c0392b;
+        }
+
+        .item-edit:hover {
+            background: #174a2c;
+            color: #fff;
+            border-color: #174a2c;
+        }
+
+        .item-delete:hover {
+            background: #c0392b;
+            color: #fff;
+            border-color: #c0392b;
+        }
+
+        .item-edit svg,
+        .item-delete svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .add-section-btn {
+            margin-top: 20px;
+
+            padding: 11px 18px;
+
+            border: 1px dashed #b18a32;
+            background: #fffaf0;
+
+            color: #8a691f;
+
+            border-radius: 9px;
+
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 700;
+
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            cursor: pointer;
+
+            transition: all 0.2s ease;
+        }
+
+        .add-section-btn:hover {
+            background: #b18a32;
+            color: #fff;
+            border-color: #b18a32;
+        }
+
+        .add-section-btn svg {
+            width: 17px;
+            height: 17px;
+        }
+
+        .about-form input,
+        .about-form select,
+        .about-form textarea {
+            width: 100%;
+            box-sizing: border-box;
+
+            border: 1px solid #dfe3e8;
+            border-radius: 9px;
+
+            padding: 12px 14px;
+            margin-bottom: 16px;
+
+            background: #fff;
+            color: #252a2e;
+
+            font-family: inherit;
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+        .about-form input:focus,
+        .about-form select:focus,
+        .about-form textarea:focus {
+            border-color: #b18a32;
+
+            box-shadow:
+                0 0 0 3px rgba(177, 138, 50, 0.12);
+        }
+
+        .about-form label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #30353a;
+
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .history-item {
+            display: grid;
+
+            grid-template-columns:
+                70px
+                minmax(0, 1fr)
+                auto;
+
+            gap: 18px;
+
+            align-items: start;
+        }
+
+        .history-year {
+            color: #b18a32;
+            font-weight: 800;
+        }
+
+        .progress-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .progress-item .item-actions {
+            margin-top: auto;
+            padding-top: 10px;
+        }
+
+        .empty-state {
+            padding: 30px 20px;
+
+            text-align: center;
+
+            color: #7b8188;
+
+            border: 1px dashed #d9dde2;
+            border-radius: 10px;
+
+            background: #fafbfc;
+        }
+
+        @media (max-width: 700px) {
+
+            .history-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .item-actions {
+                opacity: 1;
+            }
+
+            .about-modal-box {
+                width: calc(100% - 30px);
+
+                max-height: 90vh;
+
+                overflow-y: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-top">
+
+            <div class="logo-wrap">
+
+                <img
+                    src="images/ucc-LOGO.png"
+                    alt="UCC Logo"
+                >
+
+                <div>
+
+                    <h2>
+                        UCC Admin
+                    </h2>
+
+                    <p>
+                        University of Caloocan City
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="gold-line"></div>
+
+        <nav class="sidebar-nav">
+
+            <a href="Dashboard.html">
+
+                <i data-lucide="house"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+            <a href="Posts.html">
+
+                <i data-lucide="newspaper"></i>
+
+                <span>
+                    Posts
+                </span>
+
+            </a>
+
+            <div class="menu-group">
+
+                <button
+                    class="menu-title"
+                    type="button"
+                >
+
+                    <div>
+
+                        <i data-lucide="graduation-cap"></i>
+
+                        <span>
+                            Academics
+                        </span>
+
+                    </div>
+
+                    <i
+                        data-lucide="chevron-down"
+                        class="arrow"
+                    ></i>
+
+                </button>
+
+                <div class="submenu">
+
+                    <a href="Academics.html">
+                        Colleges
+                    </a>
+
+                     <a href="Masteral.html">
+                        Masteral
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="menu-group">
+                <button class="menu-title" type="button">
+                    <div>
+                        <i data-lucide="users"></i>
+                        <span>Officials</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="arrow"></i>
+                </button>
+                <div class="submenu">
+                    <a href="Executive-Officials.html">Executive Officials</a>
+                    <a href="Board-of-Regents.html">Board of Regents</a>
+                </div>
+            </div>
+
+            <div class="menu-group open">
+
+                <button
+                    class="menu-title active"
+                    type="button"
+                >
+                    <div>
+                        <i data-lucide="building-2"></i>
+                        <span>
+                            Components
+                        </span>
+                    </div>
+
+                    <i
+                        data-lucide="chevron-down"
+                        class="arrow"
+                    ></i>
+
+                </button>
+
+                <div class="submenu">
+
+                    <a href="Campuses.html">
+                        Campuses
+                    </a>
+
+                    <a href="Contact-Information.html">
+                        Contact Information
+                    </a>
+
+                    <a
+                        href="About-UCC.html"
+                        class="active"
+                    >
+                        About UCC
+                    </a>
+
+                    <a href="E-Services.html">
+                        E-Services
+                    </a>
+
+                    <a href="Archive.html">
+                        Archive
+                    </a>
+
+                    <a href="Quick-Links.html">
+                        Quick Links
+                    </a>
+
+                </div>
+
+            </div>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="Password.html">
+
+                <i data-lucide="lock"></i>
+
+                <span>
+                    Password
+                </span>
+
+            </a>
+
+            <a href="Logout.html">
+
+                <i data-lucide="log-out"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+        <div class="sidebar-art"></div>
+
+    </aside>
+
+    <main class="main-content">
+
+        <header class="top-header">
+
+            <div class="header-left">
+
+                <h1>
+                    About UCC
+                </h1>
+
+            </div>
+
+            <div class="header-right">
+
+                <div class="admin-profile">
+
+                    <div class="admin-text">
+
+                        <small>
+                            Administrator
+                        </small>
+
+                        <span>
+                            Welcome, Admin!
+                        </span>
+
+                    </div>
+
+                    <div class="avatar">
+
+                        <i data-lucide="circle-user-round"></i>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="header-art"></div>
+
+            <div class="gold-divider">
+
+                <span></span>
+
+            </div>
+
+        </header>
+
+        <section class="about-admin">
+
+            <div class="about-toolbar">
+
+                <div class="about-toolbar-copy">
+
+                    <p>
+                        Organize the university overview,
+                        history, and development information
+                        for the website.
+                    </p>
+
+                </div>
+
+                <div class="about-toolbar-actions">
+
+                    <button
+                        class="about-btn secondary"
+                        type="button"
+                        id="aboutUploadBtn"
+                    >
+
+                        <i data-lucide="image-plus"></i>
+
+                        Featured Image
+
+                    </button>
+
+                    <input
+                        class="about-file"
+                        id="aboutImageInput"
+                        type="file"
+                        accept="image/*"
+                    >
+
+                    <button
+                        class="about-btn primary"
+                        type="button"
+                        id="aboutEditIntro"
+                    >
+
+                        <i data-lucide="pencil"></i>
+
+                        Edit Overview
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div class="about-layout">
+
+                <div class="about-stack">
+
+                    <section
+                        class="about-card"
+                        id="overviewSection"
+                    >
+
+                        <div class="about-card-head">
+
+                            <h3>
+                                University Overview
+                            </h3>
+
+                            <button
+                                class="about-edit"
+                                type="button"
+                                data-edit="overview"
+                            >
+
+                                <i data-lucide="pencil"></i>
+
+                                Edit
+
+                            </button>
+
+                        </div>
+
+                        <div class="about-card-body about-intro">
+
+                            <div
+                                class="about-image-box"
+                                id="aboutImageBox"
+                            >
+
+                                <img
+                                    id="aboutImagePreview"
+                                    alt="About UCC featured image"
+                                >
+
+                                <div
+                                    class="about-image-placeholder"
+                                    id="aboutImagePlaceholder"
+                                >
+
+                                    <i data-lucide="image"></i>
+
+                                    <br>
+
+                                    Featured image area
+
+                                </div>
+
+                            </div>
+
+                            <div class="about-copy">
+
+                                <p id="overviewText">
+
+                                    The University of Caloocan City
+                                    (UCC) is a public-type local
+                                    university established in 1971
+                                    and formerly called Caloocan City
+                                    Community College and Caloocan
+                                    City Polytechnic College.
+
+                                    It is located in the south,
+                                    at Biglang Awa, with the main
+                                    campus fronting EDSA.
+
+                                    The university also has extension
+                                    campuses serving the northern
+                                    part of Caloocan.
+
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                    <section
+                        class="about-card"
+                        id="historySection"
+                    >
+
+                        <div class="about-card-head">
+
+                            <h3>
+                                University History
+                            </h3>
+
+                        </div>
+
+                        <div class="about-card-body">
+
+                            <div
+                                class="about-history-list"
+                                id="historyList"
+                            >
+
+                                <div
+                                    class="history-item"
+                                    data-history-id="1"
+                                >
+
+                                    <div class="history-year">
+                                        1971
+                                    </div>
+
+                                    <div>
+
+                                        <b>
+                                            First-year operation
+                                        </b>
+
+                                        <p>
+                                            First-year operation
+                                            of Caloocan City
+                                            Community College.
+                                        </p>
+
+                                    </div>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-history"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-history"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div
+                                    class="history-item"
+                                    data-history-id="2"
+                                >
+
+                                    <div class="history-year">
+                                        1973
+                                    </div>
+
+                                    <div>
+
+                                        <b>
+                                            New academic program
+                                        </b>
+
+                                        <p>
+                                            New Bachelor of Science
+                                            in Industrial Education
+                                            and Business Technology
+                                            program.
+                                        </p>
+
+                                    </div>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-history"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-history"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                                <div
+                                    class="history-item"
+                                    data-history-id="3"
+                                >
+
+                                    <div class="history-year">
+                                        1975
+                                    </div>
+
+                                    <div>
+
+                                        <b>
+                                            City Polytechnic College
+                                        </b>
+
+                                        <p>
+                                            Became Caloocan City
+                                            Polytechnic College.
+                                        </p>
+
+                                    </div>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-history"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-history"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                                <div
+                                    class="history-item"
+                                    data-history-id="4"
+                                >
+
+                                    <div class="history-year">
+                                        1996
+                                    </div>
+
+                                    <div>
+
+                                        <b>
+                                            Campus expansion
+                                        </b>
+
+                                        <p>
+                                            Buena Park and Camarin
+                                            Annexes became operational.
+                                        </p>
+
+                                    </div>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-history"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-history"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                                <div
+                                    class="history-item"
+                                    data-history-id="5"
+                                >
+
+                                    <div class="history-year">
+                                        2000
+                                    </div>
+
+                                    <div>
+
+                                        <b>
+                                            Student growth
+                                        </b>
+
+                                        <p>
+                                            Student population
+                                            reached 3,600.
+                                        </p>
+
+                                    </div>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-history"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-history"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                                <div
+                                    class="history-item"
+                                    data-history-id="6"
+                                >
+
+                                    <div class="history-year">
+                                        2004
+                                    </div>
+
+                                    <div>
+
+                                        <b>
+                                            University proclamation
+                                        </b>
+
+                                        <p>
+                                            Officially proclaimed
+                                            the University of
+                                            Caloocan City.
+                                        </p>
+
+                                    </div>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-history"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-history"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div
+                                    class="history-item"
+                                    data-history-id="7"
+                                >
+
+                                    <div class="history-year">
+                                        2017
+                                    </div>
+
+                                    <div>
+
+                                        <b>
+                                            College of Law
+                                        </b>
+
+                                        <p>
+                                            UCC College of Law
+                                            established.
+                                        </p>
+
+                                    </div>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-history"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-history"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                                <div
+                                    class="history-item"
+                                    data-history-id="8"
+                                >
+
+                                    <div class="history-year">
+                                        2022
+                                    </div>
+
+                                    <div>
+
+                                        <b>
+                                            Continued expansion
+                                        </b>
+
+                                        <p>
+                                            New administration and
+                                            continued expansion.
+                                        </p>
+
+                                    </div>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-history"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-history"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="add-section-btn"
+                                id="addHistoryBtn"
+                            >
+
+                                <i data-lucide="plus"></i>
+
+                                Add History Entry
+
+                            </button>
+
+                        </div>
+
+                    </section>
+
+                    <section
+                        class="about-card"
+                        id="developmentSection"
+                    >
+
+                        <div class="about-card-head">
+
+                            <h3>
+                                Development &amp; Opportunities
+                            </h3>
+
+                        </div>
+
+                        <div class="about-card-body">
+
+                            <div
+                                class="about-progress"
+                                id="developmentList"
+                            >
+
+                                <article
+                                    class="progress-item"
+                                    data-development-id="1"
+                                >
+
+                                    <div class="progress-icon">
+
+                                        <i data-lucide="building-2"></i>
+
+                                    </div>
+
+                                    <h4>
+                                        Construction of Main and
+                                        Extension Campuses
+                                    </h4>
+
+                                    <p>
+                                        Continuous construction and
+                                        development of the Main and
+                                        Extension campuses to provide
+                                        better spaces for learning
+                                        and growth.
+                                    </p>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-development"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-development"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </article>
+
+                                <article
+                                    class="progress-item"
+                                    data-development-id="2"
+                                >
+
+                                    <div class="progress-icon">
+
+                                        <i data-lucide="flask-conical"></i>
+
+                                    </div>
+
+                                    <h4>
+                                        Upgraded School Facilities
+                                    </h4>
+
+                                    <p>
+                                        Additional classrooms and
+                                        laboratories, libraries,
+                                        audio-visual facilities,
+                                        sound engineering and radio
+                                        broadcasting studio, speech
+                                        laboratory, multipurpose halls,
+                                        covered courts, drainage
+                                        improvements, and air-conditioning.
+                                    </p>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-development"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-development"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </article>
+
+                                <article
+                                    class="progress-item"
+                                    data-development-id="3"
+                                >
+
+                                    <div class="progress-icon">
+
+                                        <i data-lucide="graduation-cap"></i>
+
+                                    </div>
+
+                                    <h4>
+                                        100% Free Tuition
+                                    </h4>
+
+                                    <p>
+                                        Free education in the University
+                                        of Caloocan City pursuant to
+                                        City Ordinance No. 063 series
+                                        of 2014.
+                                    </p>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-development"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-development"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </article>
+
+                                <article
+                                    class="progress-item"
+                                    data-development-id="4"
+                                >
+
+                                    <div class="progress-icon">
+
+                                        <i data-lucide="users"></i>
+
+                                    </div>
+
+                                    <h4>
+                                        Increase in Number of Students
+                                    </h4>
+
+                                    <p>
+                                        From a humble beginning of
+                                        forty-two (42) students in
+                                        1971 to over 13,000 students
+                                        by 2022.
+                                    </p>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-development"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-development"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </article>
+
+                                <article
+                                    class="progress-item"
+                                    data-development-id="5"
+                                >
+
+                                    <div class="progress-icon">
+
+                                        <i data-lucide="scale"></i>
+
+                                    </div>
+
+                                    <h4>
+                                        UCC College of Law
+                                    </h4>
+
+                                    <p>
+                                        The UCC College of Law continues
+                                        to produce competent,
+                                        service-oriented and socially
+                                        responsible legal professionals.
+                                    </p>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-development"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-development"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </article>
+
+                                <article
+                                    class="progress-item"
+                                    data-development-id="6"
+                                >
+
+                                    <div class="progress-icon">
+
+                                        <i data-lucide="plus"></i>
+
+                                    </div>
+
+                                    <h4>
+                                        New Opportunities
+                                    </h4>
+
+                                    <p>
+                                        Planned health and medical
+                                        programs include BS Nursing,
+                                        BS Medical Technology,
+                                        BS Pharmacy, and BS Midwifery.
+                                    </p>
+
+                                    <div class="item-actions">
+
+                                        <button
+                                            type="button"
+                                            class="item-edit"
+                                            data-action="edit-development"
+                                            title="Edit"
+                                        >
+
+                                            <i data-lucide="pencil"></i>
+
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            class="item-delete"
+                                            data-action="delete-development"
+                                            title="Delete"
+                                        >
+
+                                            <i data-lucide="trash-2"></i>
+
+                                        </button>
+
+                                    </div>
+
+                                </article>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="add-section-btn"
+                                id="addDevelopmentBtn"
+                            >
+
+                                <i data-lucide="plus"></i>
+
+                                Add Development / Opportunity
+
+                            </button>
+
+                        </div>
+
+                    </section>
+
+                </div>
+
+                <aside class="about-side">
+                    <section class="about-card">
+                        <div class="about-card-head">
+                            <h3>
+                                Content Status
+                            </h3>
+                        </div>
+
+                        <div class="about-card-body">
+                            <div class="about-status-list">
+                                <div class="about-status">
+                                    <span>
+                                        Status
+                                    </span>
+                                    <strong>
+                                        <span class="badge-published">
+                                            Published
+                                        </span>
+                                    </strong>
+                                </div>
+
+                                <div class="about-status">
+
+                                    <span>
+                                        Content groups
+                                    </span>
+
+                                    <strong>
+                                        3 sections
+                                    </strong>
+
+                                </div>
+
+                                <div class="about-status">
+
+                                    <span>
+                                        History entries
+                                    </span>
+
+                                    <strong id="historyCount">
+                                        8 milestones
+                                    </strong>
+
+                                </div>
+
+                                <div class="about-status">
+
+                                    <span>
+                                        Development items
+                                    </span>
+
+                                    <strong id="developmentCount">
+                                        6 items
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                    <section class="about-card">
+
+                        <div class="about-card-head">
+
+                            <h3>
+                                Content Sections
+                            </h3>
+
+                        </div>
+
+                        <div class="about-card-body">
+
+                            <div class="about-section-nav">
+
+                                <button
+                                    type="button"
+                                    data-scroll="overviewSection"
+                                >
+                                    University Overview
+                                </button>
+
+                                <button
+                                    type="button"
+                                    data-scroll="historySection"
+                                >
+                                    University History
+                                </button>
+
+                                <button
+                                    type="button"
+                                    data-scroll="developmentSection"
+                                >
+                                    Development &amp; Opportunities
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+        <div
+            class="about-modal"
+            id="aboutModal"
+            aria-hidden="true"
+        >
+
+            <div
+                class="about-modal-box"
+                role="dialog"
+                aria-modal="true"
+            >
+
+                <div class="about-modal-head">
+
+                    <h3 id="aboutModalTitle">
+                        Edit Content
+                    </h3>
+
+                    <button
+                        class="about-close"
+                        type="button"
+                        id="aboutClose"
+                        aria-label="Close"
+                    >
+
+                        <i data-lucide="x"></i>
+
+                    </button>
+
+                </div>
+
+                <form
+                    class="about-form"
+                    id="aboutForm"
+                >
+
+                    <div
+                        id="overviewFields"
+                    >
+
+                        <label for="aboutEditor">
+                            University Overview
+                        </label>
+
+                        <textarea
+                            id="aboutEditor"
+                            rows="8"
+                        ></textarea>
+
+                    </div>
+
+                    <div
+                        id="historyFields"
+                        style="display:none;"
+                    >
+
+                        <label for="historyYear">
+                            Year
+                        </label>
+
+                        <input
+                            type="text"
+                            id="historyYear"
+                            placeholder="e.g. 1971"
+                        >
+
+                        <label for="historyTitle">
+                            Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="historyTitle"
+                            placeholder="e.g. First-year operation"
+                        >
+
+                        <label for="historyDescription">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="historyDescription"
+                            rows="5"
+                            placeholder="Describe this milestone..."
+                        ></textarea>
+
+                    </div>
+
+                    <div
+                        id="developmentFields"
+                        style="display:none;"
+                    >
+
+                        <label for="developmentTitle">
+                            Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="developmentTitle"
+                            placeholder="e.g. Upgraded School Facilities"
+                        >
+
+                        <label for="developmentIcon">
+                            Icon
+                        </label>
+
+                        <select id="developmentIcon">
+
+                            <option value="building-2">
+                                Building
+                            </option>
+
+                            <option value="flask-conical">
+                                Laboratory
+                            </option>
+
+                            <option value="graduation-cap">
+                                Education
+                            </option>
+
+                            <option value="users">
+                                Students
+                            </option>
+
+                            <option value="scale">
+                                Law
+                            </option>
+
+                            <option value="heart-pulse">
+                                Health
+                            </option>
+
+                            <option value="plus">
+                                Plus
+                            </option>
+
+                            <option value="briefcase">
+                                Opportunity
+                            </option>
+
+                        </select>
+
+                        <label for="developmentDescription">
+                            Description
+                        </label>
+
+                        <textarea
+                            id="developmentDescription"
+                            rows="5"
+                            placeholder="Describe this development or opportunity..."
+                        ></textarea>
+
+                    </div>
+
+                    <div class="about-form-actions">
+
+                        <button
+                            class="about-btn secondary"
+                            type="button"
+                            id="aboutCancel"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            class="about-btn primary"
+                            type="submit"
+                        >
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+
+(function () {
+
+    const modal =
+        document.getElementById("aboutModal");
+
+    const form =
+        document.getElementById("aboutForm");
+
+    const title =
+        document.getElementById("aboutModalTitle");
+
+    const close =
+        document.getElementById("aboutClose");
+
+    const cancel =
+        document.getElementById("aboutCancel");
+
+    const overview =
+        document.getElementById("overviewText");
+
+    const overviewFields =
+        document.getElementById("overviewFields");
+
+    const historyFields =
+        document.getElementById("historyFields");
+
+    const developmentFields =
+        document.getElementById("developmentFields");
+
+    const editor =
+        document.getElementById("aboutEditor");
+
+    const historyYear =
+        document.getElementById("historyYear");
+
+    const historyTitle =
+        document.getElementById("historyTitle");
+
+    const historyDescription =
+        document.getElementById("historyDescription");
+
+    const developmentTitle =
+        document.getElementById("developmentTitle");
+
+    const developmentIcon =
+        document.getElementById("developmentIcon");
+
+    const developmentDescription =
+        document.getElementById("developmentDescription");
+
+    const historyList =
+        document.getElementById("historyList");
+
+    const developmentList =
+        document.getElementById("developmentList");
+
+    const historyCount =
+        document.getElementById("historyCount");
+
+    const developmentCount =
+        document.getElementById("developmentCount");
+
+    let editingType =
+        "overview";
+
+    let editingElement =
+        null;
+
+    let nextHistoryId =
+        9;
+
+    let nextDevelopmentId =
+        7;
+
+    function openModal(
+        type,
+        element = null
+    ) {
+
+        editingType =
+            type;
+
+        editingElement =
+            element;
+
+        overviewFields.style.display =
+            "none";
+
+        historyFields.style.display =
+            "none";
+
+        developmentFields.style.display =
+            "none";
+
+        if (type === "overview") {
+
+            title.textContent =
+                "Edit University Overview";
+
+            overviewFields.style.display =
+                "block";
+
+            editor.value =
+                overview.textContent.trim();
+
+        }
+
+
+        else if (type === "history") {
+
+            title.textContent =
+                element
+                    ? "Edit History Entry"
+                    : "Add History Entry";
+
+            historyFields.style.display =
+                "block";
+
+            if (element) {
+
+                historyYear.value =
+                    element
+                        .querySelector(".history-year")
+                        ?.textContent
+                        .trim()
+                        || "";
+
+                historyTitle.value =
+                    element
+                        .querySelector("b")
+                        ?.textContent
+                        .trim()
+                        || "";
+
+                historyDescription.value =
+                    element
+                        .querySelector("p")
+                        ?.textContent
+                        .trim()
+                        || "";
+
+            }
+
+            else {
+
+                historyYear.value =
+                    "";
+
+                historyTitle.value =
+                    "";
+
+                historyDescription.value =
+                    "";
+
+            }
+
+        }
+
+        else if (type === "development") {
+
+            title.textContent =
+                element
+                    ? "Edit Development / Opportunity"
+                    : "Add Development / Opportunity";
+
+            developmentFields.style.display =
+                "block";
+
+            if (element) {
+
+                developmentTitle.value =
+                    element
+                        .querySelector("h4")
+                        ?.textContent
+                        .trim()
+                        || "";
+
+                developmentDescription.value =
+                    element
+                        .querySelector("p")
+                        ?.textContent
+                        .trim()
+                        || "";
+
+                const icon =
+                    element.querySelector(
+                        ".progress-icon i"
+                    );
+
+                developmentIcon.value =
+                    icon?.getAttribute(
+                        "data-lucide"
+                    )
+                    || "building-2";
+
+            }
+
+            else {
+
+                developmentTitle.value =
+                    "";
+
+                developmentDescription.value =
+                    "";
+
+                developmentIcon.value =
+                    "building-2";
+
+            }
+
+        }
+
+        modal.classList.add("show");
+
+        modal.setAttribute(
+            "aria-hidden",
+            "false"
+        );
+
+        document.body.style.overflow =
+            "hidden";
+
+        setTimeout(function () {
+
+            if (
+                type === "overview"
+            ) {
+
+                editor.focus();
+
+            }
+
+            if (
+                type === "history"
+            ) {
+
+                historyYear.focus();
+
+            }
+
+            if (
+                type === "development"
+            ) {
+
+                developmentTitle.focus();
+
+            }
+
+        }, 100);
+
+    }
+
+    function closeModal() {
+
+        modal.classList.remove(
+            "show"
+        );
+
+        modal.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        document.body.style.overflow =
+            "";
+
+        editingElement =
+            null;
+
+    }
+
+    document
+        .querySelectorAll(
+            '[data-edit="overview"]'
+        )
+        .forEach(function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    openModal(
+                        "overview"
+                    );
+
+                }
+            );
+
+        });
+
+    document
+        .getElementById("aboutEditIntro")
+        ?.addEventListener(
+            "click",
+            function () {
+
+                openModal(
+                    "overview"
+                );
+
+            }
+        );
+
+
+    form.addEventListener(
+        "submit",
+        function (event) {
+
+            event.preventDefault();
+
+            if (
+                editingType ===
+                "overview"
+            ) {
+
+                const value =
+                    editor.value.trim();
+
+                if (!value) {
+
+                    alert(
+                        "Please enter the university overview."
+                    );
+
+                    return;
+
+                }
+
+                overview.textContent =
+                    value;
+
+            }
+
+            if (
+                editingType ===
+                "history"
+            ) {
+
+                const year =
+                    historyYear.value.trim();
+
+                const heading =
+                    historyTitle.value.trim();
+
+                const description =
+                    historyDescription.value.trim();
+
+                if (
+                    !year ||
+                    !heading ||
+                    !description
+                ) {
+
+                    alert(
+                        "Please complete all history fields."
+                    );
+
+                    return;
+
+                }
+
+                if (
+                    editingElement
+                ) {
+
+                    editingElement
+                        .querySelector(
+                            ".history-year"
+                        )
+                        .textContent =
+                        year;
+
+                    editingElement
+                        .querySelector("b")
+                        .textContent =
+                        heading;
+
+                    editingElement
+                        .querySelector("p")
+                        .textContent =
+                        description;
+
+                }
+
+                else {
+
+                    const item =
+                        document.createElement(
+                            "div"
+                        );
+
+                    item.className =
+                        "history-item";
+
+                    item.dataset.historyId =
+                        nextHistoryId++;
+
+                    item.innerHTML = `
+
+                        <div class="history-year"></div>
+
+                        <div>
+
+                            <b></b>
+
+                            <p></p>
+
+                        </div>
+
+                        <div class="item-actions">
+
+                            <button
+                                type="button"
+                                class="item-edit"
+                                data-action="edit-history"
+                                title="Edit"
+                            >
+
+                                <i data-lucide="pencil"></i>
+
+                            </button>
+
+                            <button
+                                type="button"
+                                class="item-delete"
+                                data-action="delete-history"
+                                title="Delete"
+                            >
+
+                                <i data-lucide="trash-2"></i>
+
+                            </button>
+
+                        </div>
+
+                    `;
+
+                    item
+                        .querySelector(
+                            ".history-year"
+                        )
+                        .textContent =
+                        year;
+
+                    item
+                        .querySelector("b")
+                        .textContent =
+                        heading;
+
+                    item
+                        .querySelector("p")
+                        .textContent =
+                        description;
+
+                    historyList.appendChild(
+                        item
+                    );
+
+                }
+
+                updateCounts();
+
+            }
+
+            if (
+                editingType ===
+                "development"
+            ) {
+
+                const heading =
+                    developmentTitle.value.trim();
+
+                const description =
+                    developmentDescription.value.trim();
+
+                const icon =
+                    developmentIcon.value;
+
+                if (
+                    !heading ||
+                    !description
+                ) {
+
+                    alert(
+                        "Please complete all development fields."
+                    );
+
+                    return;
+
+                }
+
+                if (
+                    editingElement
+                ) {
+
+                    editingElement
+                        .querySelector("h4")
+                        .textContent =
+                        heading;
+
+                    editingElement
+                        .querySelector("p")
+                        .textContent =
+                        description;
+
+                    const iconElement =
+                        editingElement.querySelector(
+                            ".progress-icon i"
+                        );
+
+                    iconElement.setAttribute(
+                        "data-lucide",
+                        icon
+                    );
+
+                }
+
+                else {
+
+                    const article =
+                        document.createElement(
+                            "article"
+                        );
+
+                    article.className =
+                        "progress-item";
+
+                    article.dataset.developmentId =
+                        nextDevelopmentId++;
+
+                    article.innerHTML = `
+
+                        <div class="progress-icon">
+
+                            <i
+                                data-lucide="${escapeHTML(icon)}"
+                            ></i>
+
+                        </div>
+
+                        <h4></h4>
+
+                        <p></p>
+
+                        <div class="item-actions">
+
+                            <button
+                                type="button"
+                                class="item-edit"
+                                data-action="edit-development"
+                                title="Edit"
+                            >
+
+                                <i data-lucide="pencil"></i>
+
+                            </button>
+
+                            <button
+                                type="button"
+                                class="item-delete"
+                                data-action="delete-development"
+                                title="Delete"
+                            >
+
+                                <i data-lucide="trash-2"></i>
+
+                            </button>
+
+                        </div>
+
+                    `;
+
+                    article
+                        .querySelector("h4")
+                        .textContent =
+                        heading;
+
+                    article
+                        .querySelector("p")
+                        .textContent =
+                        description;
+
+                    developmentList.appendChild(
+                        article
+                    );
+
+                }
+
+                updateCounts();
+
+            }
+
+            refreshIcons();
+
+            closeModal();
+
+        }
+    );
+
+    document
+        .getElementById("addHistoryBtn")
+        ?.addEventListener(
+            "click",
+            function () {
+
+                openModal(
+                    "history"
+                );
+
+            }
+        );
+
+    document
+        .getElementById("addDevelopmentBtn")
+        ?.addEventListener(
+            "click",
+            function () {
+
+                openModal(
+                    "development"
+                );
+
+            }
+        );
+
+    document.addEventListener(
+        "click",
+        function (event) {
+
+            const button =
+                event.target.closest(
+                    "[data-action]"
+                );
+
+            if (!button) {
+                return;
+            }
+
+            const item =
+                button.closest(
+                    ".history-item, .progress-item"
+                );
+
+            if (!item) {
+                return;
+            }
+
+            const action =
+                button.dataset.action;
+
+            if (
+                action ===
+                "edit-history"
+            ) {
+
+                openModal(
+                    "history",
+                    item
+                );
+
+            }
+
+            else if (
+                action ===
+                "delete-history"
+            ) {
+
+                const confirmed =
+                    confirm(
+                        "Are you sure you want to delete this history entry?"
+                    );
+
+                if (!confirmed) {
+                    return;
+                }
+
+                item.remove();
+
+                updateCounts();
+
+            }
+
+            else if (
+                action ===
+                "edit-development"
+            ) {
+
+                openModal(
+                    "development",
+                    item
+                );
+
+            }
+
+            else if (
+                action ===
+                "delete-development"
+            ) {
+
+                const confirmed =
+                    confirm(
+                        "Are you sure you want to delete this development or opportunity?"
+                    );
+
+                if (!confirmed) {
+                    return;
+                }
+
+                item.remove();
+
+                updateCounts();
+
+            }
+
+        }
+    );
+
+    close.addEventListener(
+        "click",
+        closeModal
+    );
+
+    cancel.addEventListener(
+        "click",
+        closeModal
+    );
+
+    modal.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target ===
+                modal
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                modal.classList.contains(
+                    "show"
+                )
+            ) {
+
+                closeModal();
+
+            }
+
+        }
+    );
+
+    document
+        .querySelectorAll(
+            "[data-scroll]"
+        )
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        const target =
+                            document.getElementById(
+                                button.dataset.scroll
+                            );
+
+                        if (target) {
+
+                            target.scrollIntoView({
+
+                                behavior:
+                                    "smooth",
+
+                                block:
+                                    "center"
+
+                            });
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+    const uploadBtn =
+        document.getElementById(
+            "aboutUploadBtn"
+        );
+
+    const imageInput =
+        document.getElementById(
+            "aboutImageInput"
+        );
+
+    const imagePreview =
+        document.getElementById(
+            "aboutImagePreview"
+        );
+
+    const imagePlaceholder =
+        document.getElementById(
+            "aboutImagePlaceholder"
+        );
+
+    if (
+        uploadBtn &&
+        imageInput
+    ) {
+
+        uploadBtn.addEventListener(
+            "click",
+            function () {
+
+                imageInput.click();
+
+            }
+        );
+
+        imageInput.addEventListener(
+            "change",
+            function () {
+
+                const file =
+                    imageInput.files?.[0];
+
+                if (!file) {
+                    return;
+                }
+
+                if (
+                    !file.type.startsWith(
+                        "image/"
+                    )
+                ) {
+
+                    alert(
+                        "Please select an image file."
+                    );
+
+                    return;
+
+                }
+
+                const reader =
+                    new FileReader();
+
+                reader.onload =
+                    function (event) {
+
+                        imagePreview.src =
+                            event.target.result;
+
+                        imagePreview.style.display =
+                            "block";
+
+                        imagePlaceholder.style.display =
+                            "none";
+
+                    };
+
+                reader.readAsDataURL(
+                    file
+                );
+
+            }
+        );
+
+    }
+
+    function updateCounts() {
+
+        const histories =
+            historyList.querySelectorAll(
+                ".history-item"
+            ).length;
+
+        const developments =
+            developmentList.querySelectorAll(
+                ".progress-item"
+            ).length;
+
+        historyCount.textContent =
+            `${histories} milestones`;
+
+        developmentCount.textContent =
+            `${developments} items`;
+
+        if (
+            histories === 0 &&
+            !historyList.querySelector(
+                ".empty-state"
+            )
+        ) {
+
+            historyList.innerHTML = `
+
+                <div class="empty-state">
+
+                    <i
+                        data-lucide="clock-3"
+                        style="width:30px;height:30px;margin-bottom:10px;"
+                    ></i>
+
+                    <div>
+                        No history entries yet.
+                    </div>
+
+                </div>
+
+            `;
+
+            refreshIcons();
+
+        }
+
+        if (
+            developments === 0 &&
+            !developmentList.querySelector(
+                ".empty-state"
+            )
+        ) {
+
+            developmentList.innerHTML = `
+
+                <div class="empty-state">
+
+                    <i
+                        data-lucide="folder-open"
+                        style="width:30px;height:30px;margin-bottom:10px;"
+                    ></i>
+
+                    <div>
+                        No development or opportunity items yet.
+                    </div>
+
+                </div>
+
+            `;
+
+            refreshIcons();
+        }
+
+    }
+
+    function escapeHTML(value) {
+
+        return String(value)
+
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+    }
+
+    function refreshIcons() {
+
+        if (
+            window.lucide
+        ) {
+
+            lucide.createIcons();
+
+        }
+
+    }
+
+    updateCounts();
+
+})();
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+<script>
+
+    lucide.createIcons();
+
+    document
+        .querySelectorAll(
+            ".menu-title"
+        )
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        button
+                            .parentElement
+                            .classList
+                            .toggle(
+                                "open"
+                            );
+                    }
+                );
+            }
+        );
+
+</script>
+</body>
+</html>

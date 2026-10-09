@@ -1,0 +1,47 @@
+.academics-actions{display:flex;align-items:center;gap:12px}
+     .primary-btn,.secondary-btn,.secondary-outline-btn{height:44px;border:0;border-radius:12px;padding:0 17px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 13px "DM Sans";cursor:pointer;transition:.2s}
+     .primary-btn{background:#005F3C;color:#fff;box-shadow:0 7px 18px rgba(0,95,60,.16)}
+     .primary-btn:hover{background:#00422B;transform:translateY(-1px)}
+     .secondary-btn{background:#C89A0B;color:#fff}
+     .secondary-outline-btn{background:#fff;color:#005F3C;border:1px solid #D8B056}
+     .college-head-actions{display:flex;align-items:center;gap:7px}
+     .icon-btn{width:36px;height:36px;border:1px solid #E8E3D8;border-radius:10px;background:#fff;color:#005F3C;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}
+     .icon-btn:hover{background:#F8F4EA;border-color:#D8B056}
+     .icon-btn.danger{color:#b23a2f}
+     .program-main{min-width:0;flex:1}
+     .program-actions{display:flex;align-items:center;gap:5px;margin-left:auto;opacity:0}
+     .program-item:hover .program-actions{opacity:1}
+     .add-program-btn{width:100%;margin-top:8px;padding:11px;border:1px dashed #D8B056;border-radius:11px;background:#fffaf0;color:#005F3C;font:600 12px "DM Sans";cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
+     .modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(13,42,33,.38);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:.2s}
+     .modal-overlay.open{opacity:1;visibility:visible}
+     .manage-modal{width:min(760px,100%);max-height:90vh;overflow:auto;background:#FDFBF5;border:1px solid #E8E3D8;border-radius:24px;box-shadow:0 24px 70px rgba(13,42,33,.22)}
+     .small-modal{width:min(560px,100%)}
+     .modal-header{display:flex;justify-content:space-between;gap:20px;padding:25px 27px 19px;border-bottom:1px solid #E8E3D8;background:linear-gradient(135deg,#fff,#F8F4EA)}
+     .modal-kicker{color:#C89A0B;font:700 10px "DM Sans";letter-spacing:.12em}
+     .modal-header h2{margin:5px 0 4px;color:#0D2A21;font:600 20px "Segoe UI", sans-serif}
+     .modal-header p{margin:0;color:#777;font-size:13px}
+     .modal-close{width:38px;height:38px;border:1px solid #E8E3D8;border-radius:11px;background:#fff;color:#005F3C;cursor:pointer}
+     .modal-form{padding:24px 27px}
+     .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+     .form-field{display:flex;flex-direction:column;gap:7px}
+     .form-field.full{grid-column:1/-1}
+     .form-field>span{font:600 12px "DM Sans";color:#0D2A21}
+     .form-field input,.form-field textarea,.form-field select{width:100%;box-sizing:border-box;border:1px solid #E8E3D8;border-radius:11px;background:#fff;padding:11px 13px;font:14px "DM Sans";color:#0D2A21;outline:none}
+     .form-field input,.form-field select{height:44px}
+     .form-field textarea{resize:vertical}
+     .modal-section{margin-top:24px;padding-top:20px;border-top:1px solid #E8E3D8}
+     .section-heading-row{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:13px}
+     .section-heading-row h3{margin:0;color:#0D2A21;font:700 16px "Segoe UI"}
+     .section-heading-row p{margin:4px 0 0;color:#888;font-size:12px}
+     .modal-program-list{display:flex;flex-direction:column;gap:8px}
+     .modal-program-row{display:flex;align-items:center;gap:11px;padding:11px 12px;background:#fff;border:1px solid #E8E3D8;border-radius:12px}
+     .modal-program-number{width:28px;height:28px;border-radius:8px;background:rgba(0,95,60,.08);display:flex;align-items:center;justify-content:center;color:#005F3C;font:700 11px "DM Sans";flex:0 0 28px}
+     .modal-program-info{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
+     .modal-program-info strong{font:600 13px "DM Sans";color:#0D2A21}
+     .modal-program-info span{font-size:11px;color:#888;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+     .modal-footer{display:flex;justify-content:flex-end;gap:10px;margin-top:24px;padding-top:18px;border-top:1px solid #E8E3D8}
+     @media(max-width:760px){.academics-actions{width:100%;flex-direction:column;align-items:stretch}.form-grid{grid-template-columns:1fr}.form-field.full{grid-column:auto}.modal-header,.modal-form{padding-left:20px;padding-right:20px}.section-heading-row{align-items:flex-start;flex-direction:column}.program-actions{opacity:1}}
+     .academics-page{padding:30px 36px 50px}.academics-tools{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:24px}.academics-tools p{margin:6px 0 0;color:#777;font-size:14px}.academics-search{position:relative;width:330px}.academics-search svg{position:absolute;left:15px;top:50%;transform:translateY(-50%);width:18px;color:#777}.academics-search input{width:100%;height:46px;padding:0 16px 0 46px;border:1px solid #ddd;border-radius:13px;background:#fff;font:14px "DM Sans";outline:0}.college-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}.college-card{overflow:hidden;border:1px solid rgba(22,71,52,.1);border-radius:22px;background:rgba(255,255,255,.85);box-shadow:0 10px 28px rgba(0,0,0,.06)}.college-head{display:flex;align-items:center;gap:14px;padding:19px;background:linear-gradient(135deg,rgba(22,71,52,.055),rgba(194,154,61,.055));border-bottom:1px solid rgba(22,71,52,.08)}.college-logo{width:56px;height:56px;flex:0 0 56px;border:1px solid #eee;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;color:#164734}.college-logo img{width:100%;height:100%;object-fit:contain;padding:5px}.college-heading{min-width:0;flex:1}.college-head small{color:#b08a36;font-size:10px;font-weight:700;letter-spacing:.08em}.college-head h2{margin:3px 0;color:#164734;font:700 17px/1.3 "Segoe UI"}.college-head span{font-size:12px;color:#777}.toggle{width:36px;height:36px;border:1px solid #ddd;border-radius:10px;background:#fff;color:#164734;cursor:pointer}.program-list{padding:5px 20px 12px}.program-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid #eee}.program-item:last-child{border-bottom:0}.program-number{width:27px;height:27px;flex:0 0 27px;border-radius:9px;background:rgba(22,71,52,.08);display:flex;align-items:center;justify-content:center;color:#164734;font-size:11px;font-weight:700}.program-item h3{margin:0;color:#333;font:600 14px/1.45 "Segoe UI"}.program-item p{margin:5px 0 0;color:#777;font-size:12px;line-height:1.55}.academics-empty{display:none;grid-column:1/-1;text-align:center;padding:40px;color:#777}@media(max-width:1050px){.college-grid{grid-template-columns:1fr}}@media(max-width:760px){.academics-page{padding:24px 20px}.academics-tools{flex-direction:column;align-items:stretch}.academics-search{width:100%}}
+    
+     
+     .no-programs,.modal-empty{padding:16px;border:1px dashed #E8E3D8;border-radius:11px;color:#888;text-align:center;font:12px "DM Sans";background:#fff}.college-head-actions{margin-left:auto;display:flex;align-items:center;gap:7px}.program-main{min-width:0;flex:1}.program-actions{display:flex;align-items:center;gap:5px;margin-left:auto;opacity:0;transition:.18s}.program-item:hover .program-actions{opacity:1}@media(max-width:760px){.program-actions{opacity:1}}     .academics-page{padding:32px 36px 48px!important}.academics-hero{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:26px 28px;margin-bottom:18px;border:1px solid #e8e3d8;border-radius:24px;background:linear-gradient(135deg,#fffdf8,#f6f1e5);box-shadow:0 12px 32px rgba(13,42,33,.07)}.academics-hero .eyebrow{display:flex;align-items:center;gap:7px;color:#c89a0b;font:700 10px "DM Sans";letter-spacing:.12em}.academics-hero h2{margin:7px 0 5px;color:#0d2a21;font:700 27px "Libre Baskerville",serif}.academics-hero p{margin:0;color:#707772;font:14px "DM Sans"}.academic-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-bottom:24px}.summary-card{display:flex;align-items:center;gap:14px;padding:17px 19px;border:1px solid #e8e3d8;border-radius:17px;background:#fff;box-shadow:0 7px 22px rgba(13,42,33,.055)}.summary-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:#eef5f1;color:#005f3c}.summary-card span{display:block;color:#7b827e;font:500 11px "DM Sans";margin-bottom:3px}.summary-card strong{display:block;color:#0d2a21;font:700 21px "DM Sans"}.academic-section-bar{margin:6px 0 13px}.academic-section-bar h3{margin:0;color:#0d2a21;font:700 18px "Segoe UI"}.academic-section-bar span{color:#858b87;font:12px "DM Sans"}.academics-tools{background:#fff;border:1px solid #e8e3d8;border-radius:16px;padding:12px;margin-bottom:18px}.college-card{transition:transform .2s,box-shadow .2s!important}.college-card:hover{transform:translateY(-2px);box-shadow:0 15px 34px rgba(13,42,33,.09)!important}@media(max-width:760px){.academics-page{padding:22px 18px 40px!important}.academics-hero{align-items:flex-start;flex-direction:column}.academic-summary{grid-template-columns:1fr}}

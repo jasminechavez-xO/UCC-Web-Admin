@@ -1,0 +1,510 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UCC Admin | Executive Officials</title>
+
+    <link rel="icon" type="image/png" href="images/ucc-LOGO.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Shared styles first, page-specific styles second -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/css/executiveOfficials.css">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <div class="logo-wrap">
+                <img src="images/ucc-LOGO.png" alt="UCC Logo">
+                <div>
+                    <h2>UCC Admin</h2>
+                    <p>University of Caloocan City</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="gold-line"></div>
+
+        <nav class="sidebar-nav">
+            <a href="Dashboard.html">
+                <i data-lucide="house"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="Posts.html">
+                <i data-lucide="newspaper"></i>
+                <span>Posts</span>
+            </a>
+
+            <div class="menu-group">
+                <button class="menu-title" type="button">
+                    <div>
+                        <i data-lucide="graduation-cap"></i>
+                        <span>Academics</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="arrow"></i>
+                </button>
+
+                <div class="submenu">
+                    <a href="Academics.html">Colleges</a>
+                    <a href="Masteral.html">Masteral</a>
+                </div>
+            </div>
+
+            <div class="menu-group open">
+                <button class="menu-title active" type="button">
+                    <div>
+                        <i data-lucide="users"></i>
+                        <span>Officials</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="arrow"></i>
+                </button>
+
+                <div class="submenu">
+                    <a href="Executive-Officials.html" class="active">
+                        Executive Officials
+                    </a>
+                    <a href="Board-of-Regents.html">
+                        Board of Regents
+                    </a>
+                </div>
+            </div>
+
+            <div class="menu-group">
+                <button class="menu-title" type="button">
+                    <div>
+                        <i data-lucide="building-2"></i>
+                        <span>Components</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="arrow"></i>
+                </button>
+
+                <div class="submenu">
+                    <a href="Campuses.html">Campuses</a>
+                    <a href="Contact-Information.html">Contact Information</a>
+                    <a href="About-UCC.html">About UCC</a>
+                    <a href="E-Services.html">E-Services</a>
+                    <a href="Archive.html">Archive</a>
+                    <a href="Quick-Links.html">Quick Links</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="Password.html">
+                <i data-lucide="lock"></i>
+                <span>Password</span>
+            </a>
+
+            <a href="Logout.html">
+                <i data-lucide="log-out"></i>
+                <span>Logout</span>
+            </a>
+        </div>
+
+        <div class="sidebar-art"></div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <header class="top-header">
+            <div class="header-left">
+                <h1>Executive Officials</h1>
+            </div>
+
+            <div class="header-right">
+                <div class="admin-profile">
+                    <div class="admin-text">
+                        <small>Administrator</small>
+                        <span>Welcome, Admin!</span>
+                    </div>
+
+                    <div class="avatar">
+                        <i data-lucide="circle-user-round"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="header-art"></div>
+
+            <div class="gold-divider">
+                <span></span>
+            </div>
+        </header>
+
+        <!-- PAGE CONTENT -->
+        <section class="officials-page">
+
+            <div class="page-toolbar">
+                <div class="toolbar-copy">
+                    <p>
+                        Manage executive official profiles displayed on the
+                        public website.
+                    </p>
+                </div>
+
+                <button class="primary-btn" id="addOfficialBtn" type="button">
+                    <i data-lucide="plus"></i>
+                    Add Official
+                </button>
+            </div>
+
+            <!-- OFFICIALS TABLE -->
+            <div class="officials-card">
+
+                <div class="table-toolbar">
+                    <div class="search-box">
+                        <i data-lucide="search"></i>
+                        <input
+                            id="officialSearch"
+                            type="search"
+                            placeholder="Search officials..."
+                            aria-label="Search officials">
+                    </div>
+
+                    <div class="filter-box">
+                        <label for="officialStatusFilter">Status:</label>
+                        <select id="officialStatusFilter">
+                            <option value="all">All Statuses</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                    <div class="result-count" id="resultCount">
+                        23 officials
+                    </div>
+                </div>
+
+                <div class="table-wrap" id="officialsTableWrap">
+                    <table class="officials-table">
+                        <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Order</th>
+                                <th>Status</th>
+                                <th class="actions-head">Actions</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="officialsTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="empty-state" id="emptyState" hidden>
+                    <i data-lucide="user-round-search"></i>
+                    <h3>No officials found</h3>
+                    <p>Try a different search term or status filter.</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ADD / EDIT OFFICIAL MODAL -->
+        <div class="modal-overlay" id="officialModal" hidden>
+            <div
+                class="official-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="modalTitle">
+
+                <div class="modal-header">
+                    <div>
+                        <span class="modal-eyebrow">Executive Official</span>
+                        <h2 id="modalTitle">Add Official</h2>
+                    </div>
+
+                    <button
+                        class="modal-close"
+                        id="closeModalBtn"
+                        type="button"
+                        aria-label="Close modal">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+
+                <form id="officialForm">
+
+                    <!-- PHOTO UPLOAD -->
+                    <div class="photo-upload-section">
+                        <div class="photo-upload-preview">
+                            <span id="officialUploadInitials">EO</span>
+                            <img
+                                id="officialUploadImage"
+                                alt="Official photo preview"
+                                hidden>
+                        </div>
+
+                        <div class="photo-upload-controls">
+                            <h3>Official Photo</h3>
+                           
+
+                            <label
+                                class="secondary-btn upload-btn"
+                                for="officialPhoto">
+                                <i data-lucide="upload"></i>
+                                Upload Photo
+                            </label>
+
+                            <input
+                                id="officialPhoto"
+                                type="file"
+                                accept="image/*"
+                                hidden>
+
+                            <button
+                                class="text-btn"
+                                id="removeOfficialPhoto"
+                                type="button">
+                                Remove photo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- FORM FIELDS -->
+                    <div class="form-grid">
+
+                        <label class="full">
+                            <span>Full Name <b>*</b></span>
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                placeholder="Enter full name"
+                                required>
+                        </label>
+
+                        <label class="full">
+                            <span>Position <b>*</b></span>
+                            <input
+                                id="position"
+                                name="position"
+                                type="text"
+                                placeholder="Enter official position"
+                                required>
+                        </label>
+
+                        <label class="full">
+                            <span>Biography / Short Description</span>
+                            <textarea
+                                id="bio"
+                                name="bio"
+                                rows="4"
+                                placeholder="Enter biography or additional role information"></textarea>
+                        </label>
+
+                        <label>
+                            <span>Display Order <b>*</b></span>
+                            <input
+                                id="displayOrder"
+                                name="displayOrder"
+                                type="number"
+                                min="1"
+                                value="1"
+                                required>
+                        </label>
+
+                        <label>
+                            <span>Status</span>
+                            <select id="status" name="status">
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Hidden</option>
+                            </select>
+                        </label>
+
+                    </div>
+
+                    <!-- FORM ACTIONS: SAVE IS NOW AVAILABLE HERE -->
+                    <div class="form-actions">
+                        <button
+                            class="secondary-btn"
+                            id="cancelBtn"
+                            type="button">
+                            Cancel
+                        </button>
+
+                        <button
+                            class="secondary-btn"
+                            id="previewOfficialFormBtn"
+                            type="button">
+                            <i data-lucide="eye"></i>
+                            Preview
+                        </button>
+
+                        <button
+                            class="primary-btn"
+                            id="saveOfficialBtn"
+                            type="submit">
+                            <i data-lucide="save"></i>
+                            Save Official
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        <!-- OFFICIAL PREVIEW MODAL -->
+        <div class="modal-overlay" id="officialPreviewModal" hidden>
+            <div
+                class="official-modal preview-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="officialPreviewTitle">
+
+                <div class="modal-header">
+                    <div>
+                        <span class="modal-eyebrow">Review Details</span>
+                        <h2 id="officialPreviewTitle">Official Preview</h2>
+                    </div>
+
+                    <button
+                        class="modal-close"
+                        id="closeOfficialPreview"
+                        type="button"
+                        aria-label="Close preview">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+
+                <div class="details-layout">
+                    <div class="details-photo">
+                        <span id="officialPreviewInitials">EO</span>
+                        <img
+                            id="officialPreviewImage"
+                            alt="Official photo"
+                            hidden>
+                    </div>
+
+                    <div class="details-copy">
+                        <h3 id="officialPreviewName">Official Name</h3>
+
+                        <p
+                            class="details-position"
+                            id="officialPreviewPosition"></p>
+
+                        <span
+                            class="status-badge"
+                            id="officialPreviewStatus">
+                            Active
+                        </span>
+
+                        <div class="details-divider"></div>
+
+                        <p class="details-label">
+                            Biography / Short Description
+                        </p>
+
+                        <p
+                            class="details-bio"
+                            id="officialPreviewBio"></p>
+
+                        <p
+                            class="details-order"
+                            id="officialPreviewOrder"></p>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button
+                        class="secondary-btn"
+                        id="backToOfficialForm"
+                        type="button">
+                        Back to Form
+                    </button>
+
+                    <button
+                        class="primary-btn"
+                        id="saveOfficialFromPreview"
+                        type="button">
+                        <i data-lucide="save"></i>
+                        Save Official
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- VIEW OFFICIAL DETAILS MODAL -->
+        <div class="modal-overlay" id="viewModal" hidden>
+            <div
+                class="official-modal view-modal"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="viewModalTitle">
+
+                <div class="modal-header">
+                    <div>
+                        <span class="modal-eyebrow">Official Details</span>
+                        <h2 id="viewModalTitle">Executive Official</h2>
+                    </div>
+
+                    <button
+                        class="modal-close"
+                        id="closeViewBtn"
+                        type="button"
+                        aria-label="Close details">
+                        <i data-lucide="x"></i>
+                    </button>
+                </div>
+
+                <div class="details-layout">
+                    <div class="details-photo">
+                        <span id="viewInitials">EO</span>
+                        <img
+                            id="viewImage"
+                            alt="Official photo"
+                            hidden>
+                    </div>
+
+                    <div class="details-copy">
+                        <h3 id="viewName"></h3>
+                        <p class="details-position" id="viewPosition"></p>
+
+                        <span class="status-badge" id="viewStatus"></span>
+
+                        <div class="details-divider"></div>
+
+                        <p class="details-label">
+                            Biography / Short Description
+                        </p>
+
+                        <p class="details-bio" id="viewBio"></p>
+                        <p class="details-order" id="viewOrder"></p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- PAGE SCRIPT -->
+<script src="assets/js/executiveOfficials.js"></script>
+
+<!-- ICON INITIALIZATION -->
+<script>
+    if (window.lucide) {
+        lucide.createIcons();
+    }
+</script>
+
+</body>
+</html>

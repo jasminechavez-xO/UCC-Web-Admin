@@ -1,0 +1,954 @@
+/* =========================================
+   E-SERVICES PAGE
+   ========================================= */
+
+.services-admin {
+    padding: 30px 34px 45px;
+    background: #f8f5ee;
+    min-height: calc(100vh - 100px);
+    box-sizing: border-box;
+}
+
+/* =========================================
+   TOOLBAR AND SEARCH
+   ========================================= */
+
+.services-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 26px;
+}
+
+.services-search {
+    width: min(420px, 100%);
+    height: 46px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 0 16px;
+    background: #fff;
+    border: 1px solid #ddd8cc;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(31, 71, 49, 0.05);
+    box-sizing: border-box;
+}
+
+.services-search svg {
+    width: 19px;
+    height: 19px;
+    color: #9b7a32;
+    flex-shrink: 0;
+}
+
+.services-search input {
+    width: 100%;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #26372d;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+}
+
+.services-search input::placeholder {
+    color: #9a9a91;
+}
+
+/* =========================================
+   ADD E-SERVICE BUTTON
+   ========================================= */
+
+.service-add-btn {
+    min-height: 46px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 0 19px;
+    border: 1px solid #17472d;
+    border-radius: 13px;
+    background: #1f5638;
+    color: #e8e3d8;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+    box-shadow: 0 4px 12px rgba(31, 86, 56, 0.18);
+}
+
+.service-add-btn:hover {
+    background: #17472d;
+    border-color: #103b24;
+    transform: translateY(-1px);
+}
+
+.service-add-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* =========================================
+   SERVICE CARDS GRID
+   ========================================= */
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    align-items: stretch;
+}
+
+.service-card {
+    position: relative;
+    min-width: 0;
+    min-height: 270px;
+    display: flex;
+    flex-direction: column;
+    padding: 22px;
+    background: #fff;
+    border: 1px solid #dedbd2;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(38, 62, 48, 0.06);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.service-card[hidden] {
+    display: none !important;
+}
+
+.service-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 9px 24px rgba(38, 62, 48, 0.1);
+    border-color: #c8aa57;
+}
+
+/* =========================================
+   SERVICE CARD TOP AND ICON
+   ========================================= */
+
+.service-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.service-icon {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 13px;
+    background: #edf4ed;
+    color: #1f5638;
+}
+
+.service-icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.service-icon svg {
+    width: 25px;
+    height: 25px;
+}
+
+/* =========================================
+   CARD ACTION BUTTONS
+   ========================================= */
+
+.service-actions {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.service-action {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 9px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.service-action svg {
+    width: 17px;
+    height: 17px;
+}
+
+.preview-action,
+.preview-card-action {
+    color: #64748b;
+}
+
+.preview-action:hover,
+.preview-card-action:hover {
+    background: #edf0f5;
+    color: #334155;
+}
+
+.edit-action {
+    color: #218c58;
+}
+
+.edit-action:hover {
+    background: #e8f5ed;
+    color: #176b42;
+}
+
+.delete-action {
+    color: #d34a4a;
+}
+
+.delete-action:hover {
+    background: #fceaea;
+    color: #b83333;
+}
+
+/* =========================================
+   SERVICE CARD CONTENT
+   ========================================= */
+
+.service-card-content {
+    padding-top: 20px;
+    flex: 1;
+    min-width: 0;
+}
+
+.service-card-content h3 {
+    margin: 0 0 8px;
+    color: #293a30;
+    font-family: "DM Sans", sans-serif;
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.service-card-content span {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 13px;
+    color: #a27b2d;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+    overflow-wrap: anywhere;
+}
+
+.service-card-content p {
+    margin: 0;
+    color: #687169;
+    font-size: 13px;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+}
+
+/* =========================================
+   SERVICE CARD WEBSITE LINK
+   ========================================= */
+
+.service-card-footer {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid #e6e2d9;
+}
+
+.service-card-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+    color: #1f5638;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+    transition: color 0.2s ease;
+}
+
+.service-card-footer a:hover {
+    color: #a27b2d;
+}
+
+.service-card-footer svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: #c49a3a;
+}
+
+/* =========================================
+   EMPTY SEARCH RESULTS
+   ========================================= */
+
+.no-services {
+    display: none;
+    min-height: 300px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 25px;
+    background: #fff;
+    border: 1px solid #dedbd2;
+    border-radius: 16px;
+    color: #707870;
+    box-sizing: border-box;
+}
+
+.no-services svg {
+    width: 38px;
+    height: 38px;
+    color: #a27b2d;
+    margin-bottom: 12px;
+}
+
+.no-services h3 {
+    margin: 0 0 5px;
+    color: #293a30;
+    font-size: 18px;
+}
+
+.no-services p {
+    margin: 0;
+    font-size: 13px;
+}
+
+/* =========================================
+   ADD / EDIT E-SERVICE MODAL
+   ========================================= */
+
+.service-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(25, 42, 32, 0.48);
+    backdrop-filter: blur(3px);
+    box-sizing: border-box;
+}
+
+.service-modal.show {
+    display: flex;
+}
+
+.service-modal-box {
+    width: min(560px, 100%);
+    max-height: 90vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #fdfbf5;
+    border: 1px solid #e5dfd0;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(25, 45, 34, 0.22);
+    box-sizing: border-box;
+}
+
+.service-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 23px 25px;
+    background: #fdfbf5;
+    border-bottom: 1px solid #e5e1d8;
+}
+
+.service-modal-header h3 {
+    margin: 0 0 5px;
+    color: #293a30;
+    font-size: 20px;
+}
+
+.service-modal-header p {
+    margin: 0;
+    color: #7a817b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* =========================================
+   MODAL CLOSE BUTTON
+   ========================================= */
+
+.modal-close {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background: #f1f3ef;
+    color: #536056;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.modal-close:hover {
+    background: #e6ebe5;
+    color: #1f5638;
+}
+
+.modal-close svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* =========================================
+   ADD / EDIT FORM
+   ========================================= */
+
+#serviceForm {
+    padding: 25px;
+    background: #fdfbf5;
+    box-sizing: border-box;
+}
+
+.form-group {
+    margin-bottom: 19px;
+    min-width: 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #344239;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.form-group input:not([type="file"]),
+.form-group textarea {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 12px 13px;
+    border: 1px solid #ded8c9;
+    border-radius: 12px;
+    outline: none;
+    background: #fffefa;
+    color: #293a30;
+    font-family: "DM Sans", sans-serif;
+    font-size: 14px;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.6;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #a27b2d;
+    box-shadow: 0 0 0 3px rgba(162, 123, 45, 0.1);
+}
+
+/* =========================================
+   LOGO UPLOAD
+   ========================================= */
+
+.logo-upload-box {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px;
+    border: 1px dashed #d7cfbd;
+    border-radius: 15px;
+    background: #fffefa;
+}
+
+.logo-preview {
+    width: 90px;
+    height: 90px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid #e3dfd3;
+    border-radius: 14px;
+    background: #edf4ed;
+    color: #1f5638;
+}
+
+.logo-preview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 5px;
+    object-fit: contain;
+    box-sizing: border-box;
+}
+
+.logo-preview svg {
+    width: 32px;
+    height: 32px;
+}
+
+.logo-upload-controls {
+    flex: 1;
+    min-width: 0;
+}
+
+.logo-upload-controls input[type="file"] {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 12px;
+    color: #59635c;
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
+    box-sizing: border-box;
+}
+
+.logo-upload-controls input[type="file"]::file-selector-button {
+    margin-right: 8px;
+    padding: 8px 10px;
+    border: 1px solid #d8d8d0;
+    border-radius: 8px;
+    background: #fff;
+    color: #344239;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.logo-upload-controls small,
+.form-help {
+    display: block;
+    margin-top: 9px;
+    color: #7a817b;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.remove-logo-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 8px 11px;
+    border: 1px solid #edcaca;
+    border-radius: 10px;
+    background: #fff7f7;
+    color: #b83333;
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.remove-logo-btn:hover:not(:disabled) {
+    background: #fceaea;
+}
+
+.remove-logo-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.remove-logo-btn svg {
+    width: 15px;
+    height: 15px;
+}
+
+/* =========================================
+   MODAL ACTION BUTTONS
+   ========================================= */
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.modal-cancel,
+.modal-save,
+.modal-preview-btn {
+    min-height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 0 17px;
+    border-radius: 12px;
+    font-family: "DM Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.modal-cancel {
+    border: 1px solid #d8d8d0;
+    background: #fffefa;
+    color: #59635c;
+}
+
+.modal-cancel:hover {
+    background: #f1efe7;
+}
+
+.modal-preview-btn {
+    border: 1px solid #c9d8cb;
+    background: #edf4ed;
+    color: #1f5638;
+}
+
+.modal-preview-btn:hover {
+    background: #dfece0;
+}
+
+.modal-preview-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.modal-save {
+    border: 1px solid #17472d;
+    background: #1f5638;
+    color: #fff;
+}
+
+.modal-save:hover {
+    background: #17472d;
+    border-color: #103b24;
+}
+
+/* =========================================
+   SEPARATE E-SERVICE PREVIEW MODAL
+   ========================================= */
+
+/*
+   Keep the preview overlay separate from .service-modal.
+
+   Expected HTML:
+   <div class="service-preview-modal" id="servicePreviewModal">
+       <div class="service-preview-box">...</div>
+   </div>
+*/
+
+.service-preview-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(25, 42, 32, 0.55);
+    backdrop-filter: blur(3px);
+    box-sizing: border-box;
+}
+
+.service-preview-modal.show {
+    display: flex;
+}
+
+.service-preview-box {
+    width: min(560px, 100%);
+    max-height: 90vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #fdfbf5;
+    border: 1px solid #e5dfd0;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(25, 45, 34, 0.25);
+    box-sizing: border-box;
+}
+
+/* Preview header */
+.service-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 24px;
+    border-bottom: 1px solid #e5e1d8;
+    background: #fdfbf5;
+}
+
+.service-preview-header h3 {
+    margin: 0 0 5px;
+    color: #293a30;
+    font-size: 20px;
+}
+
+.service-preview-header p {
+    margin: 0;
+    color: #7a817b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Preview content area */
+.service-preview-content {
+    padding: 24px;
+    background: #fdfbf5;
+}
+
+/*
+   Match the existing service card layout:
+   icon at the top, text in the middle,
+   and the website link at the bottom.
+*/
+
+.preview-service-card {
+    width: 100%;
+    min-width: 0;
+    min-height: 270px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 22px;
+    text-align: left;
+    background: #fff;
+    border: 1px solid #dedbd2;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(38, 62, 48, 0.06);
+    box-sizing: border-box;
+}
+
+/* Prevent the preview card from lifting on hover. */
+.preview-service-card:hover {
+    transform: none;
+    border-color: #dedbd2;
+    box-shadow: 0 4px 16px rgba(38, 62, 48, 0.06);
+}
+
+/* Keep the icon at the upper left, like the existing cards. */
+.preview-service-card .service-card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.preview-service-card .service-icon {
+    width: 52px;
+    height: 52px;
+}
+
+/* Same typography and spacing as the existing cards. */
+.preview-service-card .service-card-content {
+    padding-top: 20px;
+    flex: 1;
+    min-width: 0;
+}
+
+.preview-service-card .service-card-content h3 {
+    margin: 0 0 8px;
+    color: #293a30;
+    font-family: "DM Sans", sans-serif;
+    font-size: 18px;
+    line-height: 1.4;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.preview-service-card .service-card-content span {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 13px;
+    color: #a27b2d;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.9px;
+    overflow-wrap: anywhere;
+}
+
+.preview-service-card .service-card-content p {
+    margin: 0;
+    color: #687169;
+    font-size: 13px;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+}
+
+/* Same website-link footer as existing cards. */
+.preview-service-card .service-card-footer {
+    margin-top: 22px;
+    padding-top: 16px;
+    border-top: 1px solid #e6e2d9;
+}
+
+.preview-service-card .service-card-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 100%;
+    color: #1f5638;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.preview-service-card .service-card-footer a:hover {
+    color: #a27b2d;
+}
+
+.preview-service-card .service-card-footer svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    color: #c49a3a;
+}
+
+/* =========================================
+   RESPONSIVE LAYOUT
+   ========================================= */
+
+@media (max-width: 1100px) {
+    .services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 760px) {
+    .services-admin {
+        padding: 22px 18px 35px;
+    }
+
+    .services-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .services-search {
+        width: 100%;
+    }
+
+    .service-add-btn {
+        width: 100%;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-modal-box,
+    .service-preview-box {
+        max-height: 92vh;
+    }
+
+    .service-modal-header,
+    .service-preview-header {
+        padding: 19px;
+    }
+
+    #serviceForm {
+        padding: 19px;
+    }
+
+    .modal-actions {
+        justify-content: stretch;
+    }
+
+    .modal-actions button {
+        flex: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .service-card {
+        padding: 18px;
+    }
+
+    .service-card-content h3 {
+        font-size: 17px;
+    }
+
+    .service-actions {
+        gap: 2px;
+    }
+
+    .service-action {
+        width: 31px;
+        height: 31px;
+    }
+
+    .logo-upload-box {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .logo-preview {
+        width: 80px;
+        height: 80px;
+    }
+
+    .logo-upload-controls {
+        width: 100%;
+    }
+
+    .service-preview-content {
+        padding: 18px;
+    }
+
+    .preview-service-card {
+        padding: 18px;
+    }
+
+    .preview-service-card .service-card-content h3 {
+        font-size: 17px;
+    }
+
+    .modal-actions {
+        gap: 8px;
+    }
+
+    .modal-cancel,
+    .modal-save,
+    .modal-preview-btn {
+        padding: 0 11px;
+        font-size: 12px;
+    }
+}

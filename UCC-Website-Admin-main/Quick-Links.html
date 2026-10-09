@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UCC Admin | Quick Links</title>
+    <link rel="icon" type="image/png" href="images/ucc-LOGO.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Quick-Links.css">
+</head>
+<body>
+
+<div class="dashboard-layout">
+
+
+    <aside class="sidebar">
+        <div class="sidebar-top">
+            <div class="logo-wrap">
+                <img src="images/ucc-LOGO.png" alt="UCC Logo">
+                <div>
+                    <h2>UCC Admin</h2>
+                    <p>University of Caloocan City</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="gold-line"></div>
+
+        <nav class="sidebar-nav">
+            <a href="Dashboard.html"><i data-lucide="house"></i><span>Dashboard</span></a>
+            <a href="Posts.html"><i data-lucide="newspaper"></i><span>Posts</span></a>
+
+            <div class="menu-group">
+                <button class="menu-title" type="button">
+                    <div><i data-lucide="graduation-cap"></i><span>Academics</span></div>
+                    <i data-lucide="chevron-down" class="arrow"></i>
+                </button>
+                <div class="submenu">
+                    <a href="Academics.html">Colleges</a>
+                </div>
+            </div>
+
+            <div class="menu-group">
+                <button class="menu-title" type="button">
+                    <div>
+                        <i data-lucide="users"></i>
+                        <span>Officials</span>
+                    </div>
+                    <i data-lucide="chevron-down" class="arrow"></i>
+                </button>
+                <div class="submenu">
+                    <a href="Executive-Officials.html">Executive Officials</a>
+                    <a href="Board-of-Regents.html">Board of Regents</a>
+                </div>
+            </div>
+
+            <div class="menu-group open">
+                <button class="menu-title active" type="button">
+                    <div><i data-lucide="building-2"></i><span>Components</span></div>
+                    <i data-lucide="chevron-down" class="arrow"></i>
+                </button>
+                <div class="submenu">
+                    <a href="Campuses.html">Campuses</a>
+                    <a href="Contact-Information.html">Contact Information</a>
+                    <a href="About-UCC.html">About UCC</a>
+                    <a href="E-Services.html">E-Services</a>
+                    <a href="Archive.html">Archive</a>
+                    <a href="Quick-Links.html" class="active">Quick Links</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <a href="Password.html"><i data-lucide="lock"></i><span>Password</span></a>
+            <a href="Logout.html"><i data-lucide="log-out"></i><span>Logout</span></a>
+        </div>
+        <div class="sidebar-art"></div>
+    </aside>
+
+    <main class="main-content">
+        <header class="top-header">
+            <div class="header-left">
+                <h1>Quick Links</h1>
+            </div>
+            <div class="header-right">
+                <div class="admin-profile">
+                    <div class="admin-text">
+                        <small>Administrator</small>
+                        <span>Welcome, Admin!</span>
+                    </div>
+                    <div class="avatar"><i data-lucide="circle-user-round"></i></div>
+                </div>
+            </div>
+            <div class="header-art"></div>
+            <div class="gold-divider"><span></span></div>
+        </header>
+
+        <section class="quick-links-page">
+
+            <div class="quick-links-toolbar">
+                <div class="quick-search">
+                    <input type="search" id="quickSearch" placeholder="Search quick links..." aria-label="Search quick links">
+                    <i data-lucide="search"></i>
+                </div>
+
+                <button class="quick-btn quick-btn-primary" type="button" id="addLinkBtn">
+                    <i data-lucide="plus"></i>
+                    Add Link
+                </button>
+            </div>
+
+            <div class="quick-summary">
+                <div class="summary-card">
+                    <div class="summary-icon"><i data-lucide="link-2"></i></div>
+                    <div class="summary-text">
+                        <small>Total Links</small>
+                        <strong id="totalLinks">0</strong>
+                    </div>
+                </div>
+
+                <div class="summary-card">
+                    <div class="summary-icon"><i data-lucide="list-ordered"></i></div>
+                    <div class="summary-text">
+                        <small>Displayed Links</small>
+                        <strong id="displayedLinks">0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <section class="quick-links-card">
+                <div class="quick-links-card-header">
+                    <div>
+                        <h2>Quick Links</h2>
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="quick-links-table">
+                        <thead>
+                            <tr>
+                                <th>Order</th>
+                                <th>Link Name</th>
+                                <th>URL</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="quickLinksBody"></tbody>
+                    </table>
+                </div>
+
+                <div class="quick-empty" id="quickEmpty">
+                    <div class="quick-empty-icon"><i data-lucide="link-2-off"></i></div>
+                    <h3>No quick links found</h3>
+                    <p>Add a quick link or try a different search.</p>
+                </div>
+            </section>
+        </section>
+    </main>
+</div>
+
+<div class="quick-modal" id="quickModal" aria-hidden="true">
+    <div class="quick-modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="quick-modal-header">
+            <h2 id="modalTitle">Add Quick Link</h2>
+            <button class="quick-modal-close" type="button" id="closeModalBtn" aria-label="Close">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <form class="quick-form" id="quickLinkForm" novalidate>
+            <input type="hidden" id="editingIndex" value="">
+
+            <div class="form-field">
+                <label for="linkName">Link Name <span>*</span></label>
+                <input type="text" id="linkName" maxlength="100" placeholder="Enter link name" required>
+                <div class="field-error" id="linkNameError"></div>
+            </div>
+
+            <div class="form-field">
+                <label for="linkUrl">URL <span>*</span></label>
+                <input type="url" id="linkUrl" placeholder="https://example.com" required>
+                <div class="field-error" id="linkUrlError"></div>
+            </div>
+
+            <div class="form-field">
+                <label for="displayOrder">Display Order <span>*</span></label>
+                <input type="number" id="displayOrder" min="1" step="1" placeholder="1" required>
+                <div class="field-error" id="displayOrderError"></div>
+            </div>
+        </form>
+
+        <div class="quick-modal-footer">
+            <button class="quick-btn quick-btn-outline" type="button" id="cancelModalBtn">Cancel</button>
+            <button class="quick-btn quick-btn-primary" type="submit" form="quickLinkForm">
+                <i data-lucide="save"></i>
+                Save Link
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="quick-toast" id="quickToast" role="status" aria-live="polite">
+    <i data-lucide="check-circle-2"></i>
+    <span id="toastMessage"></span>
+</div>
+
+<script>
+(() => {
+    "use strict";
+
+    let quickLinks = [
+        { name: "Aims Student Portal", url: "https://aims.ucc-caloocan.edu.ph/ucc/students/", order: 1 },
+        { name: "Aims Faculty Portal", url: "https://aims.ucc-caloocan.edu.ph/ucc/faculty/", order: 2 },
+        { name: "Calooocan City Website", url: "https://caloocancity.gov.ph/", order: 3 }
+    ];
+
+    const searchInput = document.getElementById("quickSearch");
+    const tableBody = document.getElementById("quickLinksBody");
+    const emptyState = document.getElementById("quickEmpty");
+    const totalLinks = document.getElementById("totalLinks");
+    const displayedLinks = document.getElementById("displayedLinks");
+    const modal = document.getElementById("quickModal");
+    const modalTitle = document.getElementById("modalTitle");
+    const form = document.getElementById("quickLinkForm");
+    const editingIndex = document.getElementById("editingIndex");
+    const linkName = document.getElementById("linkName");
+    const linkUrl = document.getElementById("linkUrl");
+    const displayOrder = document.getElementById("displayOrder");
+    const toast = document.getElementById("quickToast");
+    const toastMessage = document.getElementById("toastMessage");
+
+    const escapeHtml = value => String(value)
+        .replaceAll("&", "&amp;").replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;").replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    function validUrl(value) {
+        try {
+            const url = new URL(value.trim());
+            return url.protocol === "http:" || url.protocol === "https:";
+        } catch {
+            return false;
+        }
+    }
+
+    function showToast(message, error = false) {
+        toastMessage.textContent = message;
+        toast.classList.toggle("error", error);
+        toast.classList.add("show");
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => toast.classList.remove("show"), 2800);
+    }
+
+    function renderLinks() {
+        const query = searchInput.value.trim().toLowerCase();
+
+        const filtered = quickLinks
+            .map((link, index) => ({ ...link, originalIndex: index }))
+            .filter(link =>
+                !query ||
+                link.name.toLowerCase().includes(query) ||
+                link.url.toLowerCase().includes(query)
+            )
+            .sort((a, b) => Number(a.order) - Number(b.order));
+
+        tableBody.innerHTML = "";
+
+        filtered.forEach(link => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td><span class="order-number">${escapeHtml(link.order)}</span></td>
+                <td><span class="link-name">${escapeHtml(link.name)}</span></td>
+                <td class="url-cell">
+                    <a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">
+                        <i data-lucide="external-link"></i>
+                        <span>${escapeHtml(link.url)}</span>
+                    </a>
+                </td>
+                <td>
+                    <div class="table-actions">
+                        <button class="icon-action edit" type="button" title="Edit" data-action="edit" data-index="${link.originalIndex}">
+                            <i data-lucide="pencil"></i>
+                        </button>
+                        <button class="icon-action delete" type="button" title="Delete" data-action="delete" data-index="${link.originalIndex}">
+                            <i data-lucide="trash-2"></i>
+                        </button>
+                    </div>
+                </td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        totalLinks.textContent = quickLinks.length;
+        displayedLinks.textContent = filtered.length;
+        emptyState.style.display = filtered.length ? "none" : "block";
+
+        if (window.lucide) lucide.createIcons();
+    }
+
+    function clearErrors() {
+        document.querySelectorAll(".field-error").forEach(el => el.textContent = "");
+        document.querySelectorAll(".form-field input").forEach(el => el.classList.remove("invalid"));
+    }
+
+    function setError(input, error, message) {
+        input.classList.add("invalid");
+        error.textContent = message;
+    }
+
+    function openModal(index = null) {
+        clearErrors();
+        form.reset();
+
+        if (index === null) {
+            modalTitle.textContent = "Add Quick Link";
+            editingIndex.value = "";
+            displayOrder.value = quickLinks.length
+                ? Math.max(...quickLinks.map(link => Number(link.order) || 0)) + 1
+                : 1;
+        } else {
+            const link = quickLinks[index];
+            if (!link) return;
+            modalTitle.textContent = "Edit Quick Link";
+            editingIndex.value = index;
+            linkName.value = link.name;
+            linkUrl.value = link.url;
+            displayOrder.value = link.order;
+        }
+
+        modal.classList.add("show");
+        modal.setAttribute("aria-hidden", "false");
+        setTimeout(() => linkName.focus(), 50);
+    }
+
+    function closeModal() {
+        modal.classList.remove("show");
+        modal.setAttribute("aria-hidden", "true");
+        clearErrors();
+        form.reset();
+        editingIndex.value = "";
+    }
+
+    function validateForm() {
+        clearErrors();
+        let valid = true;
+
+        const name = linkName.value.trim();
+        const url = linkUrl.value.trim();
+        const order = Number(displayOrder.value);
+        const currentIndex = editingIndex.value === "" ? -1 : Number(editingIndex.value);
+
+        if (!name) {
+            setError(linkName, document.getElementById("linkNameError"), "Link name is required.");
+            valid = false;
+        } else if (name.length < 2) {
+            setError(linkName, document.getElementById("linkNameError"), "Link name must contain at least 2 characters.");
+            valid = false;
+        }
+
+        if (!url) {
+            setError(linkUrl, document.getElementById("linkUrlError"), "URL is required.");
+            valid = false;
+        } else if (!validUrl(url)) {
+            setError(linkUrl, document.getElementById("linkUrlError"), "Enter a valid http:// or https:// URL.");
+            valid = false;
+        }
+
+        if (!Number.isInteger(order) || order < 1) {
+            setError(displayOrder, document.getElementById("displayOrderError"), "Display order must be a positive whole number.");
+            valid = false;
+        }
+
+        const duplicate = quickLinks.some((link, index) =>
+            index !== currentIndex && link.url.trim().toLowerCase() === url.toLowerCase()
+        );
+
+        if (duplicate) {
+            setError(linkUrl, document.getElementById("linkUrlError"), "This URL is already in the quick links list.");
+            valid = false;
+        }
+
+        return valid;
+    }
+
+    form.addEventListener("submit", event => {
+        event.preventDefault();
+        if (!validateForm()) return;
+
+        const data = {
+            name: linkName.value.trim(),
+            url: linkUrl.value.trim(),
+            order: Number(displayOrder.value)
+        };
+
+        if (editingIndex.value === "") {
+            quickLinks.push(data);
+            showToast("Quick link added successfully.");
+        } else {
+            quickLinks[Number(editingIndex.value)] = data;
+            showToast("Quick link updated successfully.");
+        }
+
+        closeModal();
+        renderLinks();
+    });
+
+    tableBody.addEventListener("click", event => {
+        const button = event.target.closest("[data-action]");
+        if (!button) return;
+
+        const index = Number(button.dataset.index);
+
+        if (button.dataset.action === "edit") {
+            openModal(index);
+        }
+
+        if (button.dataset.action === "delete") {
+            const link = quickLinks[index];
+            if (!link) return;
+
+            if (confirm(`Delete "${link.name}" from the quick links?`)) {
+                quickLinks.splice(index, 1);
+                renderLinks();
+                showToast("Quick link deleted successfully.");
+            }
+        }
+    });
+
+    searchInput.addEventListener("input", renderLinks);
+    document.getElementById("addLinkBtn").addEventListener("click", () => openModal());
+    document.getElementById("closeModalBtn").addEventListener("click", closeModal);
+    document.getElementById("cancelModalBtn").addEventListener("click", closeModal);
+
+    modal.addEventListener("click", event => {
+        if (event.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && modal.classList.contains("show")) closeModal();
+    });
+
+    document.querySelectorAll(".menu-title").forEach(button => {
+        button.addEventListener("click", () => {
+            button.parentElement.classList.toggle("open");
+        });
+    });
+
+    renderLinks();
+    lucide.createIcons();
+})();
+</script>
+</body>
+</html>
