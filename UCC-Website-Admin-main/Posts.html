@@ -19,7 +19,7 @@
 		<aside class="sidebar">
 			<div class="sidebar-top">
 				<div class="logo-wrap">
-					<img src="images/ucc-LOGO.png" alt="UCC Logo">
+					<img src="assets/images/ucc-LOGO.png" alt="UCC Logo">
 					<div>
 						<h2>UCC Admin</h2>
 						<p>University of Caloocan City</p>
@@ -40,19 +40,15 @@
                 <span>Posts</span>
             </a>
 
-            <div class="menu-group">
-                <button class="menu-title" type="button">
-                    <div>
-                        <i data-lucide="graduation-cap"></i>
-                        <span>Academics</span>
-                    </div>
-                    <i data-lucide="chevron-down" class="arrow"></i>
-                </button>
-                <div class="submenu">
-                    <a href="Academics.html">Colleges</a>
-                    <a href="Masteral.html">Masteral</a>
-                </div>
-            </div>
+            <a href="Academics.html">
+
+                <i data-lucide="graduation-cap"></i>
+
+                <span>
+                    Academics
+                </span>
+
+            </a>
 
             <div class="menu-group">
                 <button class="menu-title" type="button">
@@ -128,7 +124,9 @@
 </header>
 
             <section class="posts-page">
-                
+                <div class="posts-intro">
+                    <div><p>View, organize, and maintain posts published on the university website.</p></div>
+                </div>
                 <div class="posts-toolbar">
                     <div class="posts-tools-left">
                         <div class="posts-search">
@@ -139,7 +137,16 @@
                             <option value="All">All statuses</option>
                             <option value="Published">Published</option>
                             <option value="Draft">Draft</option>
-                         
+                            <option value="Pending">Pending</option>
+                            <option value="Archived">Archived</option>
+                        </select>
+                        <select id="postSort" class="posts-filter" aria-label="Order posts">
+                            <option value="created-desc">Newest created</option>
+                            <option value="created-asc">Oldest created</option>
+                            <option value="date-desc">Publish date: newest</option>
+                            <option value="date-asc">Publish date: oldest</option>
+                            <option value="title-asc">Title: A–Z</option>
+                            <option value="title-desc">Title: Z–A</option>
                         </select>
                     </div>
                     <button class="post-btn post-btn-primary" id="addPostBtn" type="button"><i data-lucide="plus"></i> Add New Post</button>
@@ -148,7 +155,7 @@
                 <div class="posts-card">
                     <div class="posts-card-head">
                         <h2>Posts</h2>
-                        <span class="posts-count" id="postsCount">4 posts</span>
+                        <span class="posts-count" id="postsCount">0 posts</span>
                     </div>
                     <div class="posts-table-wrap">
                         <table class="posts-table">
@@ -163,50 +170,39 @@
                                 </tr>
                             </thead>
                             <tbody id="postsTableBody">
-                              
-                                <tr data-post-row data-id="1" data-status="Published" data-title="University of Caloocan City News" data-category="News" data-date="2026-09-10" data-excerpt="Latest news and updates from the University of Caloocan City." data-content="&lt;p&gt;Latest news and updates from the University of Caloocan City.&lt;/p&gt;">
-                                    <td><div class="featured-thumb"><i data-lucide="image" aria-hidden="true"></i></div></td>
-                                    <td class="post-title-cell"><span class="cell-ellipsis" title="University of Caloocan City News">University of Caloocan City News</span></td>
-                                    <td><span class="cell-ellipsis category-text" title="News">News</span></td>
-                                    <td><span class="cell-ellipsis" title="Sep 10, 2026">Sep 10, 2026</span></td>
-                                    <td><span class="status-badge status-published">Published</span></td>
-                                    <td><div class="action-buttons"><button class="action-btn" data-action="preview" type="button" title="Preview post" aria-label="Preview University of Caloocan City News"><i data-lucide="eye"></i></button><button class="action-btn" data-action="edit" type="button" title="Edit post" aria-label="Edit University of Caloocan City News"><i data-lucide="pencil"></i></button></div></td>
-                                </tr>
-            
-                                <tr data-post-row data-id="2" data-status="Published" data-title="Important University Announcement" data-category="Announcement" data-date="2026-09-08" data-excerpt="An important announcement for the UCC community." data-content="&lt;p&gt;An important announcement for the UCC community.&lt;/p&gt;">
-                                    <td><div class="featured-thumb"><i data-lucide="image" aria-hidden="true"></i></div></td>
-                                    <td class="post-title-cell"><span class="cell-ellipsis" title="Important University Announcement">Important University Announcement</span></td>
-                                    <td><span class="cell-ellipsis category-text" title="Announcement">Announcement</span></td>
-                                    <td><span class="cell-ellipsis" title="Sep 8, 2026">Sep 8, 2026</span></td>
-                                    <td><span class="status-badge status-published">Published</span></td>
-                                    <td><div class="action-buttons"><button class="action-btn" data-action="preview" type="button" title="Preview post" aria-label="Preview Important University Announcement"><i data-lucide="eye"></i></button><button class="action-btn" data-action="edit" type="button" title="Edit post" aria-label="Edit Important University Announcement"><i data-lucide="pencil"></i></button></div></td>
-                                </tr>
-                              
-                                <tr data-post-row data-id="3" data-status="Pending" data-title="Upcoming University Event" data-category="Event" data-date="2026-09-20" data-excerpt="Details about an upcoming university event." data-content="&lt;p&gt;Details about an upcoming university event.&lt;/p&gt;">
-                                    <td><div class="featured-thumb"><i data-lucide="image" aria-hidden="true"></i></div></td>
-                                    <td class="post-title-cell"><span class="cell-ellipsis" title="Upcoming University Event">Upcoming University Event</span></td>
-                                    <td><span class="cell-ellipsis category-text" title="Event">Event</span></td>
-                                    <td><span class="cell-ellipsis" title="Sep 20, 2026">Sep 20, 2026</span></td>
-                                    <td><span class="status-badge status-pending">Pending</span></td>
-                                    <td><div class="action-buttons"><button class="action-btn" data-action="preview" type="button" title="Preview post" aria-label="Preview Upcoming University Event"><i data-lucide="eye"></i></button><button class="action-btn" data-action="edit" type="button" title="Edit post" aria-label="Edit Upcoming University Event"><i data-lucide="pencil"></i></button></div></td>
-                                </tr>
-                        
-                                <tr data-post-row data-id="4" data-status="Draft" data-title="Student Activities Update" data-category="News" data-date="2026-09-05" data-excerpt="A draft update about student activities." data-content="&lt;p&gt;A draft update about student activities.&lt;/p&gt;">
-                                    <td><div class="featured-thumb"><i data-lucide="image" aria-hidden="true"></i></div></td>
-                                    <td class="post-title-cell"><span class="cell-ellipsis" title="Student Activities Update">Student Activities Update</span></td>
-                                    <td><span class="cell-ellipsis category-text" title="News">News</span></td>
-                                    <td><span class="cell-ellipsis" title="Sep 5, 2026">Sep 5, 2026</span></td>
-                                    <td><span class="status-badge status-draft">Draft</span></td>
-                                    <td><div class="action-buttons"><button class="action-btn" data-action="preview" type="button" title="Preview post" aria-label="Preview Student Activities Update"><i data-lucide="eye"></i></button><button class="action-btn" data-action="edit" type="button" title="Edit post" aria-label="Edit Student Activities Update"><i data-lucide="pencil"></i></button></div></td>
-                                </tr>
-               
-                                <tr id="postRowTemplate" class="post-row-template" aria-hidden="true">
-                                    <td><div class="featured-thumb"><i data-lucide="image" aria-hidden="true"></i></div></td>
-                                    <td class="post-title-cell"><span class="cell-ellipsis"></span></td>
-                                    <td><span class="cell-ellipsis category-text"></span></td>
-                                    <td><span class="cell-ellipsis"></span></td>
-                                    <td><span class="status-badge"></span></td>
-                                    <td><div class="action-buttons"><button class="action-btn" data-action="preview" type="button" title="Preview post" aria-label="Preview post"><i data-lucide="eye"></i></button><button class="action-btn" data-action="edit" type="button" title="Edit post" aria-label="Edit post"><i data-lucide="pencil"></i></button></div></td>
+
+
+
+<tr id="postRowTemplate" class="post-row-template" aria-hidden="true">
+                                    <td>
+                                        <div class="featured-thumb">
+                                            <i data-lucide="image" aria-hidden="true">
+
+                                            </i>
+                                        </div>
+                                    </td>
+                                    <td class="post-title-cell">
+                                        <span class="cell-ellipsis"></span>
+                                    </td>
+                                    <td>
+                                        <span class="cell-ellipsis category-text"></span>
+                                    </td>
+                                    <td>
+                                        <span class="cell-ellipsis"></span>
+                                    </td>
+                                    <td>
+                                        <span class="status-badge"></span>
+                                    </td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn" data-action="preview" type="button" title="Preview post" aria-label="Preview post"><i data-lucide="eye"></i>
+                                            </button>
+                                            <button class="action-btn edit" data-action="edit" type="button" title="Edit post" aria-label="Edit post"><i data-lucide="pencil"></i>
+                                            </button>
+                                            <button class="action-btn archive" data-action="archive" type="button" title="Archive post" aria-label="Archive post"><i data-lucide="archive"></i>
+                                            </button>
+                                        </div>
+                                    </td>
                                 </tr>
                              
                                 <tr id="postsEmptyRow" hidden><td colspan="6" class="empty-row">No posts found.</td></tr>
@@ -215,48 +211,69 @@
                     </div>
                 </div>
 
+                <p class="posts-end-message" id="postsEndMessage" hidden>-- No more items --</p>
+                <nav class="posts-pagination" id="postsPagination" aria-label="Posts pagination"></nav>
+
                 <div class="post-modal" id="postModal" aria-hidden="true">
                     <div class="post-modal-backdrop" data-close-modal></div>
                     <div class="post-modal-panel" role="dialog" aria-modal="true" aria-labelledby="postFormTitle">
                         <div class="post-modal-head">
-                            <div><h2 id="postFormTitle">Add New Post</h2><p id="postFormDescription">Create a post for the university website.</p></div>
+                            <div><h2 id="postFormTitle">Add New Post</h2>
+                                <p id="postFormDescription">Create a post for the university website.</p>
+                            </div>
                             <button class="modal-close" type="button" data-close-modal aria-label="Close post form"><i data-lucide="x"></i></button>
                         </div>
                         <form class="post-form" id="postForm">
                     
                             <div class="image-upload-area">
-                                <div class="upload-placeholder" id="uploadPlaceholder"><i data-lucide="image-plus"></i><strong>Featured Image</strong><span>Choose an image for the post</span></div>
+                                <div class="upload-placeholder" id="uploadPlaceholder"><i data-lucide="image-plus"></i><strong>Featured Image</strong></div>
                                 <img id="imagePreview" class="image-preview" alt="Featured image preview">
                                 <input type="file" id="featuredImage" accept="image/*" hidden>
                                 <button type="button" class="post-btn post-btn-ghost" id="uploadImageBtn"><i data-lucide="upload"></i> Choose Image</button>
                                 <button type="button" class="post-btn post-btn-danger" id="removeImageBtn" hidden><i data-lucide="x"></i> Remove Image</button>
                             </div>
                             <div class="form-grid">
-                                <label class="form-field full-width"><span>Post Title</span><input type="text" id="postTitle" placeholder="Enter post title" maxlength="180" required></label>
-                                <label class="form-field full-width"><span>Excerpt</span><textarea id="postExcerpt" rows="3" maxlength="320" placeholder="Write a short summary for the post" required></textarea></label>
-                                <label><span>Category</span><select id="postCategory"><option>News</option><option>Announcement</option><option>Event</option><option>Student Life</option><option>Community Extension Services</option><option>Admission</option><option>Alumni</option><option>Careers</option></select></label>
-                                <label><span>Status</span><select id="postStatus"><option>Draft</option><option>Published</option></select></label>
-                                <label class="full-width"><span>Publish Date</span><input type="date" id="postDate"></label>
+                                <label class="form-field full-width">
+                                    <span>Post Title</span>
+                                    <input type="text" id="postTitle" placeholder="Enter post title" maxlength="180" required>
+                                </label>
+                                <label class="form-field full-width">
+                                    <span>Excerpt</span><textarea id="postExcerpt" rows="3" maxlength="320" placeholder="Write a short summary for the post" required></textarea>
+                                </label>
+                                <label>
+                                    <span>Category</span>
+                                    <select id="postCategory">
+                                        <option>News</option>
+                                        <option>Announcement</option>
+                                        <option>Event</option>
+                                        <option>Student Life</option>
+                                        <option>Community Extension Services</option>
+                                        <option>Admission</option>
+                                        <option>Alumni</option>
+                                        <option>Careers</option>
+                                    </select>
+                                </label>
+                                <label>
+                                    <span>Status</span>
+                                    <select id="postStatus">
+                                        <option>Draft</option>
+                                        <option>Published</option>
+                                    </select>
+                                </label>
+                                <label class="publish-date-field">
+                                    <span>Publish Date</span>
+                                    <input type="date" id="postDate">
+                                </label>
                             </div>
                            
                             <label class="content-field"><span>Content</span>
-                                <div class="editor-toolbar" aria-label="Content formatting tools">
-                                    <button type="button" data-command="bold" title="Bold" aria-label="Bold"><i data-lucide="bold"></i></button>
-                                    <button type="button" data-command="italic" title="Italic" aria-label="Italic"><i data-lucide="italic"></i></button>
-                                    <button type="button" data-command="underline" title="Underline" aria-label="Underline"><i data-lucide="underline"></i></button>
-                                    <button type="button" data-command="insertUnorderedList" title="Bulleted list" aria-label="Bulleted list"><i data-lucide="list"></i></button>
-                                    <button type="button" data-command="justifyLeft" title="Align left" aria-label="Align left"><i data-lucide="align-left"></i></button>
-                                    <button type="button" data-command="justifyCenter" title="Align center" aria-label="Align center"><i data-lucide="align-center"></i></button>
-                                </div>
-                                <div id="postContent" class="content-editor" contenteditable="true" role="textbox" aria-label="Post content" aria-multiline="true"><p>Write your post content here...</p></div>
+                                <textarea id="postContent" class="content-editor" rows="7" placeholder="Write your post content here..." required></textarea>
                             </label>
                             <div class="form-actions">
-                                <button type="button" class="post-btn post-btn-ghost" data-close-modal>Cancel</button>
+                                <button type="button" class="post-btn post-btn-ghost form-cancel" data-close-modal>Cancel</button>
                                 <div class="form-actions-right">
                                     <button type="button" class="post-btn post-btn-ghost" id="formPreviewBtn"><i data-lucide="eye"></i> Preview</button>
-                                    <button type="button" class="post-btn post-btn-secondary" id="saveDraftBtn">Save Draft</button>
-                                    <button type="button" class="post-btn post-btn-primary" id="saveChangesBtn" hidden>Save Changes</button>
-                                    <button type="submit" class="post-btn post-btn-primary" id="publishBtn">Publish</button>
+                                    <button type="submit" class="post-btn post-btn-primary" id="savePostBtn"><i data-lucide="save"></i> Save Post</button>
                                 </div>
                             </div>
                         </form>
@@ -267,10 +284,42 @@
                 <div class="post-modal preview-modal" id="postPreviewModal" aria-hidden="true">
                     <div class="post-modal-backdrop" data-close-preview></div>
                     <article class="post-modal-panel post-preview-panel" role="dialog" aria-modal="true" aria-labelledby="previewTitle">
-                        <div class="post-modal-head"><div><h2>Post Preview</h2></div><button class="modal-close" type="button" data-close-preview aria-label="Close preview"><i data-lucide="x"></i></button></div>
+                        <div class="post-modal-head"><div>
+                            <h2>Post Preview</h2>
+                        </div>
+                        <button class="modal-close" type="button" data-close-preview aria-label="Close preview">
+                            <i data-lucide="x"></i>
+                        </button>
+                    </div>
+                        <div class="preview-metadata" aria-label="Post metadata"><span>
+                            <strong>Status</strong>
+                            <b id="previewStatus">Published</b>
+                        </span>
+                        <span>
+                            <strong>Category</strong>
+                            <b id="previewMetaCategory">News</b>
+                        </span>
+                        <span>
+                            <strong>Publish date</strong>
+                            <b id="previewMetaDate">Date not set</b>
+                        </span>
+                    </div>
                         <div class="public-post-preview">
-                            <div class="preview-image-wrap" id="previewImageWrap"><div class="preview-default-image"><i data-lucide="image"></i><span>Featured image</span></div><img id="previewImage" alt="Post featured image" hidden></div>
-                            <div class="preview-article-body"><p class="preview-category" id="previewCategory">News</p><h2 id="previewTitle">Post title</h2><p class="preview-date" id="previewDate"></p><p class="preview-excerpt" id="previewExcerpt"></p><div class="preview-content" id="previewContent"></div></div>
+                            <div class="preview-image-wrap" id="previewImageWrap">
+                                <div class="preview-default-image"><i data-lucide="image"></i>
+                                    <span>Featured image</span>
+                                </div>
+                                <img id="previewImage" alt="Post featured image" hidden>
+                            </div>
+                            <div class="preview-article-body">
+                                <p class="preview-category" id="previewCategory">News</p>
+                                <h2 id="previewTitle">Post title</h2>
+                                <p class="preview-date" id="previewDate"></p>
+                                <p class="preview-excerpt" id="previewExcerpt"></p>
+                                <div class="preview-content" id="previewContent">
+
+                                </div>
+                            </div>
                         </div>
                    
                     </article>

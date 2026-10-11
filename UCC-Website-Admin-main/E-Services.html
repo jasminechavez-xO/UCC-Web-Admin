@@ -6,7 +6,7 @@
 
     <title>UCC Admin | E-Services</title>
 
-    <link rel="icon" type="image/png" href="images/ucc-LOGO.png">
+    <link rel="icon" type="image/png" href="assets/images/ucc-LOGO.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,12 +24,12 @@
 <body>
 <div class="dashboard-layout">
 
-    <!-- SIDEBAR -->
+ 
     <aside class="sidebar">
 
         <div class="sidebar-top">
             <div class="logo-wrap">
-                <img src="images/ucc-LOGO.png" alt="UCC Logo">
+                <img src="assets/images/ucc-LOGO.png" alt="UCC Logo">
 
                 <div>
                     <h2>UCC Admin</h2>
@@ -52,21 +52,15 @@
                 <span>Posts</span>
             </a>
 
-            <div class="menu-group">
-                <button class="menu-title" type="button">
-                    <div>
-                        <i data-lucide="graduation-cap"></i>
-                        <span>Academics</span>
-                    </div>
+            <a href="Academics.html">
 
-                    <i data-lucide="chevron-down" class="arrow"></i>
-                </button>
+                <i data-lucide="graduation-cap"></i>
 
-                <div class="submenu">
-                    <a href="Academics.html">Colleges</a>
-                    <a href="Masteral.html">Masteral</a>
-                </div>
-            </div>
+                <span>
+                    Academics
+                </span>
+
+            </a>
 
             <div class="menu-group">
                 <button class="menu-title" type="button">
@@ -122,10 +116,10 @@
 
     </aside>
 
-    <!-- MAIN CONTENT -->
+
     <main class="main-content">
 
-        <!-- PAGE HEADER -->
+
         <header class="top-header">
 
             <div class="header-left">
@@ -157,371 +151,61 @@
 
         <!-- E-SERVICES SECTION -->
         <section class="services-admin">
-
-            <!-- SEARCH AND ADD TOOLBAR -->
-            <div class="services-toolbar">
-
-                <div class="services-search">
-                    <i data-lucide="search"></i>
-
-                    <input
-                        type="text"
-                        id="serviceSearch"
-                        placeholder="Search e-services..."
-                        aria-label="Search e-services">
+            <div class="services-page-heading">
+                <div>
+                    <p>Manage the online services and external resources available to the UCC community.</p>
                 </div>
-
-                <button
-                    class="service-add-btn"
-                    type="button"
-                    id="addServiceBtn">
-
-                    <i data-lucide="plus"></i>
-                    Add E-Service
-
-                </button>
-
             </div>
 
-            <!-- SERVICE CARDS -->
-            <div class="services-grid" id="servicesGrid">
-
-                <!-- SERVICE 1 -->
-                <article class="service-card">
-
-                    <div class="service-card-top">
-
-                        <div class="service-icon">
-                            <i data-lucide="landmark"></i>
-                        </div>
-
-                        <div class="service-actions">
-
-                            <button
-                                class="service-action preview-action preview-card-action"
-                                type="button"
-                                title="Preview"
-                                aria-label="Preview City of Caloocan">
-
-                                <i data-lucide="eye"></i>
-
-                            </button>
-
-                            <button
-                                class="service-action edit-action"
-                                type="button"
-                                title="Edit"
-                                aria-label="Edit City of Caloocan">
-
-                                <i data-lucide="pencil"></i>
-
-                            </button>
-
-                            <button
-                                class="service-action delete-action"
-                                type="button"
-                                title="Delete"
-                                aria-label="Delete City of Caloocan">
-
-                                <i data-lucide="trash-2"></i>
-
-                            </button>
-
-                        </div>
+            <div class="services-toolbar">
+                <div class="services-tools-left">
+                    <div class="services-search">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="serviceSearch" placeholder="Search e-services..." aria-label="Search e-services">
                     </div>
-
-                    <div class="service-card-content">
-                        <h3>City of Caloocan</h3>
-                        <span>Public Service</span>
-                        <p>Official website of the City Government of Caloocan.</p>
-                    </div>
-
-                    <div class="service-card-footer">
-                        <a href="https://caloocancity.gov.ph/"
-                           target="_blank"
-                           rel="noopener noreferrer">
-
-                            Visit Website
-                            <i data-lucide="arrow-up-right"></i>
-
-                        </a>
-                    </div>
-
-                </article>
-
-                <!-- SERVICE 2 -->
-                <article class="service-card">
-
-                    <div class="service-card-top">
-
-                        <div class="service-icon">
-                            <i data-lucide="graduation-cap"></i>
-                        </div>
-
-                        <div class="service-actions">
-
-                            <button
-                                class="service-action preview-action preview-card-action"
-                                type="button"
-                                title="Preview"
-                                aria-label="Preview Commission on Higher Education">
-
-                                <i data-lucide="eye"></i>
-
-                            </button>
-
-                            <button
-                                class="service-action edit-action"
-                                type="button"
-                                title="Edit"
-                                aria-label="Edit Commission on Higher Education">
-
-                                <i data-lucide="pencil"></i>
-
-                            </button>
-
-                            <button
-                                class="service-action delete-action"
-                                type="button"
-                                title="Delete"
-                                aria-label="Delete Commission on Higher Education">
-
-                                <i data-lucide="trash-2"></i>
-
-                            </button>
-
-                        </div>
-                    </div>
-
-                    <div class="service-card-content">
-                        <h3>Commission on Higher Education</h3>
-                        <span>Higher Education</span>
-                        <p>Official higher education information and services.</p>
-                    </div>
-
-                    <div class="service-card-footer">
-                        <a href="https://ched.gov.ph/"
-                           target="_blank"
-                           rel="noopener noreferrer">
-
-                            Visit Website
-                            <i data-lucide="arrow-up-right"></i>
-
-                        </a>
-                    </div>
-
-                </article>
-
-                <!-- SERVICE 3 -->
-                <article class="service-card">
-
-                    <div class="service-card-top">
-
-                        <div class="service-icon">
-                            <i data-lucide="monitor"></i>
-                        </div>
-
-                        <div class="service-actions">
-
-                            <button
-                                class="service-action preview-action preview-card-action"
-                                type="button"
-                                title="Preview"
-                                aria-label="Preview AIMS Faculty Portal">
-
-                                <i data-lucide="eye"></i>
-
-                            </button>
-
-                            <button
-                                class="service-action edit-action"
-                                type="button"
-                                title="Edit"
-                                aria-label="Edit AIMS Faculty Portal">
-
-                                <i data-lucide="pencil"></i>
-
-                            </button>
-
-                            <button
-                                class="service-action delete-action"
-                                type="button"
-                                title="Delete"
-                                aria-label="Delete AIMS Faculty Portal">
-
-                                <i data-lucide="trash-2"></i>
-
-                            </button>
-
-                        </div>
-                    </div>
-
-                    <div class="service-card-content">
-                        <h3>AIMS Faculty Portal</h3>
-                        <span>Faculty Portal</span>
-                        <p>Academic Information Management System faculty portal.</p>
-                    </div>
-
-                    <div class="service-card-footer">
-                        <a href="#"
-                           target="_blank"
-                           rel="noopener noreferrer">
-
-                            Visit Website
-                            <i data-lucide="arrow-up-right"></i>
-
-                        </a>
-                    </div>
-
-                </article>
-
-                <!-- SERVICE 4 -->
-                <article class="service-card">
-
-                    <div class="service-card-top">
-
-                        <div class="service-icon">
-                            <i data-lucide="book-open"></i>
-                        </div>
-
-                        <div class="service-actions">
-
-                            <button
-                                class="service-action preview-action preview-card-action"
-                                type="button"
-                                title="Preview"
-                                aria-label="Preview AIMS Student Portal">
-
-                                <i data-lucide="eye"></i>
-
-                            </button>
-
-                            <button
-                                class="service-action edit-action"
-                                type="button"
-                                title="Edit"
-                                aria-label="Edit AIMS Student Portal">
-
-                                <i data-lucide="pencil"></i>
-
-                            </button>
-
-                            <button
-                                class="service-action delete-action"
-                                type="button"
-                                title="Delete"
-                                aria-label="Delete AIMS Student Portal">
-
-                                <i data-lucide="trash-2"></i>
-
-                            </button>
-
-                        </div>
-                    </div>
-
-                    <div class="service-card-content">
-                        <h3>AIMS Student Portal</h3>
-                        <span>Student Portal</span>
-                        <p>Academic Information Management System student portal.</p>
-                    </div>
-
-                    <div class="service-card-footer">
-                        <a href="#"
-                           target="_blank"
-                           rel="noopener noreferrer">
-
-                            Visit Website
-                            <i data-lucide="arrow-up-right"></i>
-
-                        </a>
-                    </div>
-
-                </article>
-
-                <!-- SERVICE 5 -->
-                <article class="service-card">
-
-                    <div class="service-card-top">
-
-                        <div class="service-icon">
-                            <i data-lucide="building-2"></i>
-                        </div>
-
-                        <div class="service-actions">
-
-                            <button
-                                class="service-action preview-action preview-card-action"
-                                type="button"
-                                title="Preview"
-                                aria-label="Preview Department of Information and Communication Technology">
-
-                                <i data-lucide="eye"></i>
-
-                            </button>
-
-                            <button
-                                class="service-action edit-action"
-                                type="button"
-                                title="Edit"
-                                aria-label="Edit Department of Information and Communication Technology">
-
-                                <i data-lucide="pencil"></i>
-
-                            </button>
-
-                            <button
-                                class="service-action delete-action"
-                                type="button"
-                                title="Delete"
-                                aria-label="Delete Department of Information and Communication Technology">
-
-                                <i data-lucide="trash-2"></i>
-
-                            </button>
-
-                        </div>
-                    </div>
-
-                    <div class="service-card-content">
-                        <h3>Department of Information and Communication Technology</h3>
-                        <span>Government ICT</span>
-                        <p>Information and communication technology services and resources.</p>
-                    </div>
-
-                    <div class="service-card-footer">
-                        <a href="https://dict.gov.ph/"
-                           target="_blank"
-                           rel="noopener noreferrer">
-
-                            Visit Website
-                            <i data-lucide="arrow-up-right"></i>
-
-                        </a>
-                    </div>
-
-                </article>
-
+                    <select id="serviceStatusFilter" aria-label="Filter by status">
+                        <option value="all">All statuses</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                    <select id="serviceSort" aria-label="Order e-services">
+                        <option value="name-asc">Name A–Z</option>
+                        <option value="name-desc">Name Z–A</option>
+                        <option value="newest">Newest created</option>
+                        <option value="oldest">Oldest created</option>
+                    </select>
+                </div>
+                <button class="service-add-btn" type="button" id="addServiceBtn"><i data-lucide="plus"></i> Add E-Service</button>
             </div>
 
-            <!-- EMPTY SEARCH RESULTS -->
-            <div class="no-services" id="noServices">
-
-                <i data-lucide="search-x"></i>
-
-                <h3>No services found</h3>
-
-                <p>Try searching for a different e-service.</p>
-
+            <div class="services-table-card">
+                <div class="services-table-heading">
+                    <h3>E-Services</h3>
+                    <span id="serviceCount">0 services</span>
+                </div>
+                <div class="services-table-wrap">
+                    <table class="services-table">
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                                <th>Link</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="servicesTableBody"></tbody>
+                    </table>
+                </div>
+                <p class="services-end-message" id="servicesEndMessage" hidden>— No more items —</p>
+                <div class="services-pagination" id="servicesPagination" aria-label="E-services pagination"></div>
             </div>
-
         </section>
 
     </main>
 </div>
 
-<!-- =====================================================
-     ADD / EDIT E-SERVICE MODAL
-====================================================== -->
+<!-- ADD / EDIT E-SERVICE MODAL -->
 <div
     class="service-modal"
     id="serviceModal"
@@ -573,25 +257,23 @@
 
                     <div class="logo-upload-controls">
 
-                        <input
-                            type="file"
-                            id="serviceLogo"
-                            accept="image/png,image/jpeg,image/webp,image/svg+xml">
+                        <input type="file" id="serviceLogo" accept="image/png,image/jpeg,image/webp,image/svg+xml" hidden>
+                        <label class="choose-photo-btn post-btn post-btn-ghost" for="serviceLogo">
+                            <i data-lucide="upload"></i> 
+                            Choose Photo
+                        </label>
 
                         <button
                             type="button"
-                            class="remove-logo-btn"
-                            id="removeServiceLogo">
-
-                            <i data-lucide="image-off"></i>
-                            Remove Image
-
+                            class="remove-logo-btn post-btn post-btn-danger"
+                            id="removeServiceLogo"
+                            aria-label="Remove selected image"
+                            title="Remove image"
+                            hidden>
+                            <i data-lucide="x"></i>
+                            <span>Remove Image</span>
                         </button>
 
-                        <small>
-                            Upload a PNG, JPG, WEBP, or SVG logo.
-                            If no image is selected, the default icon will be displayed.
-                        </small>
 
                     </div>
 
@@ -599,7 +281,7 @@
 
             </div>
 
-            <!-- SERVICE NAME -->
+      
             <div class="form-group">
                 <label for="serviceName">Service Name</label>
 
@@ -610,18 +292,14 @@
                     required>
             </div>
 
-            <!-- CATEGORY -->
             <div class="form-group">
-                <label for="serviceCategory">Category</label>
-
-                <input
-                    type="text"
-                    id="serviceCategory"
-                    placeholder="Enter category"
-                    required>
+                <label for="serviceStatus">Status</label>
+                <select id="serviceStatus" required>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                </select>
             </div>
 
-            <!-- DESCRIPTION -->
             <div class="form-group">
                 <label for="serviceDescription">Description</label>
 
@@ -632,58 +310,36 @@
                     required></textarea>
             </div>
 
-            <!-- WEBSITE URL -->
+          
             <div class="form-group">
                 <label for="serviceUrl">Website URL</label>
 
                 <input
                     type="url"
                     id="serviceUrl"
-                    placeholder="https://example.com"
-                    required>
-            </div>
-
-            <!-- FORM ACTIONS -->
-            <div class="modal-actions">
-
-                <button
-                    type="button"
-                    class="modal-cancel"
-                    id="modalCancel">
-
-                    Cancel
-
-                </button>
-
-                <button
-                    type="button"
-                    class="modal-preview-btn"
-                    id="previewServiceBtn">
-
-                    <i data-lucide="eye"></i>
-                    Preview
-
-                </button>
-
-                <button
-                    type="submit"
-                    class="modal-save">
-
-                    <i data-lucide="save"></i>
-                    Save Service
-
-                </button>
-
+                    placeholder="https://example.com">
             </div>
 
         </form>
 
+        <div class="modal-footer-row">
+            <button type="button" class="modal-cancel" id="modalCancel">Cancel</button>
+            <div class="modal-actions form-actions form-actions-right">
+                <button type="button" class="modal-preview-btn" id="previewServiceBtn">
+                    <i data-lucide="eye"></i> Preview
+                </button>
+                <button type="submit" class="modal-save" form="serviceForm">
+                    <i data-lucide="save"></i> Save Service
+                </button>
+            </div>
+        </div>
+
+
+
     </div>
 </div>
 
-<!-- =====================================================
-     SHARED SERVICE PREVIEW MODAL
-====================================================== -->
+
 <div
     class="service-preview-modal"
     id="servicePreviewModal"
@@ -713,7 +369,7 @@
 
         </div>
 
-        <!-- CARD LAYOUT MATCHES EXISTING E-SERVICE CARDS -->
+        
         <div class="service-preview-content">
 
             <article class="service-card preview-service-card">
@@ -738,11 +394,7 @@
 
                     <h3 id="previewServiceName">Service Name</h3>
 
-                    <span id="previewServiceCategory">Category</span>
-
-                    <p id="previewServiceDescription">
-                        Service description will appear here.
-                    </p>
+                    <p id="previewServiceDescription">Service description will appear here.</p>
 
                 </div>
 
@@ -769,7 +421,7 @@
 </div>
 
 
-<script src="assets/js/eServices.js"></script>
+<script src="assets/js/eServices.js" defer></script>
 
 </body>
 </html>
