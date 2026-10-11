@@ -1,600 +1,134 @@
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    // Initialize Lucide icons.
-    function refreshIcons() {
-        if (window.lucide) {
-            lucide.createIcons();
-        }
+(() => {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const pageSize = 15;
+  let currentPage = 1;
+  let editingId = null;
+  let logoData = "";
+  let nextId = 6;
+  let services = [
+    {id:1,name:"City of Caloocan",description:"Official website of the City Government of Caloocan.",url:"https://caloocancity.gov.ph/",status:"Active",logo:"",created:1},
+    {id:2,name:"Commission on Higher Education",description:"Official higher education information and services.",url:"https://ched.gov.ph/",status:"Active",logo:"",created:2},
+    {id:3,name:"AIMS Faculty Portal",description:"Academic Information Management System faculty portal.",url:"",status:"Active",logo:"",created:3},
+    {id:4,name:"AIMS Student Portal",description:"Academic Information Management System student portal.",url:"",status:"Active",logo:"",created:4},
+    {id:5,name:"Department of Information and Communication Technology",description:"Information and communication technology services and resources.",url:"https://dict.gov.ph/",status:"Active",logo:"",created:5}
+  ];
+  const safe = (value) => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const icon = (name) => `<i data-lucide="${name}"></i>`;
+  const filtered = () => {
+    const q = $("serviceSearch").value.trim().toLowerCase();
+    const status = $("serviceStatusFilter").value;
+    const sort = $("serviceSort").value;
+    let result = services.filter(s => (!q || `${s.name} ${s.description} ${s.url}`.toLowerCase().includes(q)) && (status === "all" || s.status === status));
+    result.sort((a,b) => sort === "name-desc" ? b.name.localeCompare(a.name) : sort === "newest" ? b.created-a.created : sort === "oldest" ? a.created-b.created : a.name.localeCompare(b.name));
+    return result;
+  };
+  function render() {
+    const result = filtered();
+    const pages = Math.max(1, Math.ceil(result.length / pageSize));
+    currentPage = Math.min(currentPage, pages);
+    const slice = result.slice((currentPage-1)*pageSize, currentPage*pageSize);
+    $("serviceCount").textContent = `${result.length} ${result.length === 1 ? "service" : "services"}`;
+    const tbody = $("servicesTableBody");
+    if (!slice.length) {
+      tbody.innerHTML = `<tr><td colspan="5" class="services-empty-row">${icon("inbox")}<br><strong>No e-services exist.</strong><br>Use “Add E-Service” to create one.</td></tr>`;
+    } else {
+      tbody.innerHTML = slice.map(s => `<tr>
+        <td><div class="service-name-cell"><div class="service-logo-cell">${s.logo ? `<img src="${s.logo}" alt="">` : icon("globe")}</div><div><strong>${safe(s.name)}</strong><small>E-Service</small></div></div></td>
+        <td>${safe(s.description)}</td>
+        <td><span class="service-status ${s.status.toLowerCase()}">${safe(s.status)}</span></td>
+        <td>${s.url ? `<a class="service-link" href="${safe(s.url)}" target="_blank" rel="noopener noreferrer">Open link ${icon("arrow-up-right")}</a>` : '<span class="muted">No link</span>'}</td>
+        <td><div class="service-row-actions">
+          <button class="service-action preview-action" type="button" data-action="preview" data-id="${s.id}" title="View details" aria-label="View details">${icon("eye")}</button>
+          <button class="service-action edit-action" type="button" data-action="edit" data-id="${s.id}" title="Edit" aria-label="Edit">${icon("pencil")}</button>
+          <button class="service-action delete-action" type="button" data-action="delete" data-id="${s.id}" title="Delete" aria-label="Delete">${icon("trash-2")}</button>
+        </div></td></tr>`).join("");
     }
-
-    refreshIcons();
-
-    // SIDEBAR
-    document.querySelectorAll(".menu-title").forEach(function (button) {
-        button.addEventListener("click", function () {
-            button.parentElement.classList.toggle("open");
-        });
+    $("servicesPagination").innerHTML = `<button class="services-page-btn" type="button" data-page="${currentPage-1}" aria-label="Previous page" ${currentPage===1?"disabled":""}>${icon("chevron-left")}</button>`+
+      Array.from({length:pages},(_,i)=>`<button class="services-page-btn ${i+1===currentPage?"active":""}" type="button" data-page="${i+1}" ${i+1===currentPage?'aria-current="page"':""}>${i+1}</button>`).join("")+
+      `<button class="services-page-btn" type="button" data-page="${currentPage+1}" aria-label="Next page" ${currentPage===pages?"disabled":""}>${icon("chevron-right")}</button>`;
+    $("servicesEndMessage").hidden = !(result.length > 0 && currentPage === pages);
+    if (window.lucide) window.lucide.createIcons();
+  }
+  function openForm(service=null) {
+    editingId = service?.id ?? null; logoData = service?.logo || "";
+    $("modalTitle").textContent = service ? "Edit E-Service" : "Add E-Service";
+    $("modalSubtitle").textContent = service ? "Update the information for this e-service." : "Enter the information for this e-service.";
+    $("serviceName").value = service?.name || "";
+    $("serviceDescription").value = service?.description || "";
+    $("serviceUrl").value = service?.url || "";
+    $("serviceStatus").value = service?.status || "Active";
+    $("serviceLogoPreview").src = logoData;
+    $("serviceLogoPreview").hidden = !logoData;
+    $("logoPreviewContainer").classList.toggle("has-logo", !!logoData);
+    $("defaultLogoIcon").hidden = !!logoData;
+    $("removeServiceLogo").hidden = !logoData;
+    $("serviceLogo").value = "";
+    $("serviceModal").classList.add("open"); $("serviceModal").setAttribute("aria-hidden","false");
+    if (window.lucide) window.lucide.createIcons();
+  }
+  function closeForm() { $("serviceModal").classList.remove("open"); $("serviceModal").setAttribute("aria-hidden","true"); }
+  function preview(service) {
+    const data = service || {name:$("serviceName").value.trim() || "Service Name",description:$("serviceDescription").value.trim() || "Service description will appear here.",url:$("serviceUrl").value.trim(),status:$("serviceStatus").value,logo:logoData};
+    $("servicePreviewTitle").textContent = "E-Service Preview";
+    $("previewServiceName").textContent = data.name;
+    $("previewServiceDescription").textContent = data.description;
+    $("previewServiceLogo").src = data.logo || "";
+    $("previewServiceLogo").hidden = !data.logo;
+    $("previewServiceIcon").classList.toggle("has-logo", !!data.logo);
+    $("previewDefaultIcon").hidden = !!data.logo;
+    $("previewServiceLink").href = data.url || "#";
+    $("previewServiceLink").style.display = data.url ? "inline-flex" : "none";
+    const previewModal = $("servicePreviewModal");
+    previewModal.classList.add("open");
+    previewModal.setAttribute("aria-hidden", "false");
+    if (window.lucide) window.lucide.createIcons();
+  }
+  function closePreview(){
+    const previewModal = $("servicePreviewModal");
+    previewModal.classList.remove("open");
+    previewModal.setAttribute("aria-hidden", "true");
+  }
+  $("addServiceBtn").addEventListener("click",()=>openForm());
+  $("modalClose").addEventListener("click",closeForm);
+  $("modalCancel").addEventListener("click",closeForm);
+  $("closeServicePreview").addEventListener("click",closePreview);
+  $("previewServiceBtn").addEventListener("click",(event)=>{
+    event.preventDefault();
+    preview({
+      name: $("serviceName").value.trim() || "Service Name",
+      description: $("serviceDescription").value.trim() || "Service description will appear here.",
+      url: $("serviceUrl").value.trim(),
+      status: $("serviceStatus").value,
+      logo: logoData
     });
-
-    // MAIN ELEMENTS
-    const searchInput = document.getElementById("serviceSearch");
-    const servicesGrid = document.getElementById("servicesGrid");
-    const noServices = document.getElementById("noServices");
-    const addServiceBtn = document.getElementById("addServiceBtn");
-
-    // ADD / EDIT MODAL
-    const modal = document.getElementById("serviceModal");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalSubtitle = document.getElementById("modalSubtitle");
-    const serviceForm = document.getElementById("serviceForm");
-    const modalClose = document.getElementById("modalClose");
-    const modalCancel = document.getElementById("modalCancel");
-
-    // FORM FIELDS
-    const serviceName = document.getElementById("serviceName");
-    const serviceCategory = document.getElementById("serviceCategory");
-    const serviceDescription = document.getElementById("serviceDescription");
-    const serviceUrl = document.getElementById("serviceUrl");
-
-    // LOGO CONTROLS
-    const logoInput = document.getElementById("serviceLogo");
-    const logoPreview = document.getElementById("serviceLogoPreview");
-    const defaultLogoIcon = document.getElementById("defaultLogoIcon");
-    const removeLogoBtn = document.getElementById("removeServiceLogo");
-
-    // PREVIEW MODAL
-    const previewModal = document.getElementById("servicePreviewModal");
-    const previewBtn = document.getElementById("previewServiceBtn");
-    const closePreviewBtn = document.getElementById("closeServicePreview");
-
-    const previewName = document.getElementById("previewServiceName");
-    const previewCategory = document.getElementById("previewServiceCategory");
-    const previewDescription = document.getElementById("previewServiceDescription");
-    const previewLogo = document.getElementById("previewServiceLogo");
-    const previewDefaultIcon = document.getElementById("previewDefaultIcon");
-    const previewLink = document.getElementById("previewServiceLink");
-
-    // STATE
-    let editingCard = null;
-    let selectedLogo = "";
-    let selectedLogoObjectUrl = "";
-    let logoRemoved = false;
-
-    // Identifies the modal to reopen when the preview closes.
-    // "none" means the preview was opened from an existing card.
-    let previewReturnTo = "none";
-
-    // Temporary uploaded image URL cleanup.
-    function clearTemporaryLogoUrl() {
-        if (selectedLogoObjectUrl) {
-            URL.revokeObjectURL(selectedLogoObjectUrl);
-            selectedLogoObjectUrl = "";
-        }
-    }
-
-    // Modal visibility helpers.
-    function openModal(element) {
-        element.classList.add("show");
-        element.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-    }
-
-    function closeModal(element) {
-        element.classList.remove("show");
-        element.setAttribute("aria-hidden", "true");
-
-        if (!document.querySelector(
-            ".service-modal.show, .service-preview-modal.show"
-        )) {
-            document.body.style.overflow = "";
-        }
-    }
-
-    // Safely accept only HTTP and HTTPS URLs.
-    function getSafeWebsiteUrl(value) {
-        try {
-            const parsed = new URL(value);
-
-            if (parsed.protocol === "http:" ||
-                parsed.protocol === "https:") {
-                return parsed.href;
-            }
-        } catch (error) {
-            return "";
-        }
-
-        return "";
-    }
-
-    // Update the form's logo preview.
-    function updateFormLogoPreview() {
-        if (selectedLogo && !logoRemoved) {
-            logoPreview.src = selectedLogo;
-            logoPreview.hidden = false;
-            defaultLogoIcon.hidden = true;
-        } else {
-            logoPreview.removeAttribute("src");
-            logoPreview.hidden = true;
-            defaultLogoIcon.hidden = false;
-        }
-
-        removeLogoBtn.disabled = !selectedLogo && !logoRemoved;
-        refreshIcons();
-    }
-
-    // Update the preview modal's logo.
-    function updatePreviewLogo(logo) {
-        if (logo) {
-            previewLogo.src = logo;
-            previewLogo.hidden = false;
-            previewDefaultIcon.hidden = true;
-        } else {
-            previewLogo.removeAttribute("src");
-            previewLogo.hidden = true;
-            previewDefaultIcon.hidden = false;
-        }
-    }
-
-    // Get a card's current logo.
-    function getCardLogo(card) {
-        const image = card.querySelector(".service-icon img");
-
-        if (image && image.getAttribute("src")) {
-            return image.getAttribute("src");
-        }
-
-        return "";
-    }
-
-    // Set a card's logo or default icon.
-    function setCardLogo(card, logo) {
-        const iconContainer = card.querySelector(".service-icon");
-
-        if (logo) {
-            iconContainer.replaceChildren();
-
-            const image = document.createElement("img");
-            image.src = logo;
-            image.alt = "Service logo";
-
-            iconContainer.appendChild(image);
-        } else {
-            iconContainer.replaceChildren();
-
-            const icon = document.createElement("i");
-            icon.setAttribute("data-lucide", "globe");
-
-            iconContainer.appendChild(icon);
-        }
-
-        refreshIcons();
-    }
-
-    // Reset form fields and image state.
-    function resetServiceForm() {
-        serviceForm.reset();
-
-        clearTemporaryLogoUrl();
-
-        selectedLogo = "";
-        logoRemoved = false;
-
-        logoInput.value = "";
-
-        updateFormLogoPreview();
-    }
-
-    // Open the Add or Edit modal.
-    function openServiceForm(mode, card = null) {
-        editingCard = card;
-
-        resetServiceForm();
-
-        const isEditing = mode === "edit";
-
-        modalTitle.textContent = isEditing
-            ? "Edit E-Service"
-            : "Add E-Service";
-
-        modalSubtitle.textContent = isEditing
-            ? "Update the information for this e-service."
-            : "Enter the information for this e-service.";
-
-        if (card) {
-            serviceName.value =
-                card.querySelector(".service-card-content h3").textContent.trim();
-
-            serviceCategory.value =
-                card.querySelector(".service-card-content span").textContent.trim();
-
-            serviceDescription.value =
-                card.querySelector(".service-card-content p").textContent.trim();
-
-            const existingHref =
-                card.querySelector(".service-card-footer a").getAttribute("href") || "";
-
-            serviceUrl.value =
-                existingHref === "#" ? "" : existingHref;
-
-            selectedLogo = getCardLogo(card);
-            logoRemoved = false;
-
-            updateFormLogoPreview();
-        }
-
-        openModal(modal);
-    }
-
-    // ADD SERVICE
-    addServiceBtn.addEventListener("click", function () {
-        openServiceForm("add");
-    });
-
-    // CLOSE ADD / EDIT MODAL
-    modalClose.addEventListener("click", function () {
-        closeModal(modal);
-    });
-
-    modalCancel.addEventListener("click", function () {
-        closeModal(modal);
-    });
-
-    // UPLOAD LOGO
-    logoInput.addEventListener("change", function () {
-        const file = logoInput.files[0];
-
-        if (!file) {
-            return;
-        }
-
-        if (!file.type.startsWith("image/")) {
-            alert("Please select a valid image file.");
-            logoInput.value = "";
-            return;
-        }
-
-        clearTemporaryLogoUrl();
-
-        selectedLogoObjectUrl = URL.createObjectURL(file);
-        selectedLogo = selectedLogoObjectUrl;
-        logoRemoved = false;
-
-        updateFormLogoPreview();
-    });
-
-    // REMOVE LOGO
-    removeLogoBtn.addEventListener("click", function () {
-        logoInput.value = "";
-
-        clearTemporaryLogoUrl();
-
-        selectedLogo = "";
-        logoRemoved = true;
-
-        updateFormLogoPreview();
-    });
-
-    // POPULATE THE SHARED PREVIEW MODAL.
-    // returnTo is "form" or "none".
-    function showServicePreview(data, returnTo) {
-        previewReturnTo = returnTo;
-
-        previewName.textContent = data.name || "Service Name";
-        previewCategory.textContent = data.category || "Category";
-
-        previewDescription.textContent =
-            data.description || "Service description will appear here.";
-
-        updatePreviewLogo(data.logo || "");
-
-        const safeUrl = getSafeWebsiteUrl(data.url || "");
-
-        if (safeUrl) {
-            previewLink.href = safeUrl;
-            previewLink.style.display = "inline-flex";
-        } else {
-            previewLink.href = "#";
-            previewLink.style.display = "inline-flex";
-        }
-
-        // Hide the source modal before showing the preview.
-        closeModal(modal);
-        openModal(previewModal);
-
-        refreshIcons();
-    }
-
-    // PREVIEW FROM ADD / EDIT FORM.
-    // Closing the preview returns to the same form.
-    previewBtn.addEventListener("click", function () {
-        showServicePreview({
-            name: serviceName.value.trim(),
-            category: serviceCategory.value.trim(),
-            description: serviceDescription.value.trim(),
-            url: serviceUrl.value.trim(),
-            logo: logoRemoved ? "" : selectedLogo
-        }, "form");
-    });
-
-    // CLOSE PREVIEW.
-    // Existing-card previews return to the page.
-    // Form previews return to the Add or Edit modal.
-    function closeServicePreview() {
-        closeModal(previewModal);
-
-        if (previewReturnTo === "form") {
-            openModal(modal);
-        }
-
-        previewReturnTo = "none";
-    }
-
-    closePreviewBtn.addEventListener("click", closeServicePreview);
-
-    // Clicking outside the preview closes it.
-    previewModal.addEventListener("click", function (event) {
-        if (event.target === previewModal) {
-            closeServicePreview();
-        }
-    });
-
-    // Clicking outside the Add/Edit modal closes it.
-    modal.addEventListener("click", function (event) {
-        if (event.target === modal) {
-            closeModal(modal);
-        }
-    });
-
-    // ESCAPE KEY.
-    document.addEventListener("keydown", function (event) {
-        if (event.key !== "Escape") {
-            return;
-        }
-
-        if (previewModal.classList.contains("show")) {
-            closeServicePreview();
-        } else if (modal.classList.contains("show")) {
-            closeModal(modal);
-        }
-    });
-
-    // SEARCH SERVICES.
-    function filterServices() {
-        const query = searchInput.value.toLowerCase().trim();
-        const cards = servicesGrid.querySelectorAll(".service-card");
-
-        let visibleCount = 0;
-
-        cards.forEach(function (card) {
-            const matches = card.textContent.toLowerCase().includes(query);
-
-            card.hidden = !matches;
-
-            if (matches) {
-                visibleCount++;
-            }
-        });
-
-        noServices.style.display = visibleCount === 0 ? "flex" : "none";
-    }
-
-    searchInput.addEventListener("input", filterServices);
-
-    // CREATE A NEW SERVICE CARD.
-    function createServiceCard(name, category, description, url, logo) {
-        const card = document.createElement("article");
-        card.className = "service-card";
-
-        const top = document.createElement("div");
-        top.className = "service-card-top";
-
-        const iconContainer = document.createElement("div");
-        iconContainer.className = "service-icon";
-
-        const actions = document.createElement("div");
-        actions.className = "service-actions";
-
-        const actionDefinitions = [
-            {
-                className: "preview-action preview-card-action",
-                icon: "eye",
-                title: "Preview",
-                label: "Preview " + name
-            },
-            {
-                className: "edit-action",
-                icon: "pencil",
-                title: "Edit",
-                label: "Edit " + name
-            },
-            {
-                className: "delete-action",
-                icon: "trash-2",
-                title: "Delete",
-                label: "Delete " + name
-            }
-        ];
-
-        actionDefinitions.forEach(function (item) {
-            const button = document.createElement("button");
-
-            button.type = "button";
-            button.className = "service-action " + item.className;
-            button.title = item.title;
-            button.setAttribute("aria-label", item.label);
-
-            const icon = document.createElement("i");
-            icon.setAttribute("data-lucide", item.icon);
-
-            button.appendChild(icon);
-            actions.appendChild(button);
-        });
-
-        top.appendChild(iconContainer);
-        top.appendChild(actions);
-
-        const content = document.createElement("div");
-        content.className = "service-card-content";
-
-        const heading = document.createElement("h3");
-        heading.textContent = name;
-
-        const categoryText = document.createElement("span");
-        categoryText.textContent = category;
-
-        const descriptionText = document.createElement("p");
-        descriptionText.textContent = description;
-
-        content.appendChild(heading);
-        content.appendChild(categoryText);
-        content.appendChild(descriptionText);
-
-        const footer = document.createElement("div");
-        footer.className = "service-card-footer";
-
-        const link = document.createElement("a");
-        link.href = url;
-        link.target = "_blank";
-        link.rel = "noopener noreferrer";
-
-        link.appendChild(document.createTextNode("Visit Website "));
-
-        const linkIcon = document.createElement("i");
-        linkIcon.setAttribute("data-lucide", "arrow-up-right");
-
-        link.appendChild(linkIcon);
-        footer.appendChild(link);
-
-        card.appendChild(top);
-        card.appendChild(content);
-        card.appendChild(footer);
-
-        setCardLogo(card, logo);
-
-        return card;
-    }
-
-    // SAVE FORM.
-    serviceForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-
-        const name = serviceName.value.trim();
-        const category = serviceCategory.value.trim();
-        const description = serviceDescription.value.trim();
-        const url = serviceUrl.value.trim();
-
-        const safeUrl = getSafeWebsiteUrl(url);
-
-        if (!safeUrl) {
-            alert("Please enter a valid website URL beginning with http:// or https://.");
-            serviceUrl.focus();
-            return;
-        }
-
-        const logo = logoRemoved ? "" : selectedLogo;
-
-        if (editingCard) {
-            // UPDATE EXISTING CARD.
-            editingCard.querySelector(".service-card-content h3").textContent = name;
-
-            editingCard.querySelector(".service-card-content span").textContent =
-                category;
-
-            editingCard.querySelector(".service-card-content p").textContent =
-                description;
-
-            const link = editingCard.querySelector(".service-card-footer a");
-            link.href = safeUrl;
-
-            setCardLogo(editingCard, logo);
-
-            // Update accessible action labels after a rename.
-            editingCard.querySelector(".preview-card-action")
-                .setAttribute("aria-label", "Preview " + name);
-
-            editingCard.querySelector(".edit-action")
-                .setAttribute("aria-label", "Edit " + name);
-
-            editingCard.querySelector(".delete-action")
-                .setAttribute("aria-label", "Delete " + name);
-
-        } else {
-            // ADD NEW CARD.
-            const card = createServiceCard(
-                name,
-                category,
-                description,
-                safeUrl,
-                logo
-            );
-
-            servicesGrid.appendChild(card);
-        }
-
-        filterServices();
-
-        closeModal(modal);
-
-        editingCard = null;
-
-        clearTemporaryLogoUrl();
-        selectedLogo = "";
-        logoRemoved = false;
-
-        refreshIcons();
-    });
-
-    // CARD ACTIONS: PREVIEW, EDIT, DELETE.
-    servicesGrid.addEventListener("click", function (event) {
-        const previewButton = event.target.closest(".preview-card-action");
-        const editButton = event.target.closest(".edit-action");
-        const deleteButton = event.target.closest(".delete-action");
-
-        if (previewButton) {
-            const card = previewButton.closest(".service-card");
-
-            showServicePreview({
-                name: card.querySelector(".service-card-content h3").textContent.trim(),
-
-                category: card.querySelector(".service-card-content span")
-                    .textContent.trim(),
-
-                description: card.querySelector(".service-card-content p")
-                    .textContent.trim(),
-
-                url: card.querySelector(".service-card-footer a")
-                    .getAttribute("href") || "",
-
-                logo: getCardLogo(card)
-            }, "none");
-
-            return;
-        }
-
-        if (editButton) {
-            openServiceForm("edit", editButton.closest(".service-card"));
-            return;
-        }
-
-        if (deleteButton) {
-            const card = deleteButton.closest(".service-card");
-
-            const name = card.querySelector(
-                ".service-card-content h3"
-            ).textContent.trim();
-
-            if (confirm('Are you sure you want to delete "' + name + '"?')) {
-                card.remove();
-                filterServices();
-            }
-        }
-    });
-
-    // INITIALIZE SEARCH RESULTS.
-    filterServices();
-
-    // Ensure the initial page has rendered all icons.
-    refreshIcons();
-
-});
+  });
+  ["serviceSearch","serviceStatusFilter","serviceSort"].forEach(id => $(id).addEventListener(id==="serviceSearch"?"input":"change",()=>{currentPage=1;render();}));
+  $("servicesPagination").addEventListener("click",e=>{const b=e.target.closest("[data-page]");if(!b||b.disabled)return;currentPage=Number(b.dataset.page);render();});
+  $("servicesTableBody").addEventListener("click",e=>{
+    const b=e.target.closest("[data-action]"); if(!b)return;
+    const service=services.find(s=>s.id===Number(b.dataset.id)); if(!service)return;
+    if(b.dataset.action==="preview") { preview(service); }
+    if(b.dataset.action==="edit")openForm(service);
+    if(b.dataset.action==="delete" && confirm(`Delete "${service.name}"?`)){services=services.filter(s=>s.id!==service.id);render();}
+  });
+  $("serviceLogo").addEventListener("change",e=>{
+    const file=e.target.files?.[0]; if(!file)return;
+    if(!file.type.startsWith("image/")){alert("Please choose an image file.");return;}
+    const reader=new FileReader(); reader.onload=()=>{logoData=String(reader.result);$("serviceLogoPreview").src=logoData;$("serviceLogoPreview").hidden=false;$("logoPreviewContainer").classList.add("has-logo");$("defaultLogoIcon").hidden=true;$("removeServiceLogo").hidden=false;};reader.readAsDataURL(file);
+  });
+  $("removeServiceLogo").addEventListener("click",()=>{logoData="";$("serviceLogo").value="";$("serviceLogoPreview").src="";$("serviceLogoPreview").hidden=true;$("logoPreviewContainer").classList.remove("has-logo");$("defaultLogoIcon").hidden=false;$("removeServiceLogo").hidden=true;});
+  $("serviceForm").addEventListener("submit",e=>{
+    e.preventDefault();
+    const data={name:$("serviceName").value.trim(),description:$("serviceDescription").value.trim(),url:$("serviceUrl").value.trim(),status:$("serviceStatus").value,logo:logoData};
+    if(!data.name||!data.description){return;}
+    if(editingId!==null){services=services.map(s=>s.id===editingId?{...s,...data}:s);}
+    else{services.push({id:nextId++,created:Date.now(),...data});}
+    currentPage=1;closeForm();render();
+  });
+  $("servicePreviewModal").addEventListener("click", e => { if (e.target === $("servicePreviewModal")) closePreview(); });
+  $("serviceModal").addEventListener("click", e => { if (e.target === $("serviceModal")) closeForm(); });
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeForm();closePreview();}});
+  if(window.lucide)window.lucide.createIcons();
+  render();
+})();

@@ -1,16 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    const posts = [
-        {id:1,title:"University of Caloocan City News",category:"News",date:"2026-10-10",status:"Published",image:"",excerpt:"Latest news and updates from the University of Caloocan City.",content:"<p>Latest news and updates from the University of Caloocan City.</p>"},
-        {id:2,title:"Important University Announcement",category:"Announcement",date:"2026-10-08",status:"Published",image:"",excerpt:"An important announcement for the UCC community.",content:"<p>An important announcement for the UCC community.</p>"},
-        {id:3,title:"Upcoming University Event",category:"Event",date:"2026-10-20",status:"Pending",image:"",excerpt:"Details about an upcoming university event.",content:"<p>Details about an upcoming university event.</p>"},
-        {id:4,title:"Student Activities Update",category:"News",date:"2026-10-05",status:"Draft",image:"",excerpt:"A draft update about student activities.",content:"<p>A draft update about student activities.</p>"}
-    ];
+    const posts = [];
     let editingId = null;
-    let nextId = 5;
+    let nextId = 1;
     let currentImage = "";
     const $ = id => document.getElementById(id);
-    const tableBody = $("postsTableBody"), search = $("postSearch"), filter = $("postFilter");
+    const tableBody = $("postsTableBody"), search = $("postSearch"), filter = $("postFilter"), sort = $("postSort");
     const modal = $("postModal"), previewModal = $("postPreviewModal"), form = $("postForm"), file = $("featuredImage");
     const imagePreview = $("imagePreview"), placeholder = $("uploadPlaceholder"), removeImageBtn = $("removeImageBtn");
     const content = $("postContent"), toast = $("uiToast"), rowTemplate = $("postRowTemplate"), emptyRow = $("postsEmptyRow");
@@ -30,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         row.dataset.id = post.id; row.dataset.status = post.status; row.dataset.title = post.title;
         row.dataset.category = post.category; row.dataset.date = post.date; row.dataset.excerpt = post.excerpt;
         row.dataset.content = post.content; row.dataset.image = post.image;
+        row.dataset.createdAt = post.createdAt || String(post.id).padStart(12, "0");
         const cells = row.cells;
         const thumb = cells[0].querySelector(".featured-thumb");
         thumb.replaceChildren();
@@ -48,18 +44,73 @@ document.addEventListener("DOMContentLoaded", () => {
         return row;
     }
 
-    // Search and status filtering.
+    // Search, status filtering, and pagination.
+    const pageSize = 10;
+    let currentPage = 1;
+
+    function renderPagination(totalPages) {
+        const pagination = $("postsPagination");
+        pagination.replaceChildren();
+        pagination.hidden = false;
+
+        const addButton = (label, page, options = {}) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            if (options.icon) {
+                const icon = document.createElement("i");
+                icon.setAttribute("data-lucide", options.icon);
+                icon.setAttribute("aria-hidden", "true");
+                button.appendChild(icon);
+                button.setAttribute("aria-label", label);
+            } else button.textContent = label;
+            button.disabled = Boolean(options.disabled);
+            if (options.active) {
+                button.classList.add("active");
+                button.setAttribute("aria-current", "page");
+            }
+            button.addEventListener("click", () => {
+                currentPage = page;
+                applyFilters();
+            });
+            pagination.appendChild(button);
+        };
+
+        addButton("", Math.max(1, currentPage - 1), {disabled: currentPage === 1, icon: "chevron-left"});
+        for (let page = 1; page <= totalPages; page++) {
+            addButton(String(page), page, {active: page === currentPage});
+        }
+        addButton("", Math.min(totalPages, currentPage + 1), {disabled: currentPage === totalPages, icon: "chevron-right"});
+        lucide.createIcons();
+    }
+
     function applyFilters() {
         const query = search.value.trim().toLowerCase(), selectedStatus = filter.value;
-        let visible = 0;
-        rows().forEach(row => {
+        const sortMode = sort ? sort.value : "created-desc";
+        const matchingRows = rows().filter(row => {
             const matchesText = (row.dataset.title + " " + row.dataset.category + " " + row.dataset.excerpt).toLowerCase().includes(query);
             const matchesStatus = selectedStatus === "All" || row.dataset.status === selectedStatus;
-            row.hidden = !(matchesText && matchesStatus);
-            if (!row.hidden) visible++;
+            return matchesText && matchesStatus;
         });
-        $("postsCount").textContent = `${visible} ${visible === 1 ? "post" : "posts"}`;
-        emptyRow.hidden = visible !== 0;
+        matchingRows.sort((a, b) => {
+            if (sortMode === "created-asc") return a.dataset.createdAt.localeCompare(b.dataset.createdAt);
+            if (sortMode === "date-desc") return (b.dataset.date || "").localeCompare(a.dataset.date || "");
+            if (sortMode === "date-asc") return (a.dataset.date || "").localeCompare(b.dataset.date || "");
+            if (sortMode === "title-asc") return a.dataset.title.localeCompare(b.dataset.title);
+            if (sortMode === "title-desc") return b.dataset.title.localeCompare(a.dataset.title);
+            return b.dataset.createdAt.localeCompare(a.dataset.createdAt);
+        });
+        const totalPages = Math.max(1, Math.ceil(matchingRows.length / pageSize));
+        currentPage = Math.min(currentPage, totalPages);
+        const start = (currentPage - 1) * pageSize;
+        const pageRows = new Set(matchingRows.slice(start, start + pageSize));
+        rows().forEach(row => { row.hidden = !pageRows.has(row); });
+        $("postsCount").textContent = `${matchingRows.length} ${matchingRows.length === 1 ? "post" : "posts"}`;
+        emptyRow.hidden = matchingRows.length !== 0;
+        const endMessage = $("postsEndMessage");
+        if (endMessage) {
+            endMessage.hidden = matchingRows.length === 0 || currentPage !== totalPages;
+        }
+        renderPagination(totalPages);
     }
 
     // Image preview helper.
@@ -85,15 +136,12 @@ document.addEventListener("DOMContentLoaded", () => {
         $("postDate").value = post?.date || "";
         $("postStatus").value = post?.status || "Draft";
         setImage(post?.image || "");
-        $("saveDraftBtn").hidden = Boolean(post);
-        $("publishBtn").hidden = Boolean(post);
-        $("saveChangesBtn").hidden = !post;
         modal.classList.add("open"); modal.setAttribute("aria-hidden", "false");
         lucide.createIcons(); $("postTitle").focus();
     }
     function closePostModal() {
         modal.classList.remove("open"); modal.setAttribute("aria-hidden", "true");
-        editingId = null; form.reset(); content.innerHTML = "<p>Write your post content here...</p>"; setImage(""); file.value = "";
+        editingId = null; form.reset(); content.value = ""; setImage(""); file.value = "";
     }
 
 
@@ -101,8 +149,11 @@ document.addEventListener("DOMContentLoaded", () => {
         $("previewCategory").textContent = post.category || "News";
         $("previewTitle").textContent = post.title || "Untitled Post";
         $("previewDate").textContent = formatDate(post.date);
+        $("previewStatus").textContent = post.status || "Draft";
+        $("previewMetaCategory").textContent = post.category || "News";
+        $("previewMetaDate").textContent = formatDate(post.date);
         $("previewExcerpt").textContent = post.excerpt || "";
-        $("previewContent").innerHTML = post.content || "";
+        $("previewContent").textContent = post.content || "";
         const image = $("previewImage"), defaultImage = previewModal.querySelector(".preview-default-image");
         if (post.image) { image.src = post.image; image.hidden = false; defaultImage.hidden = true; }
         else { image.removeAttribute("src"); image.hidden = true; defaultImage.hidden = false; }
@@ -117,40 +168,49 @@ document.addEventListener("DOMContentLoaded", () => {
         const title = $("postTitle").value.trim(), excerpt = $("postExcerpt").value.trim();
         if (!title) { $("postTitle").focus(); $("postTitle").reportValidity(); return null; }
         if (!excerpt) { $("postExcerpt").focus(); $("postExcerpt").reportValidity(); return null; }
-        const bodyText = content.innerText.trim();
-        if (!bodyText) { notify("Please enter post content before saving."); content.focus(); return null; }
-        return {title, excerpt, category:$("postCategory").value, date:$("postDate").value, status, image:currentImage, content:content.innerHTML};
+        const bodyText = content.value.trim();
+        if (!bodyText) { content.focus(); content.reportValidity(); return null; }
+        return {title, excerpt, category:$("postCategory").value, date:$("postDate").value, status:$("postStatus").value, image:currentImage, content:bodyText};
     }
     function savePost(status) {
         const data = collectFormData(status); if (!data) return;
         if (editingId !== null) {
             const post = posts.find(item => item.id === editingId); if (!post) return;
-            Object.assign(post, data); updateRow(post); notify("Post changes saved.");
+            Object.assign(post, data); updateRow(post);
         } else {
-            const post = {id:nextId++, ...data}; posts.unshift(post); updateRow(post, null); notify(status === "Published" ? "Post published." : "Post saved as draft.");
+            const post = {id:nextId++, createdAt:String(Date.now()).padStart(16, "0"), ...data}; posts.unshift(post); updateRow(post, null);
         }
+        currentPage = 1;
         applyFilters(); closePostModal();
     }
 
     // Toolbar and table actions
     $("addPostBtn").addEventListener("click", () => openPostModal());
-    search.addEventListener("input", applyFilters); filter.addEventListener("change", applyFilters);
+    search.addEventListener("input", () => { currentPage = 1; applyFilters(); });
+    filter.addEventListener("change", () => { currentPage = 1; applyFilters(); });
+    if (sort) sort.addEventListener("change", () => { currentPage = 1; applyFilters(); });
     tableBody.addEventListener("click", event => {
         const button = event.target.closest("[data-action]"); if (!button || button.closest("#postRowTemplate")) return;
         const row = button.closest("tr[data-post-row]"), post = row && posts.find(item => item.id === Number(row.dataset.id));
         if (!post) return;
         if (button.dataset.action === "edit") openPostModal(post);
         if (button.dataset.action === "preview") openPreview(post);
+        if (button.dataset.action === "archive") {
+            if (post.status === "Archived") { notify("This post is already archived."); return; }
+            post.status = "Archived";
+            updateRow(post, row);
+            currentPage = 1;
+            applyFilters();
+
+        }
     });
 
     // Modal open/close
     document.querySelectorAll("[data-close-modal]").forEach(button => button.addEventListener("click", closePostModal));
     document.querySelectorAll("[data-close-preview]").forEach(button => button.addEventListener("click", closePreview));
-    $("saveDraftBtn").addEventListener("click", () => savePost("Draft"));
-    $("saveChangesBtn").addEventListener("click", () => savePost($("postStatus").value));
-    form.addEventListener("submit", event => { event.preventDefault(); savePost("Published"); });
+    form.addEventListener("submit", event => { event.preventDefault(); savePost($("postStatus").value); });
     $("formPreviewBtn").addEventListener("click", () => {
-        const draft = {title:$("postTitle").value.trim(), excerpt:$("postExcerpt").value.trim(), category:$("postCategory").value, date:$("postDate").value, image:currentImage, content:content.innerHTML};
+        const draft = {title:$("postTitle").value.trim(), excerpt:$("postExcerpt").value.trim(), category:$("postCategory").value, date:$("postDate").value, image:currentImage, content:content.value};
         openPreview(draft);
     });
     $("uploadImageBtn").addEventListener("click", () => file.click());
@@ -160,7 +220,6 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!selectedFile.type.startsWith("image/")) { notify("Please choose an image file."); file.value = ""; return; }
         const reader = new FileReader(); reader.onload = event => setImage(event.target.result); reader.readAsDataURL(selectedFile);
     });
-    document.querySelectorAll(".editor-toolbar button").forEach(button => button.addEventListener("click", () => { content.focus(); document.execCommand(button.dataset.command, false, null); }));
     document.addEventListener("keydown", event => {
         if (event.key === "Escape") { if (previewModal.classList.contains("open")) closePreview(); else if (modal.classList.contains("open")) closePostModal(); }
     });
