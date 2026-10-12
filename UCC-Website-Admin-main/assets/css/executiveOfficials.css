@@ -1,10 +1,4 @@
 
-/* =========================================================
-   UCC ADMIN — EXECUTIVE OFFICIALS
-   Theme: Green / Ivory / Gold
-   File: assets/css/executiveOfficials.css
-   ========================================================= */
-
 :root {
     --eo-green: #005f3c;
     --eo-green-dark: #00422b;
@@ -20,11 +14,6 @@
     --eo-red: #b42318;
     --eo-shadow: 0 24px 70px rgba(13, 42, 33, 0.2);
 }
-
-/* =========================================================
-   PAGE CONTENT
-   Do not override the shared dashboard/sidebar layout.
-   ========================================================= */
 
 .officials-page {
     width: 100%;
@@ -67,9 +56,6 @@
     line-height: 1.7;
 }
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
 
 .officials-page .primary-btn,
 .officials-page .secondary-btn,
@@ -138,9 +124,7 @@
     flex-shrink: 0;
 }
 
-/* =========================================================
-   TABLE CARD
-   ========================================================= */
+/* TABLE CARD */
 
 .officials-card {
     width: 100%;
@@ -151,7 +135,6 @@
     box-shadow: 0 8px 28px rgba(13, 42, 33, 0.055);
 }
 
-/* Search / filters toolbar */
 
 .table-toolbar {
     display: flex;
@@ -239,9 +222,7 @@
     white-space: nowrap;
 }
 
-/* =========================================================
-   OFFICIALS TABLE
-   ========================================================= */
+/* OFFICIALS TABLE */
 
 .table-wrap {
     width: 100%;
@@ -376,9 +357,7 @@
     line-height: 1.55;
 }
 
-/* =========================================================
-   STATUS BADGES
-   ========================================================= */
+/* STATUS BADGES */
 
 .status-badge {
     display: inline-flex;
@@ -406,9 +385,7 @@
     color: #776f61;
 }
 
-/* =========================================================
-   TABLE ACTION BUTTONS
-   ========================================================= */
+/* TABLE ACTION BUTTONS */
 
 .icon-btn {
     width: 34px;
@@ -456,9 +433,6 @@
     border-color: #f0c9c6;
 }
 
-/* =========================================================
-   EMPTY STATE
-   ========================================================= */
 
 .empty-state {
     padding: 52px 20px;
@@ -489,9 +463,7 @@
     line-height: 1.6;
 }
 
-/* =========================================================
-   MODAL BACKDROP
-   ========================================================= */
+/* MODAL BACKDROP */
 
 .modal-overlay {
     position: fixed;
@@ -515,9 +487,7 @@ body.modal-open {
     overflow: hidden;
 }
 
-/* =========================================================
-   MODAL PANELS
-   ========================================================= */
+/* MODAL PANELS */
 
 .official-modal {
     width: min(100%, 690px);
@@ -549,9 +519,7 @@ body.modal-open {
     }
 }
 
-/* =========================================================
-   MODAL HEADER
-   ========================================================= */
+/* MODAL HEADER */
 
 .modal-header {
     position: sticky;
@@ -610,9 +578,7 @@ body.modal-open {
     height: 18px;
 }
 
-/* =========================================================
-   ADD / EDIT FORM
-   ========================================================= */
+/* ADD / EDIT FORM */
 
 #officialForm {
     padding: 0;
@@ -692,9 +658,7 @@ body.modal-open {
     cursor: not-allowed;
 }
 
-/* =========================================================
-   PHOTO UPLOAD
-   ========================================================= */
+/* PHOTO UPLOAD */
 
 .photo-upload-section {
     display: flex;
@@ -757,9 +721,11 @@ body.modal-open {
 }
 
 .upload-btn {
-    min-height: 36px !important;
+    border-radius: 12px;
+    min-height: 44px !important;
     padding: 8px 12px !important;
     cursor: pointer;
+    font: 600 13px "DM Sans", sans-serif;
 }
 
 .text-btn {
@@ -777,9 +743,7 @@ body.modal-open {
     text-decoration: underline;
 }
 
-/* =========================================================
-   MODAL ACTIONS
-   ========================================================= */
+/* MODAL ACTIONS */
 
 .form-actions {
     position: sticky;
@@ -795,9 +759,7 @@ body.modal-open {
     background: var(--eo-white);
 }
 
-/* =========================================================
-   VIEW / PREVIEW DETAILS
-   ========================================================= */
+/* VIEW / PREVIEW DETAILS */
 
 .details-layout {
     display: grid;
@@ -897,9 +859,7 @@ body.modal-open {
     margin-top: 2px;
 }
 
-/* =========================================================
-   ACCESSIBILITY
-   ========================================================= */
+/* ACCESSIBILITY */
 
 @media (prefers-reduced-motion: reduce) {
     .official-modal {
@@ -913,9 +873,7 @@ body.modal-open {
     }
 }
 
-/* =========================================================
-   RESPONSIVE LAYOUT
-   ========================================================= */
+/* RESPONSIVE LAYOUT */
 
 @media (max-width: 900px) {
     .officials-page {
@@ -1065,26 +1023,25 @@ body.modal-open {
 }
 
 
-/* Add breathing room around the Executive Officials content */
 .officials-page {
     padding: 24px 28px 32px;
     box-sizing: border-box;
     min-width: 0;
 }
 
-/* Keep the toolbar and table card within the padded content */
+
 .officials-page .page-toolbar,
 .officials-page .officials-card {
     width: 100%;
     min-width: 0;
 }
 
-/* Add spacing between the toolbar and table */
+
 .officials-page .page-toolbar {
     margin-bottom: 24px;
 }
 
-/* Prevent the table from touching the card edges */
+
 .officials-page .table-wrap {
     width: 100%;
     overflow-x: auto;
@@ -1116,3 +1073,192 @@ body.modal-open {
     }
 }
 
+
+.page-toolbar {
+    display: block;
+    margin-bottom: 18px;
+}
+.toolbar-copy { margin-bottom: 16px; }
+.officials-toolbar-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    flex-wrap: nowrap;
+}
+.officials-toolbar-controls .search-box {
+    flex: 1 1 320px;
+    width: auto;
+    max-width: none;
+    min-width: 180px;
+    height: 43px;
+    min-height: 43px;
+}
+.officials-toolbar-controls .filter-box { flex: 0 0 auto; }
+.officials-toolbar-controls .filter-box select {
+    height: 43px;
+    min-height: 43px;
+    min-width: 145px;
+}
+.officials-toolbar-controls .order-filter-box select { min-width: 175px; }
+.officials-toolbar-controls .result-count { margin-left: 0; }
+.officials-toolbar-controls > .primary-btn { flex: 0 0 auto; white-space: nowrap; }
+.filter-box label { display: none; }
+
+
+.modal-description {
+    margin: 7px 0 0;
+    max-width: 520px;
+    color: var(--eo-muted);
+    font-size: 12px;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+
+.photo-upload-section { align-items: center; }
+.photo-upload-controls {
+    flex: 1 1 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.photo-upload-controls h3 { margin-right: auto; }
+#removeOfficialPhoto[hidden] { display: none !important; }
+#removeOfficialPhoto { padding: 8px 0; }
+
+
+#officialForm .form-actions { justify-content: flex-end; }
+#cancelBtn { margin-right: auto; }
+.form-grid label > span b { display: none; }
+
+
+.metadata-section {
+    margin: 0 25px 22px;
+    padding: 16px;
+    border: 1px solid var(--eo-border);
+    border-radius: 12px;
+    background: #f7f5ed;
+}
+.metadata-heading h3 { margin: 0 0 4px; color: var(--eo-green-dark); font-size: 13px; }
+.metadata-heading p { margin: 0; color: var(--eo-muted); font-size: 11px; line-height: 1.5; }
+.metadata-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 14px; }
+.metadata-grid > div { min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.metadata-grid span { color: var(--eo-muted); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+.metadata-grid strong { color: var(--eo-text); font-size: 12px; overflow-wrap: anywhere; }
+
+
+.view-modal .details-layout, .preview-modal .details-layout { grid-template-columns: 190px minmax(0, 1fr); }
+@media (max-width: 900px) {
+    .officials-toolbar-controls { flex-wrap: wrap; }
+    .officials-toolbar-controls .search-box { flex: 1 1 260px; }
+    .officials-toolbar-controls .result-count { margin-right: auto; }
+}
+@media (max-width: 600px) {
+    .officials-toolbar-controls { align-items: stretch; flex-direction: column; }
+    .officials-toolbar-controls .search-box,
+    .officials-toolbar-controls .filter-box,
+    .officials-toolbar-controls .filter-box select,
+    .officials-toolbar-controls > .primary-btn { width: 100%; max-width: none; }
+    .officials-toolbar-controls .result-count { align-self: flex-start; }
+    .photo-upload-controls { align-items: flex-start; flex-direction: column; }
+    .photo-upload-controls h3 { margin-right: 0; }
+    .metadata-section { margin: 0 17px 18px; }
+    .metadata-grid { grid-template-columns: minmax(0, 1fr); }
+    .view-modal .details-layout, .preview-modal .details-layout { grid-template-columns: minmax(0, 1fr); }
+    #cancelBtn { margin-right: 0; }
+}
+
+
+#removeOfficialPhoto.post-btn-danger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 8px 12px;
+    border: 1px solid #b42318;
+    border-radius: 10px;
+    background: #b42318;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+#removeOfficialPhoto.post-btn-danger:hover {
+    background: #912018;
+    border-color: #912018;
+}
+#removeOfficialPhoto.post-btn-danger:focus-visible {
+    outline: 3px solid rgba(180, 35, 24, .22);
+    outline-offset: 2px;
+}
+#removeOfficialPhoto.post-btn-danger svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2.25;
+    flex: 0 0 auto;
+}
+#removeOfficialPhoto[hidden] { display: none !important; }
+
+
+
+.officials-toolbar-controls .search-box,
+.officials-toolbar-controls .search-box input,
+.officials-toolbar-controls .filter-box select {
+    border-radius: 16px !important;
+}
+.officials-toolbar-controls .search-box { height: 48px; min-height: 48px; }
+.officials-toolbar-controls .search-box input,
+.officials-toolbar-controls .filter-box select { height: 48px; min-height: 48px; font: 400 13px "DM Sans", sans-serif; }
+.officials-toolbar-controls .primary-btn { min-height: 48px; border-radius: 14px !important; font: 600 13px "DM Sans", sans-serif; }
+.officials-toolbar-controls .filter-box select { font-size: 12px; }
+
+
+.officials-card-head { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.table-official-count { margin-left:auto; flex:0 0 auto; }
+
+
+#removeOfficialPhoto.post-btn-danger {
+    border-radius: 12px;
+    min-height: 42px;
+    padding: 0 15px;
+    font: 600 13px "DM Sans", sans-serif;
+}
+#removeOfficialPhoto.post-btn-danger svg { width:16px; height:16px; stroke:currentColor; stroke-width:2; flex:0 0 16px; }
+@media (max-width: 900px) { .officials-toolbar-controls .result-count { display:none; } }
+
+
+.officials-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 16px;
+    min-height: 64px;
+    padding: 18px 22px;
+}
+.officials-card-head h2 {
+    display: block;
+    flex: 0 1 auto;
+    min-width: max-content;
+    margin: 0;
+    color: var(--eo-green-dark);
+    font: 800 18px/1.35 "DM Sans", sans-serif;
+    white-space: nowrap;
+}
+.table-official-count { flex: 0 0 auto; margin-left: auto; }
+.officials-end-message { margin: 13px 0 0; text-align: center; color: #7a847f; font: 500 12px "DM Sans", sans-serif; letter-spacing: .04em; }
+.officials-pagination { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 18px auto 0; width: 100%; }
+.officials-pagination button { min-width: 38px; height: 38px; padding: 0 11px; border: 1px solid #e8e3d8; border-radius: 10px; background: #fff; color: #0d2a21; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; font: 600 13px "DM Sans", sans-serif; }
+.officials-pagination button:hover:not(:disabled), .officials-pagination button.active, .officials-pagination button[aria-current="page"] { background: #005f3c; color: #fff; border-color: #005f3c; }
+.officials-pagination button:disabled { opacity: .4; cursor: not-allowed; }
+.officials-pagination button svg { width: 16px; height: 16px; }
+@media (max-width: 560px) {
+    .officials-card-head { padding: 15px 16px; gap: 8px; }
+    .officials-card-head h2 { font-size: 16px; min-width: 0; white-space: normal; }
+    .table-official-count { font-size: 12px; }
+}
