@@ -1,505 +1,808 @@
-lucide.createIcons();
 
-/* Sidebar submenu toggle */
-document.querySelectorAll(".menu-title").forEach(button => {
-    button.addEventListener("click", () => {
-        button.parentElement.classList.toggle("open");
+
+document.addEventListener("DOMContentLoaded", () => {
+    "use strict";
+
+   
+    document.querySelectorAll(".menu-title").forEach((button) => {
+        button.addEventListener("click", () => {
+            button.parentElement.classList.toggle("open");
+        });
     });
-});
 
-/* Sample data */
-const borMembers = [
-    { photo: "BOR-MALAPITAN.jpg", name: 'Hon. Dale Gonzalo "ALONG" R. MALAPITAN', position: "Chairperson, Board of Regents", bio: "Mayor Dale Gonzalo “Along” Malapitan is the Chairman of the Board of Regents of the University of Caloocan City (UCC).", status: "Active", order: 1 },
-    { photo: "BOR-NAS.png", name: "Atty. Jessamine Jared S. Nas", position: "Vice Chairman", bio: "Board Member", status: "Active", order: 2 },
-    { photo: "BOR-CIEGO.png", name: "EnP. Aurora C. Ciego, DPA", position: "City Administrator", bio: "Board Member", status: "Active", order: 3 },
-    { photo: "BOR-CAMINA.png", name: "Atty. Michael Arthur Camina", position: "Member", bio: "Board Member", status: "Active", order: 4 },
-    { photo: "BOR-CUNANAN.png", name: "Hon. Carolyn C. Cunanan", position: "Member", bio: "Board Member", status: "Active", order: 5 },
-    { photo: "BOR-PRADO.png", name: "Hon. Atty. Patrick L. Prado", position: "Member", bio: "Majority Floor Leader / Caloocan City Council", status: "Active", order: 6 },
-    { photo: "BOR-LOPEZ.png", name: "Engr. Wenald H. Lopez, PhD", position: "Member", bio: "Board Member", status: "Active", order: 7 },
-    { photo: "BOR-JUNIO.png", name: "Mr. John Nicklaus S. Junio", position: "Member", bio: "Board Member", status: "Active", order: 8 },
-    { photo: "BOR-DANTAY.png", name: "Rodrigo M. Dantay Jr., DPA, EdD", position: "Member", bio: "DPA, EdD — Board Member", status: "Active", order: 9 },
-    { photo: "BOR-CARANDANG.png", name: "Cecille G. Carandang, CESO VI", position: "Member", bio: "Board Member", status: "Active", order: 10 },
-    { photo: "BOR-REYES.png", name: "Dionisio S. Reyes, DPA, LPT", position: "Member", bio: "Board Member", status: "Active", order: 11 },
-    { photo: "BOR-MACKAY.png", name: "Dr. Eloisa P. Mackay", position: "Member", bio: "Board Member", status: "Active", order: 12 },
-    { photo: "BOR-RABANAL.png", name: "Mr. Paul Daniel C. Rabanal", position: "Member", bio: "Board Member", status: "Active", order: 13 },
-    { photo: "BOR-GARCIA.png", name: "Ms. Princess Garcia", position: "Member", bio: "Board Member", status: "Active", order: 14 },
-    { photo: "BOR-YAKIT.png", name: "Ms. Leslie Anne C. Yakit", position: "Member", bio: "Board Member", status: "Active", order: 15 },
-    { photo: "BOR-GONZALES.png", name: "Ms. Violeta Y. Gonzales", position: "Ex-Officio Member", bio: "Board Member", status: "Active", order: 16 },
-    { photo: "BOR-YEE.png", name: "Catlleya C. Yee, PhD-ELL, LPT", position: "Secretary", bio: "Board Member", status: "Active", order: 17 }
-];
+    
 
-/* Element references */
-const tableBody = document.getElementById("borTableBody");
-const searchInput = document.getElementById("borSearch");
-const statusFilter = document.getElementById("borStatusFilter");
-const resultCount = document.getElementById("borCount");
-const emptyState = document.getElementById("borEmpty");
-const tableWrap = document.getElementById("borTableWrap");
+    let regents = [
+        ["BOR-MALAPITAN.jpg", "Dale Gonzalo Malapitan", "Chairperson", "Board of Regents"],
+        ["BOR-NAS.png", "Atty. Jessamine Jared S. Nas", "University President", "Board of Regents"],
+        ["BOR-CIEGO.png", "Regent Ciego", "Member", "Board of Regents"],
+        ["BOR-CAMINA.png", "Regent Camina", "Member", "Board of Regents"],
+        ["BOR-CUNANAN.png", "Regent Cunanan", "Member", "Board of Regents"],
+        ["BOR-PRADO.png", "Regent Prado", "Member", "Board of Regents"],
+        ["BOR-LOPEZ.png", "Regent Lopez", "Member", "Board of Regents"],
+        ["BOR-JUNIO.png", "Regent Junio", "Member", "Board of Regents"],
+        ["BOR-DANTAY.png", "Regent Dantay", "Member", "Board of Regents"],
+        ["BOR-CARANDANG.png", "Regent Carandang", "Member", "Board of Regents"],
+        ["BOR-REYES.png", "Regent Reyes", "Member", "Board of Regents"],
+        ["BOR-MACKAY.png", "Regent Mackay", "Member", "Board of Regents"],
+        ["BOR-RABANAL.png", "Regent Rabanal", "Member", "Board of Regents"],
+        ["BOR-GARCIA.png", "Regent Garcia", "Member", "Board of Regents"],
+        ["BOR-YAKIT.png", "Regent Yakit", "Member", "Board of Regents"],
+        ["BOR-GONZALES.png", "Regent Gonzales", "Member", "Board of Regents"],
+        ["BOR-YEE.png", "Regent Yee", "Member", "Board of Regents"]
+    ].map((item, index) => ({
+        id: index + 1, photo: item[0], photoUrl: "", name: item[1], position: item[2],
+        bio: item[3] || "", status: "Active", order: index + 1
+    }));
 
-const modal = document.getElementById("borModal");
-const formPreviewModal = document.getElementById("borPreviewModal");
-const viewModal = document.getElementById("borViewModal");
-const borForm = document.getElementById("borForm");
+    // ELEMENTS
+    const $ = (id) => document.getElementById(id);
 
-const photoInput = document.getElementById("borPhoto");
-const uploadImage = document.getElementById("borUploadImage");
-const uploadInitials = document.getElementById("borUploadInitials");
+    const tableBody = $("borTableBody");
+    const searchInput = $("borSearch");
+    const statusFilter = $("borStatusFilter");
+    const orderFilter = $("borOrderFilter");
+    const resultCount = $("resultCount");
+    const tableRegentCount = $("tableBorCount");
+    const pagination = $("borPagination");
+    const endMessage = $("borEndMessage");
+    const pageSize = 10;
+    let currentPage = 1;
+    const emptyState = $("borEmpty");
+    const tableWrap = $("borTableWrap");
 
-let editingIndex = null;
-let selectedPhoto = "";
-let photoObjectUrl = "";
+    const modal = $("borModal");
+    const previewModal = $("borPreviewModal");
+    const viewModal = $("borViewModal");
+    const form = $("borForm");
 
-/* Escape HTML before inserting text into markup */
-function escapeHTML(value) {
-    return String(value ?? "").replace(/[&<>'"]/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        "'": "&#39;",
-        '"': "&quot;"
-    })[char]);
-}
+    const photoInput = $("borPhoto");
+    const uploadImage = $("borUploadImage");
+    const uploadInitials = $("borUploadInitials");
+    const removePhotoBtn = $("removeBorPhoto");
 
-function initials(name) {
-    return String(name || "BR")
-        .trim()
-        .split(/\s+/)
-        .filter(Boolean)
-        .slice(0, 2)
-        .map(word => word[0])
-        .join("")
-        .toUpperCase();
-}
+    let editingId = null;
+    let nextId = regents.length + 1;
+    let currentPhotoUrl = "";
+    let temporaryPhotoUrl = "";
+    let modalReturnFocus = null;
 
-function statusClass(status) {
-    return String(status).toLowerCase() === "active"
-        ? "active"
-        : "hidden-status";
-}
+    // GENERAL HELPERS
 
-function photoUrl(photo) {
-    if (!photo) return "";
-    if (/^(blob:|data:|https?:\/\/|\/)/i.test(photo)) return photo;
-    return `images/${photo}`;
-}
-
-function photoMarkup(member) {
-    const src = photoUrl(member.photo);
-    return `
-        <div class="table-photo">
-            <span>${escapeHTML(initials(member.name))}</span>
-            ${src ? `
-                <img src="${escapeHTML(src)}"
-                     alt="${escapeHTML(member.name)}"
-                     onerror="this.remove()">
-            ` : ""}
-        </div>
-    `;
-}
-
-function updateModalScrollLock() {
-    document.body.classList.toggle(
-        "modal-open",
-        !modal.hidden || !formPreviewModal.hidden || !viewModal.hidden
-    );
-}
-
-function renderBoard() {
-    const term = searchInput.value.trim().toLowerCase();
-    const selectedStatus = statusFilter.value.toLowerCase();
-
-    const filtered = borMembers
-        .map((member, index) => ({ ...member, index }))
-        .filter(member => {
-            const searchableText = [
-                member.name,
-                member.position,
-                member.bio,
-                member.status
-            ].join(" ").toLowerCase();
-
-            return (!term || searchableText.includes(term)) &&
-                (selectedStatus === "all" ||
-                    member.status.toLowerCase() === selectedStatus);
-        })
-        .sort((a, b) => Number(a.order) - Number(b.order));
-
-    tableBody.innerHTML = filtered.map(member => `
-        <tr>
-            <td class="photo-column">${photoMarkup(member)}</td>
-
-            <td class="name-column">
-                <div class="name-cell">
-                    <strong title="${escapeHTML(member.name)}">
-                        ${escapeHTML(member.name)}
-                    </strong>
-                    <small title="${escapeHTML(member.bio || "")}">
-                        ${escapeHTML(member.bio || "—")}
-                    </small>
-                </div>
-            </td>
-
-            <td class="position-column" title="${escapeHTML(member.position)}">
-                <span class="ellipsis-text">${escapeHTML(member.position)}</span>
-            </td>
-
-            <td class="order-column">${escapeHTML(member.order)}</td>
-
-            <td class="status-column">
-                <span class="status-badge ${statusClass(member.status)}">
-                    ${escapeHTML(member.status)}
-                </span>
-            </td>
-
-            <td class="actions-cell">
-                <button class="icon-btn view" type="button"
-                    title="Preview public result" aria-label="Preview regent"
-                    data-action="preview" data-index="${member.index}">
-                    <i data-lucide="eye"></i>
-                </button>
-
-                <button class="icon-btn edit" type="button"
-                    title="Edit regent" aria-label="Edit regent"
-                    data-action="edit" data-index="${member.index}">
-                    <i data-lucide="pencil"></i>
-                </button>
-
-                <button class="icon-btn delete" type="button"
-                    title="Delete regent" aria-label="Delete regent"
-                    data-action="delete" data-index="${member.index}">
-                    <i data-lucide="trash-2"></i>
-                </button>
-            </td>
-        </tr>
-    `).join("");
-
-    resultCount.textContent =
-        `${filtered.length} ${filtered.length === 1 ? "member" : "members"}`;
-
-    emptyState.hidden = filtered.length > 0;
-    tableWrap.style.display = filtered.length ? "" : "none";
-
-    lucide.createIcons();
-}
-
-function setPhotoPreview(photo, name) {
-    const src = photoUrl(photo);
-    uploadInitials.textContent = initials(name);
-
-    if (src) {
-        uploadImage.src = src;
-        uploadImage.style.display = "";
-    } else {
-        uploadImage.removeAttribute("src");
-        uploadImage.style.display = "none";
-    }
-}
-
-function openBorModal(index = null) {
-    editingIndex = index;
-    const member = index === null
-        ? { photo: "", name: "", position: "", bio: "", status: "Active", order: borMembers.length + 1 }
-        : borMembers[index];
-
-    if (!member) return;
-
-    borForm.reset();
-    photoInput.value = "";
-    selectedPhoto = member.photo || "";
-
-    document.getElementById("borModalTitle").textContent =
-        index === null ? "Add Regent" : "Edit Regent";
-    document.getElementById("borName").value = member.name || "";
-    document.getElementById("borPosition").value = member.position || "";
-    document.getElementById("borBio").value = member.bio || "";
-    document.getElementById("borStatus").value = member.status || "Active";
-    document.getElementById("borOrder").value = member.order || 1;
-
-    setPhotoPreview(selectedPhoto, member.name);
-    modal.hidden = false;
-    updateModalScrollLock();
-
-    requestAnimationFrame(() => document.getElementById("borName").focus());
-}
-
-function closeBorModal() {
-    modal.hidden = true;
-    updateModalScrollLock();
-}
-
-function openBorView(index) {
-    const member = borMembers[index];
-    if (!member) return;
-
-    document.getElementById("borViewTitle").textContent = member.name;
-    document.getElementById("borViewName").textContent = member.name;
-    document.getElementById("borViewPosition").textContent =
-        member.position || "No position provided";
-    document.getElementById("borViewBio").textContent =
-        member.bio || "No additional description provided.";
-    document.getElementById("borViewOrder").textContent =
-        `Display Order: ${member.order}`;
-
-    const status = document.getElementById("borViewStatus");
-    status.textContent = member.status;
-    status.className = `status-badge ${statusClass(member.status)}`;
-
-    const image = document.getElementById("borViewImage");
-    image.alt = member.name;
-    image.src = photoUrl(member.photo) || "images/default-avatar.png";
-    image.onerror = () => {
-        image.removeAttribute("src");
-        image.style.display = "none";
-    };
-    image.style.display = "";
-
-    document.getElementById("borViewInitials").textContent = initials(member.name);
-
-    viewModal.hidden = false;
-    updateModalScrollLock();
-    lucide.createIcons();
-}
-
-function closeBorView() {
-    viewModal.hidden = true;
-    updateModalScrollLock();
-}
-
-function getFormMember() {
-    const name = document.getElementById("borName").value.trim();
-
-    return {
-        photo: selectedPhoto,
-        name,
-        position: document.getElementById("borPosition").value.trim(),
-        bio: document.getElementById("borBio").value.trim()
-            || "No additional description provided.",
-        status: document.getElementById("borStatus").value,
-        order: Math.max(1, Number(document.getElementById("borOrder").value) || 1)
-    };
-}
-
-function showFormPreview() {
-    // Validate required form fields before showing the preview.
-    if (!borForm.reportValidity()) return;
-
-    const member = getFormMember();
-
-    document.getElementById("borPreviewTitle").textContent =
-        "Regent Preview";
-
-    document.getElementById("borPreviewName").textContent =
-        member.name || "Regent Name";
-
-    document.getElementById("borPreviewPosition").textContent =
-        member.position || "No position provided";
-
-    document.getElementById("borPreviewBio").textContent =
-        member.bio || "No additional description provided.";
-
-    document.getElementById("borPreviewOrder").textContent =
-        `Display Order: ${member.order}`;
-
-    const status = document.getElementById("borPreviewStatus");
-
-    status.textContent = member.status;
-    status.className =
-        `status-badge ${statusClass(member.status)}`;
-
-    // Update fallback initials.
-    document.getElementById("borPreviewInitials").textContent =
-        initials(member.name);
-
-    // Update preview image.
-    const image = document.getElementById("borPreviewImage");
-    const imageContainer = document.getElementById("borPreviewPhoto");
-    const imageUrl = photoUrl(member.photo);
-
-    image.onerror = () => {
-        image.hidden = true;
-        image.removeAttribute("src");
-    };
-
-    image.onload = () => {
-        image.hidden = false;
-    };
-
-    if (imageUrl) {
-        image.hidden = false;
-        image.src = imageUrl;
-    } else {
-        image.hidden = true;
-        image.removeAttribute("src");
+    function escapeHTML(value = "") {
+        return String(value).replace(/[&<>"']/g, (character) => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#039;"
+        })[character]);
     }
 
-    // Switch to preview while preserving the current form values.
-    modal.hidden = true;
-    formPreviewModal.hidden = false;
+    function getInitials(name = "") {
+        const words = name.trim().split(/\s+/).filter(Boolean);
 
-    updateModalScrollLock();
-    lucide.createIcons();
-}
+        if (!words.length) return "BR";
 
-function saveMember() {
-    if (!borForm.reportValidity()) return;
-
-    const member = getFormMember();
-
-    if (editingIndex === null) {
-        borMembers.push(member);
-    } else if (borMembers[editingIndex]) {
-        borMembers[editingIndex] = member;
-    } else {
-        return;
+        return words.slice(0, 2)
+            .map((word) => word.charAt(0))
+            .join("")
+            .toUpperCase();
     }
 
-    modal.hidden = true;
-    formPreviewModal.hidden = true;
-    editingIndex = null;
-    updateModalScrollLock();
-    renderBoard();
-}
+    function normalizePhotoUrl(photo) {
+        if (!photo) return "";
 
-/* Buttons */
-document.getElementById("addBorBtn").addEventListener("click", () => openBorModal());
-document.getElementById("closeBorModal").addEventListener("click", closeBorModal);
-document.getElementById("cancelBorBtn").addEventListener("click", closeBorModal);
-document.getElementById("closeBorView").addEventListener("click", closeBorView);
+        const value = String(photo).trim();
 
-document.getElementById("previewBorFormBtn")
-    .addEventListener("click", showFormPreview);
+        if (
+            /^(https?:|data:|blob:)/i.test(value) ||
+            value.startsWith("/") ||
+            value.startsWith("./") ||
+            value.startsWith("../")
+        ) {
+            return value;
+        }
 
-function returnToBorForm() {
-    formPreviewModal.hidden = true;
-    modal.hidden = false;
+        if (value.startsWith("images/")) {
+            return `/assets/${value}`;
+        }
 
-    updateModalScrollLock();
+        if (value.startsWith("assets/")) {
+            return value;
+        }
 
-    requestAnimationFrame(() => {
-        document.getElementById("borName").focus();
-    });
-}
-
-document.getElementById("closeBorPreview")
-    .addEventListener("click", returnToBorForm);
-
-document.getElementById("backToBorForm")
-    .addEventListener("click", returnToBorForm);
-
-formPreviewModal.addEventListener("click", event => {
-    if (event.target === formPreviewModal) {
-        returnToBorForm();
-    }
-});
-
-document.getElementById("saveFromPreview")
-    .addEventListener("click", saveMember);
-
-searchInput.addEventListener("input", renderBoard);
-statusFilter.addEventListener("change", renderBoard);
-
-/* Image upload and removal */
-photoInput.addEventListener("change", () => {
-    const file = photoInput.files?.[0];
-    if (!file) return;
-
-    if (!file.type.startsWith("image/")) {
-        alert("Please select a valid image file.");
-        photoInput.value = "";
-        return;
+        return `/assets/images/${value}`;
     }
 
-    if (file.size > 10 * 1024 * 1024) {
-        alert("Please choose an image smaller than 10 MB.");
-        photoInput.value = "";
-        return;
+    function getPhoto(item) {
+        return item.photoUrl || normalizePhotoUrl(item.photo);
     }
 
-    if (photoObjectUrl) URL.revokeObjectURL(photoObjectUrl);
-    photoObjectUrl = URL.createObjectURL(file);
-    selectedPhoto = photoObjectUrl;
+    function setImage(element, url, fallbackElement) {
+        if (!element) return;
 
-    const name = document.getElementById("borName").value.trim();
-    setPhotoPreview(selectedPhoto, name);
-});
+        element.onerror = null;
 
-document.getElementById("removeBorPhoto").addEventListener("click", () => {
-    photoInput.value = "";
-    selectedPhoto = "";
+        if (!url) {
+            element.hidden = true;
 
-    if (photoObjectUrl) {
-        URL.revokeObjectURL(photoObjectUrl);
-        photoObjectUrl = "";
-    }
-
-    setPhotoPreview("", document.getElementById("borName").value.trim());
-});
-
-document.getElementById("borName").addEventListener("input", event => {
-    uploadInitials.textContent = initials(event.target.value);
-});
-
-/* Save from the form */
-borForm.addEventListener("submit", event => {
-    event.preventDefault();
-    saveMember();
-});
-
-/* Table actions */
-tableBody.addEventListener("click", event => {
-    const button = event.target.closest("[data-action]");
-    if (!button) return;
-
-    const index = Number(button.dataset.index);
-    const member = borMembers[index];
-    if (!member) return;
-
-    switch (button.dataset.action) {
-        case "preview":
-            openBorView(index);
-            break;
-        case "edit":
-            openBorModal(index);
-            break;
-        case "delete":
-            if (confirm(`Delete ${member.name}?`)) {
-                borMembers.splice(index, 1);
-                if (editingIndex === index) editingIndex = null;
-                renderBoard();
+            if (fallbackElement) {
+                fallbackElement.hidden = false;
             }
-            break;
+
+            return;
+        }
+
+        element.onload = () => {
+            element.hidden = false;
+
+            if (fallbackElement) {
+                fallbackElement.hidden = true;
+            }
+        };
+
+        element.onerror = () => {
+            element.hidden = true;
+
+            if (fallbackElement) {
+                fallbackElement.hidden = false;
+            }
+        };
+
+        element.src = url;
     }
-});
 
-/* Close overlays by clicking outside the dialog */
-modal.addEventListener("click", event => {
-    if (event.target === modal) closeBorModal();
-});
-
-formPreviewModal.addEventListener("click", event => {
-    if (event.target === formPreviewModal) {
-        formPreviewModal.hidden = true;
-        modal.hidden = false;
-        updateModalScrollLock();
+    function refreshIcons() {
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
     }
-});
 
-viewModal.addEventListener("click", event => {
-    if (event.target === viewModal) closeBorView();
-});
+    function setStatusBadge(element, status) {
+        if (!element) return;
 
-/* Escape closes the topmost open modal */
-document.addEventListener("keydown", event => {
-    if (event.key !== "Escape") return;
+        element.textContent = status;
 
-    if (!viewModal.hidden) {
-        closeBorView();
-    } else if (!formPreviewModal.hidden) {
-        returnToBorForm();
-    } else if (!modal.hidden) {
-        closeBorModal();
+        element.className = "status-badge " +
+            (status === "Active" ? "active" : "hidden-status");
     }
-});
 
-/* Initial render */
-renderBoard();
+    function showModal(element) {
+        if (!element) return;
+
+        element.hidden = false;
+        document.body.classList.add("modal-open");
+        refreshIcons();
+    }
+
+    function syncModalState() {
+        const anyOpen = [modal, previewModal, viewModal]
+            .some((element) => element && !element.hidden);
+
+        document.body.classList.toggle("modal-open", anyOpen);
+    }
+
+    function closeModal(element, restoreFocus = false) {
+        if (!element) return;
+
+        element.hidden = true;
+        syncModalState();
+
+        if (restoreFocus && modalReturnFocus) {
+            modalReturnFocus.focus();
+        }
+    }
+
+    function getFilteredRegents() {
+        const term = searchInput ? searchInput.value.trim().toLowerCase() : "";
+        const selectedStatus = statusFilter ? statusFilter.value : "all";
+
+        const filtered = regents
+            .filter((item) => {
+                const searchable = [
+                    item.name,
+                    item.position,
+                    item.bio,
+                    item.status
+                ].join(" ").toLowerCase();
+
+                const matchesSearch = searchable.includes(term);
+                const matchesStatus =
+                    selectedStatus === "all" ||
+                    (item.status.toLowerCase() === selectedStatus || (selectedStatus === "hidden" && item.status.toLowerCase() === "inactive"));
+
+                return matchesSearch && matchesStatus;
+            });
+
+        const sortMode = orderFilter ? orderFilter.value : "ascending";
+        return filtered.sort((a, b) => {
+            if (sortMode === "descending") return b.order - a.order || b.id - a.id;
+            if (sortMode === "name") return a.name.localeCompare(b.name);
+            return a.order - b.order || a.id - b.id;
+        });
+    }
+
+
+    // RENDER TABLE
+
+    function renderRegents() {
+        if (!tableBody) return;
+
+        const filtered = getFilteredRegents();
+        const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+        currentPage = Math.min(currentPage, totalPages);
+        const pageItems = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+        tableBody.innerHTML = pageItems.map((item) => {
+            const initials = escapeHTML(getInitials(item.name));
+            const photo = escapeHTML(getPhoto(item));
+            const name = escapeHTML(item.name);
+            const position = escapeHTML(item.position);
+            const bio = escapeHTML(item.bio || "—");
+            const status = escapeHTML(item.status);
+
+            return `
+                <tr>
+                    <td>
+                        <div class="table-photo">
+                            <span>${initials}</span>
+                            <img
+                                src="${photo}"
+                                alt="${name}"
+                                ${photo ? "" : "hidden"}>
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="name-cell">
+                            <strong>${name}</strong>
+                            <small>${bio}</small>
+                        </div>
+                    </td>
+
+                    <td>${position}</td>
+
+                    <td>${item.order}</td>
+
+                    <td>
+                        <span class="status-badge ${
+                            item.status === "Active"
+                                ? "active"
+                                : "hidden-status"
+                        }">${status}</span>
+                    </td>
+
+                    <td class="actions-cell">
+                        <button
+                            class="icon-btn view"
+                            type="button"
+                            title="View details"
+                            aria-label="View ${name}"
+                            data-action="view"
+                            data-id="${item.id}">
+                            <i data-lucide="eye"></i>
+                        </button>
+
+                        <button
+                            class="icon-btn edit"
+                            type="button"
+                            title="Edit regent"
+                            aria-label="Edit ${name}"
+                            data-action="edit"
+                            data-id="${item.id}">
+                            <i data-lucide="pencil"></i>
+                        </button>
+
+                        <button
+                            class="icon-btn delete"
+                            type="button"
+                            title="Delete regent"
+                            aria-label="Delete ${name}"
+                            data-action="delete"
+                            data-id="${item.id}">
+                            <i data-lucide="trash-2"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join("");
+
+        // Handle table photo errors without inline JavaScript.
+        tableBody.querySelectorAll(".table-photo img").forEach((img) => {
+            img.addEventListener("error", () => {
+                img.hidden = true;
+            }, { once: true });
+
+            img.addEventListener("load", () => {
+                img.hidden = false;
+            }, { once: true });
+        });
+
+        const countText = `${filtered.length} ${filtered.length === 1 ? "regent" : "regents"}`;
+        if (resultCount) resultCount.textContent = countText;
+        if (tableRegentCount) tableRegentCount.textContent = countText;
+        renderRegentsPagination(totalPages, filtered.length);
+
+        if (emptyState) {
+            emptyState.hidden = filtered.length > 0;
+        }
+
+        if (tableWrap) {
+            tableWrap.hidden = filtered.length === 0;
+        } else if (tableBody.parentElement) {
+            tableBody.parentElement.style.display =
+                filtered.length ? "" : "none";
+        }
+
+        refreshIcons();
+    }
+
+    function renderRegentsPagination(totalPages, totalItems) {
+        if (!pagination) return;
+        pagination.replaceChildren();
+        pagination.hidden = false;
+        const addButton = (label, page, options = {}) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            if (options.icon) {
+                const icon = document.createElement("i");
+                icon.setAttribute("data-lucide", options.icon);
+                icon.setAttribute("aria-hidden", "true");
+                button.appendChild(icon);
+                button.setAttribute("aria-label", options.label || label);
+            } else button.textContent = label;
+            button.disabled = Boolean(options.disabled);
+            if (options.active) {
+                button.classList.add("active");
+                button.setAttribute("aria-current", "page");
+            }
+            button.addEventListener("click", () => { currentPage = page; renderRegents(); });
+            pagination.appendChild(button);
+        };
+        addButton("", Math.max(1, currentPage - 1), { disabled: currentPage === 1, icon: "chevron-left", label: "Previous page" });
+        for (let page = 1; page <= totalPages; page++) addButton(String(page), page, { active: page === currentPage });
+        addButton("", Math.min(totalPages, currentPage + 1), { disabled: currentPage === totalPages, icon: "chevron-right", label: "Next page" });
+        if (endMessage) endMessage.hidden = totalItems === 0 || currentPage !== totalPages;
+        refreshIcons();
+    }
+
+    // FORM AND PHOTO PREVIEW
+
+    function updateFormPhotoPreview(url, name) {
+        const uploadLabel = document.querySelector('label[for="regentPhoto"]');
+        if (uploadLabel) {
+            uploadLabel.innerHTML = `<i data-lucide="upload"></i> Choose Photo`;
+        }
+        if (removePhotoBtn) removePhotoBtn.hidden = !url;
+        if (uploadInitials) {
+            uploadInitials.textContent = getInitials(name || "Board Regent");
+            uploadInitials.hidden = Boolean(url);
+        }
+
+        if (uploadImage) {
+            setImage(uploadImage, url, uploadInitials);
+        }
+        refreshIcons();
+    }
+
+    function clearTemporaryPhoto() {
+        if (temporaryPhotoUrl) {
+            URL.revokeObjectURL(temporaryPhotoUrl);
+            temporaryPhotoUrl = "";
+        }
+    }
+
+    function openRegentModal(id = null) {
+        if (!form || !modal) return;
+
+        clearTemporaryPhoto();
+
+        editingId = id;
+        modalReturnFocus = document.activeElement;
+
+        const item = id === null
+            ? {
+                photo: "",
+                photoUrl: "",
+                name: "",
+                position: "",
+                bio: "",
+                status: "Active",
+                order: regents.length + 1
+            }
+            : regents.find((regent) => regent.id === id);
+
+        if (!item) return;
+
+        form.reset();
+
+        $("borModalTitle").textContent =
+            id === null ? "Add Regent" : "Edit Regent";
+
+        $("borName").value = item.name;
+        $("borPosition").value = item.position;
+        $("borBio").value = item.bio;
+        $("borOrder").value = item.order;
+        $("borStatus").value = item.status;
+        currentPhotoUrl = item.photoUrl || "";
+        const photo = getPhoto(item);
+
+        if (photoInput) {
+            photoInput.value = "";
+        }
+
+        updateFormPhotoPreview(photo, item.name);
+
+        showModal(modal);
+
+        if ($("borName")) {
+            $("borName").focus();
+        }
+    }
+
+    function closeRegentModal() {
+        closeModal(modal, true);
+        clearTemporaryPhoto();
+    }
+
+    function readForm() {
+        const name = $("borName").value.trim();
+        const position = $("borPosition").value.trim();
+        const bio = $("borBio").value.trim();
+        const status = $("borStatus").value;
+        const order = Number($("borOrder").value);
+
+        if (!name || !position) {
+            form.reportValidity();
+            return null;
+        }
+
+        if (!Number.isInteger(order) || order < 1) {
+            $("borOrder").setCustomValidity(
+                "Display order must be a whole number greater than zero."
+            );
+            $("borOrder").reportValidity();
+            $("borOrder").setCustomValidity("");
+            return null;
+        }
+
+        const previous = editingId === null
+            ? null
+            : regents.find((item) => item.id === editingId);
+
+        return {
+            id: editingId === null ? nextId : editingId,
+            photo: previous ? previous.photo : "",
+            photoUrl: currentPhotoUrl,
+            name,
+            position,
+            bio,
+            status,
+            order
+        };
+    }
+
+    function saveRegent() {
+        if (!form.reportValidity()) return;
+
+        const item = readForm();
+
+        if (!item) return;
+
+        if (editingId === null) {
+            regents.push(item);
+            nextId += 1;
+        } else {
+            const index = regents.findIndex(
+                (regent) => regent.id === editingId
+            );
+
+            if (index === -1) return;
+
+            regents[index] = item;
+        }
+
+        clearTemporaryPhoto();
+
+        closeModal(modal);
+        closeModal(previewModal);
+
+        editingId = null;
+        currentPhotoUrl = "";
+
+        renderRegents();
+        syncModalState();
+    }
+
+    // Keep internal metadata synchronized with form fields.
+    if ($("borStatus")) {
+        $("borStatus").addEventListener("change", () => {
+            if ($("borPreviewMetadataStatus")) $("borPreviewMetadataStatus").textContent = $("borStatus").value === "Hidden" ? "Hidden" : $("borStatus").value;
+        });
+    }
+    if ($("borOrder")) {
+        $("borOrder").addEventListener("input", () => {
+            if ($("borPreviewMetadataOrder")) $("borPreviewMetadataOrder").textContent = $("borOrder").value || "—";
+        });
+    }
+
+    // PHOTO UPLOAD
+
+    if (photoInput) {
+        photoInput.addEventListener("change", () => {
+            const file = photoInput.files && photoInput.files[0];
+
+            if (!file) return;
+
+            if (!file.type.startsWith("image/")) {
+                alert("Please select a valid image file.");
+                photoInput.value = "";
+                return;
+            }
+
+            const maxSize = 10 * 1024 * 1024;
+
+            if (file.size > maxSize) {
+                alert("The image must be 10 MB or smaller.");
+                photoInput.value = "";
+                return;
+            }
+
+            clearTemporaryPhoto();
+
+            temporaryPhotoUrl = URL.createObjectURL(file);
+            currentPhotoUrl = temporaryPhotoUrl;
+
+            updateFormPhotoPreview(currentPhotoUrl, $("borName").value);
+        });
+    }
+
+    if (removePhotoBtn) {
+        removePhotoBtn.addEventListener("click", () => {
+            clearTemporaryPhoto();
+
+            currentPhotoUrl = "";
+
+            if (photoInput) {
+                photoInput.value = "";
+            }
+
+            updateFormPhotoPreview("", $("borName").value);
+        });
+    }
+
+    if ($("borName")) {
+        $("borName").addEventListener("input", () => {
+            if (!currentPhotoUrl) {
+                updateFormPhotoPreview("", $("borName").value);
+            }
+        });
+    }
+
+    // PREVIEW MODAL
+
+    function showRegentPreview() {
+        if (!form.reportValidity()) return;
+
+        const item = readForm();
+
+        if (!item) return;
+
+        $("borPreviewTitle").textContent = "Regent Preview";
+
+        $("borPreviewName").textContent = item.name;
+        $("borPreviewPosition").textContent = item.position;
+        $("borPreviewBio").textContent =
+            item.bio || "No additional description provided.";
+        $("borPreviewOrder").textContent =
+            `Display order: ${item.order}`;
+
+        setStatusBadge($("borPreviewStatus"), item.status);
+        if ($("borPreviewMetadataId")) $("borPreviewMetadataId").textContent = editingId === null ? "Assigned when saved" : `EO-${String(editingId).padStart(4, "0")}`;
+        if ($("borPreviewMetadataStatus")) $("borPreviewMetadataStatus").textContent = item.status === "Hidden" ? "Hidden" : item.status;
+        if ($("borPreviewMetadataOrder")) $("borPreviewMetadataOrder").textContent = String(item.order);
+
+        const previewInitials = $("borPreviewInitials");
+        const previewImage = $("borPreviewImage");
+
+        if (previewInitials) {
+            previewInitials.textContent = getInitials(item.name);
+            previewInitials.hidden = Boolean(currentPhotoUrl);
+        }
+
+        if (previewImage) {
+            setImage(previewImage, currentPhotoUrl, previewInitials);
+        }
+
+        showModal(previewModal);
+    }
+
+    function returnToRegentForm() {
+        closeModal(previewModal);
+        showModal(modal);
+    }
+
+    // VIEW DETAILS MODAL
+    function openViewModal(id) {
+        const item = regents.find((regent) => regent.id === id);
+
+        if (!item) return;
+
+        $("borViewTitle").textContent = "Regent Preview";
+        $("borViewName").textContent = item.name;
+        $("borViewPosition").textContent = item.position;
+        $("borViewBio").textContent =
+            item.bio || "No additional description provided.";
+
+        if ($("borViewOrder")) {
+            $("borViewOrder").textContent = `Display order: ${item.order}`;
+        }
+
+        setStatusBadge($("borViewStatus"), item.status);
+        if ($("borViewMetadataId")) $("borViewMetadataId").textContent = `EO-${String(item.id).padStart(4, "0")}`;
+        if ($("borViewMetadataStatus")) $("borViewMetadataStatus").textContent = item.status === "Hidden" ? "Hidden" : item.status;
+        if ($("borViewMetadataOrder")) $("borViewMetadataOrder").textContent = String(item.order);
+
+        const photoContainer = document.querySelector("#viewModal .details-photo");
+
+        if (photoContainer) {
+            let image = $("borViewImage");
+            let initials = $("borViewInitials");
+
+            // Support either the supplied IDs or the original markup.
+            if (!image) {
+                image = photoContainer.querySelector("img");
+
+                if (!image) {
+                    image = document.createElement("img");
+                    image.id = "viewImage";
+                    image.alt = "";
+                    photoContainer.appendChild(image);
+                }
+            }
+
+            if (!initials) {
+                initials = photoContainer.querySelector("span");
+
+                if (!initials) {
+                    initials = document.createElement("span");
+                    initials.id = "viewInitials";
+                    photoContainer.appendChild(initials);
+                }
+            }
+
+            initials.textContent = getInitials(item.name);
+            initials.hidden = Boolean(getPhoto(item));
+
+            setImage(image, getPhoto(item), initials);
+        }
+
+        showModal(viewModal);
+    }
+
+
+    // EVENT LISTENERS
+    if ($("addBorBtn")) {
+        $("addBorBtn").addEventListener("click", () => {
+            openRegentModal();
+        });
+    }
+
+    if ($("closeBorModal")) {
+        $("closeBorModal").addEventListener("click", closeRegentModal);
+    }
+
+    if ($("cancelBorBtn")) {
+        $("cancelBorBtn").addEventListener("click", closeRegentModal);
+    }
+
+    if ($("previewBorFormBtn")) {
+        $("previewBorFormBtn").addEventListener(
+            "click",
+            showRegentPreview
+        );
+    }
+
+    if ($("closeBorPreview")) {
+        $("closeBorPreview").addEventListener("click", () => {
+            closeModal(previewModal);
+            showModal(modal);
+        });
+    }
+
+    if ($("closeBorView")) {
+        $("closeBorView").addEventListener("click", () => {
+            closeModal(viewModal);
+        });
+    }
+
+    if (form) {
+        form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            saveRegent();
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener("input", () => { currentPage = 1; renderRegents(); });
+    }
+
+    if (statusFilter) {
+        statusFilter.addEventListener("change", () => { currentPage = 1; renderRegents(); });
+    }
+    if (orderFilter) {
+        orderFilter.addEventListener("change", () => { currentPage = 1; renderRegents(); });
+    }
+
+    if (tableBody) {
+        tableBody.addEventListener("click", (event) => {
+            const button = event.target.closest("[data-action]");
+
+            if (!button) return;
+
+            const id = Number(button.dataset.id);
+            const action = button.dataset.action;
+            const item = regents.find((regent) => regent.id === id);
+
+            if (!item) return;
+
+            if (action === "view") {
+                openViewModal(id);
+            }
+
+            if (action === "edit") {
+                openRegentModal(id);
+            }
+
+            if (action === "delete") {
+                const confirmed = window.confirm(
+                    `Are you sure you want to delete "${item.name}"?`
+                );
+
+                if (!confirmed) return;
+
+                regents = regents.filter(
+                    (regent) => regent.id !== id
+                );
+
+                renderRegents();
+            }
+        });
+    }
+
+    // Close a modal by clicking its backdrop.
+    [modal, previewModal, viewModal].forEach((element) => {
+        if (!element) return;
+
+        element.addEventListener("click", (event) => {
+            if (event.target !== element) return;
+
+            if (element === previewModal) {
+                closeModal(previewModal);
+                closeRegentModal();
+                return;
+            }
+
+            closeModal(element);
+        });
+    });
+
+    // Escape closes the topmost visible modal.
+    document.addEventListener("keydown", (event) => {
+        if (event.key !== "Escape") return;
+
+        if (viewModal && !viewModal.hidden) {
+            closeModal(viewModal);
+        } else if (previewModal && !previewModal.hidden) {
+            closeModal(previewModal);
+            showModal(modal);
+        } else if (modal && !modal.hidden) {
+            closeRegentModal();
+        }
+    });
+
+    // INITIALIZE
+    renderRegents();
+    refreshIcons();
+});

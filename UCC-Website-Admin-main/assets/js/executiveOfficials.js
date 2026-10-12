@@ -1,11 +1,7 @@
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
     "use strict";
 
-   
-    // SIDEBAR
     
     document.querySelectorAll(".menu-title").forEach((button) => {
         button.addEventListener("click", () => {
@@ -50,18 +46,22 @@ document.addEventListener("DOMContentLoaded", () => {
         order: index + 1
     }));
 
-    // -----------------------------------------------------
+
     // ELEMENTS
-    // -----------------------------------------------------
 
     const $ = (id) => document.getElementById(id);
 
     const tableBody = $("officialsTableBody");
     const searchInput = $("officialSearch");
     const statusFilter = $("officialStatusFilter");
+    const orderFilter = $("officialOrderFilter");
     const resultCount = $("resultCount");
     const emptyState = $("emptyState");
     const tableWrap = $("officialsTableWrap");
+    const pagination = $("officialsPagination");
+    const endMessage = $("officialsEndMessage");
+    const pageSize = 10;
+    let currentPage = 1;
 
     const modal = $("officialModal");
     const previewModal = $("officialPreviewModal");
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const term = searchInput ? searchInput.value.trim().toLowerCase() : "";
         const selectedStatus = statusFilter ? statusFilter.value : "all";
 
-        return officials
+        const filtered = officials
             .filter((item) => {
                 const searchable = [
                     item.name,
@@ -223,8 +223,14 @@ document.addEventListener("DOMContentLoaded", () => {
                     item.status.toLowerCase() === selectedStatus;
 
                 return matchesSearch && matchesStatus;
-            })
-            .sort((a, b) => a.order - b.order || a.id - b.id);
+            });
+
+        const sortMode = orderFilter ? orderFilter.value : "ascending";
+        return filtered.sort((a, b) => {
+            if (sortMode === "descending") return b.order - a.order || b.id - a.id;
+            if (sortMode === "name") return a.name.localeCompare(b.name);
+            return a.order - b.order || a.id - b.id;
+        });
     }
 
     // -----------------------------------------------------
@@ -235,8 +241,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!tableBody) return;
 
         const filtered = getFilteredOfficials();
+        const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+        currentPage = Math.min(currentPage, totalPages);
+        const pageItems = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
 
-        tableBody.innerHTML = filtered.map((item) => {
+        tableBody.innerHTML = pageItems.map((item) => {
             const initials = escapeHTML(getInitials(item.name));
             const photo = escapeHTML(getPhoto(item));
             const name = escapeHTML(item.name);
@@ -321,10 +330,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }, { once: true });
         });
 
-        if (resultCount) {
-            resultCount.textContent =
-                `${filtered.length} ${filtered.length === 1 ? "official" : "officials"}`;
+        const tableCount = $("tableOfficialCount");
+        if (tableCount) {
+            tableCount.textContent = `${filtered.length} ${filtered.length === 1 ? "official" : "officials"}`;
         }
+        renderOfficialsPagination(totalPages, filtered.length);
 
         if (emptyState) {
             emptyState.hidden = filtered.length > 0;
@@ -340,11 +350,54 @@ document.addEventListener("DOMContentLoaded", () => {
         refreshIcons();
     }
 
-    // -----------------------------------------------------
+
+    function renderOfficialsPagination(totalPages, totalItems) {
+        if (!pagination) return;
+        pagination.replaceChildren();
+        pagination.hidden = false;
+        const addButton = (label, page, options = {}) => {
+            const button = document.createElement("button");
+            button.type = "button";
+            if (options.icon) {
+                const icon = document.createElement("i");
+                icon.setAttribute("data-lucide", options.icon);
+                icon.setAttribute("aria-hidden", "true");
+                button.appendChild(icon);
+                button.setAttribute("aria-label", options.label || label);
+            } else button.textContent = label;
+            button.disabled = Boolean(options.disabled);
+            if (options.active) {
+                button.classList.add("active");
+                button.setAttribute("aria-current", "page");
+            }
+            button.addEventListener("click", () => { currentPage = page; renderOfficials(); });
+            pagination.appendChild(button);
+        };
+        addButton("", Math.max(1, currentPage - 1), { disabled: currentPage === 1, icon: "chevron-left", label: "Previous page" });
+        for (let page = 1; page <= totalPages; page++) addButton(String(page), page, { active: page === currentPage });
+        addButton("", Math.min(totalPages, currentPage + 1), { disabled: currentPage === totalPages, icon: "chevron-right", label: "Next page" });
+        if (endMessage) endMessage.hidden = totalItems === 0 || currentPage !== totalPages;
+        refreshIcons();
+    }
+
+    function updateRecordMetadata(prefix, item) {
+        if (!item) return;
+        const idEl = $(`${prefix}MetadataId`);
+        const statusEl = $(`${prefix}MetadataStatus`);
+        const orderEl = $(`${prefix}MetadataOrder`);
+        if (idEl) idEl.textContent = `EO-${String(item.id).padStart(4, "0")}`;
+        if (statusEl) statusEl.textContent = String(item.status).toLowerCase() === "inactive" ? "Hidden" : "Active";
+        if (orderEl) orderEl.textContent = String(item.order ?? "—");
+    }
+
     // FORM AND PHOTO PREVIEW
-    // -----------------------------------------------------
 
     function updateFormPhotoPreview(url, name) {
+        const uploadLabel = document.querySelector('label[for="officialPhoto"]');
+        if (uploadLabel) {
+            uploadLabel.innerHTML = `<i data-lucide="${url ? "image" : "upload"}"></i> ${url ? "Choose Photo" : "Choose Photo"}`;
+        }
+        if (removePhotoBtn) removePhotoBtn.hidden = !url;
         if (uploadInitials) {
             uploadInitials.textContent = getInitials(name || "Executive Official");
             uploadInitials.hidden = Boolean(url);
@@ -353,6 +406,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (uploadImage) {
             setImage(uploadImage, url, uploadInitials);
         }
+        refreshIcons();
     }
 
     function clearTemporaryPhoto() {
@@ -394,6 +448,12 @@ document.addEventListener("DOMContentLoaded", () => {
         $("bio").value = item.bio;
         $("displayOrder").value = item.order;
         $("status").value = item.status;
+        const metadataId = $("officialMetadataId");
+        const metadataStatus = $("officialMetadataStatus");
+        const metadataOrder = $("officialMetadataOrder");
+        if (metadataId) metadataId.textContent = id === null ? "Assigned when saved" : `EO-${String(item.id).padStart(4, "0")}`;
+        if (metadataStatus) metadataStatus.textContent = item.status === "Inactive" ? "Hidden" : item.status;
+        if (metadataOrder) metadataOrder.textContent = String(item.order);
 
         currentPhotoUrl = item.photoUrl || "";
         const photo = getPhoto(item);
@@ -485,9 +545,19 @@ document.addEventListener("DOMContentLoaded", () => {
         syncModalState();
     }
 
-    // -----------------------------------------------------
+    // Keep internal metadata synchronized with form fields.
+    if ($("status")) {
+        $("status").addEventListener("change", () => {
+            if ($("officialMetadataStatus")) $("officialMetadataStatus").textContent = $("status").value === "Inactive" ? "Hidden" : $("status").value;
+        });
+    }
+    if ($("displayOrder")) {
+        $("displayOrder").addEventListener("input", () => {
+            if ($("officialMetadataOrder")) $("officialMetadataOrder").textContent = $("displayOrder").value || "—";
+        });
+    }
+
     // PHOTO UPLOAD
-    // -----------------------------------------------------
 
     if (photoInput) {
         photoInput.addEventListener("change", () => {
@@ -540,9 +610,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // -----------------------------------------------------
     // PREVIEW MODAL
-    // -----------------------------------------------------
 
     function showOfficialPreview() {
         if (!form.reportValidity()) return;
@@ -551,8 +619,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!item) return;
 
-        $("officialPreviewTitle").textContent =
-            editingId === null ? "New Official Preview" : "Edit Official Preview";
+        $("officialPreviewTitle").textContent = "Executive Official Preview";
 
         $("officialPreviewName").textContent = item.name;
         $("officialPreviewPosition").textContent = item.position;
@@ -562,6 +629,7 @@ document.addEventListener("DOMContentLoaded", () => {
             `Display order: ${item.order}`;
 
         setStatusBadge($("officialPreviewStatus"), item.status);
+        updateRecordMetadata("preview", item);
 
         const previewInitials = $("officialPreviewInitials");
         const previewImage = $("officialPreviewImage");
@@ -583,16 +651,13 @@ document.addEventListener("DOMContentLoaded", () => {
         showModal(modal);
     }
 
-    // -----------------------------------------------------
     // VIEW DETAILS MODAL
-    // -----------------------------------------------------
-
     function openViewModal(id) {
         const item = officials.find((official) => official.id === id);
 
         if (!item) return;
 
-        $("viewModalTitle").textContent = item.name;
+        $("viewModalTitle").textContent = "Executive Official Preview";
         $("viewName").textContent = item.name;
         $("viewPosition").textContent = item.position;
         $("viewBio").textContent =
@@ -603,6 +668,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         setStatusBadge($("viewStatus"), item.status);
+        updateRecordMetadata("view", item);
 
         const photoContainer = document.querySelector("#viewModal .details-photo");
 
@@ -641,10 +707,8 @@ document.addEventListener("DOMContentLoaded", () => {
         showModal(viewModal);
     }
 
-    // -----------------------------------------------------
-    // EVENT LISTENERS
-    // -----------------------------------------------------
 
+    // EVENT LISTENERS
     if ($("addOfficialBtn")) {
         $("addOfficialBtn").addEventListener("click", () => {
             openOfficialModal();
@@ -669,19 +733,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if ($("closeOfficialPreview")) {
         $("closeOfficialPreview").addEventListener("click", () => {
             closeModal(previewModal);
-            closeOfficialModal();
+            showModal(modal);
         });
-    }
-
-    if ($("backToOfficialForm")) {
-        $("backToOfficialForm").addEventListener(
-            "click",
-            returnToOfficialForm
-        );
-    }
-
-    if ($("saveOfficialFromPreview")) {
-        $("saveOfficialFromPreview").addEventListener("click", saveOfficial);
     }
 
     if ($("closeViewBtn")) {
@@ -698,11 +751,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (searchInput) {
-        searchInput.addEventListener("input", renderOfficials);
+        searchInput.addEventListener("input", () => { currentPage = 1; renderOfficials(); });
     }
 
     if (statusFilter) {
-        statusFilter.addEventListener("change", renderOfficials);
+        statusFilter.addEventListener("change", () => { currentPage = 1; renderOfficials(); });
+    }
+    if (orderFilter) {
+        orderFilter.addEventListener("change", () => { currentPage = 1; renderOfficials(); });
     }
 
     if (tableBody) {
@@ -772,10 +828,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // -----------------------------------------------------
     // INITIALIZE
-    // -----------------------------------------------------
-
     renderOfficials();
     refreshIcons();
 });
