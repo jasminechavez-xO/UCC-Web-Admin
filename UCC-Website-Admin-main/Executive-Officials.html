@@ -7,7 +7,7 @@
 
     <title>UCC Admin | Executive Officials</title>
 
-    <link rel="icon" type="image/png" href="images/ucc-LOGO.png">
+    <link rel="icon" type="image/png" href="assets/images/ucc-LOGO.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +15,6 @@
 
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Shared styles first, page-specific styles second -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="assets/css/executiveOfficials.css">
 </head>
@@ -28,7 +27,7 @@
     <aside class="sidebar">
         <div class="sidebar-top">
             <div class="logo-wrap">
-                <img src="images/ucc-LOGO.png" alt="UCC Logo">
+                <img src="assets/images/ucc-LOGO.png" alt="UCC Logo">
                 <div>
                     <h2>UCC Admin</h2>
                     <p>University of Caloocan City</p>
@@ -49,20 +48,15 @@
                 <span>Posts</span>
             </a>
 
-            <div class="menu-group">
-                <button class="menu-title" type="button">
-                    <div>
-                        <i data-lucide="graduation-cap"></i>
-                        <span>Academics</span>
-                    </div>
-                    <i data-lucide="chevron-down" class="arrow"></i>
-                </button>
+            <a href="Academics.html">
 
-                <div class="submenu">
-                    <a href="Academics.html">Colleges</a>
-                    <a href="Masteral.html">Masteral</a>
-                </div>
-            </div>
+                <i data-lucide="graduation-cap"></i>
+
+                <span>
+                    Academics
+                </span>
+
+            </a>
 
             <div class="menu-group open">
                 <button class="menu-title active" type="button">
@@ -146,48 +140,43 @@
             </div>
         </header>
 
-        <!-- PAGE CONTENT -->
         <section class="officials-page">
 
             <div class="page-toolbar">
                 <div class="toolbar-copy">
-                    <p>
-                        Manage executive official profiles displayed on the
-                        public website.
-                    </p>
+                    <p>Manage executive official profiles displayed on the public website.</p>
                 </div>
 
-                <button class="primary-btn" id="addOfficialBtn" type="button">
-                    <i data-lucide="plus"></i>
-                    Add Official
-                </button>
+                <div class="officials-toolbar-controls">
+                    <div class="search-box">
+                        <i data-lucide="search"></i>
+                        <input id="officialSearch" type="search" placeholder="Search officials..." aria-label="Search officials">
+                    </div>
+                    <div class="filter-box">
+                        <select id="officialStatusFilter" aria-label="Filter by status">
+                            <option value="all">All Statuses</option>
+                            <option value="active">Active</option>
+                            <option value="inactive">Hidden</option>
+                        </select>
+                    </div>
+                    <div class="filter-box order-filter-box">
+                        <select id="officialOrderFilter" aria-label="Sort officials">
+                            <option value="ascending">Order: Low to High</option>
+                            <option value="descending">Order: High to Low</option>
+                            <option value="name">Name: A to Z</option>
+                        </select>
+                    </div>
+                    <button class="primary-btn" id="addOfficialBtn" type="button">
+                        <i data-lucide="plus"></i> Add Official
+                    </button>
+                </div>
             </div>
 
             <!-- OFFICIALS TABLE -->
             <div class="officials-card">
-
-                <div class="table-toolbar">
-                    <div class="search-box">
-                        <i data-lucide="search"></i>
-                        <input
-                            id="officialSearch"
-                            type="search"
-                            placeholder="Search officials..."
-                            aria-label="Search officials">
-                    </div>
-
-                    <div class="filter-box">
-                        <label for="officialStatusFilter">Status:</label>
-                        <select id="officialStatusFilter">
-                            <option value="all">All Statuses</option>
-                            <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
-                        </select>
-                    </div>
-
-                    <div class="result-count" id="resultCount">
-                        23 officials
-                    </div>
+                <div class="officials-card-head">
+                    <h2>Executive Officials</h2>
+                    <span class="result-count table-official-count" id="tableOfficialCount">23 officials</span>
                 </div>
 
                 <div class="table-wrap" id="officialsTableWrap">
@@ -214,6 +203,8 @@
                 </div>
 
             </div>
+            <p class="officials-end-message" id="officialsEndMessage" hidden>-- No more items --</p>
+            <nav class="officials-pagination" id="officialsPagination" aria-label="Executive officials pagination"></nav>
         </section>
 
         <!-- ADD / EDIT OFFICIAL MODAL -->
@@ -226,8 +217,8 @@
 
                 <div class="modal-header">
                     <div>
-                        <span class="modal-eyebrow">Executive Official</span>
                         <h2 id="modalTitle">Add Official</h2>
+                        <p class="modal-description">Add or update an official’s photo, name, position, biography, display order, and publication status.</p>
                     </div>
 
                     <button
@@ -259,7 +250,7 @@
                                 class="secondary-btn upload-btn"
                                 for="officialPhoto">
                                 <i data-lucide="upload"></i>
-                                Upload Photo
+                                Choose Photo
                             </label>
 
                             <input
@@ -269,10 +260,11 @@
                                 hidden>
 
                             <button
-                                class="text-btn"
+                                class="post-btn post-btn-danger remove-photo-btn"
                                 id="removeOfficialPhoto"
-                                type="button">
-                                Remove photo
+                                type="button"
+                                hidden>
+                                <i data-lucide="x"></i> Remove Photo
                             </button>
                         </div>
                     </div>
@@ -281,7 +273,7 @@
                     <div class="form-grid">
 
                         <label class="full">
-                            <span>Full Name <b>*</b></span>
+                            <span>Full Name</span>
                             <input
                                 id="name"
                                 name="name"
@@ -291,7 +283,7 @@
                         </label>
 
                         <label class="full">
-                            <span>Position <b>*</b></span>
+                            <span>Position</span>
                             <input
                                 id="position"
                                 name="position"
@@ -310,7 +302,7 @@
                         </label>
 
                         <label>
-                            <span>Display Order <b>*</b></span>
+                            <span>Display Order</span>
                             <input
                                 id="displayOrder"
                                 name="displayOrder"
@@ -330,7 +322,6 @@
 
                     </div>
 
-                    <!-- FORM ACTIONS: SAVE IS NOW AVAILABLE HERE -->
                     <div class="form-actions">
                         <button
                             class="secondary-btn"
@@ -370,8 +361,7 @@
 
                 <div class="modal-header">
                     <div>
-                        <span class="modal-eyebrow">Review Details</span>
-                        <h2 id="officialPreviewTitle">Official Preview</h2>
+                        <h2 id="officialPreviewTitle">Executive Official Preview</h2>
                     </div>
 
                     <button
@@ -421,22 +411,16 @@
                     </div>
                 </div>
 
-                <div class="form-actions">
-                    <button
-                        class="secondary-btn"
-                        id="backToOfficialForm"
-                        type="button">
-                        Back to Form
-                    </button>
-
-                    <button
-                        class="primary-btn"
-                        id="saveOfficialFromPreview"
-                        type="button">
-                        <i data-lucide="save"></i>
-                        Save Official
-                    </button>
-                </div>
+                <section class="metadata-section modal-metadata" aria-labelledby="previewMetadataTitle">
+                    <div class="metadata-heading">
+                    
+                    </div>
+                    <div class="metadata-grid">
+                        <div><span>Record ID</span><strong id="previewMetadataId">—</strong></div>
+                        <div><span>Record Type</span><strong>Executive Official</strong></div>
+                        
+                    </div>
+                </section>
 
             </div>
         </div>
@@ -451,8 +435,7 @@
 
                 <div class="modal-header">
                     <div>
-                        <span class="modal-eyebrow">Official Details</span>
-                        <h2 id="viewModalTitle">Executive Official</h2>
+                        <h2 id="viewModalTitle">Executive Official Preview</h2>
                     </div>
 
                     <button
@@ -490,16 +473,25 @@
                     </div>
                 </div>
 
+                <section class="metadata-section modal-metadata" aria-labelledby="viewMetadataTitle">
+                    
+                    <div class="metadata-grid">
+                        <div><span>Record ID</span><strong id="viewMetadataId">—</strong></div>
+                        <div><span>Record Type</span><strong>Executive Official</strong></div>
+                        
+                    </div>
+                </section>
+
             </div>
         </div>
 
     </main>
 </div>
 
-<!-- PAGE SCRIPT -->
+
 <script src="assets/js/executiveOfficials.js"></script>
 
-<!-- ICON INITIALIZATION -->
+
 <script>
     if (window.lucide) {
         lucide.createIcons();

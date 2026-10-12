@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,11 +7,10 @@
 
     <title>UCC Admin | Board of Regents</title>
 
-    <link rel="icon" type="image/png" href="images/ucc-LOGO.png">
+    <link rel="icon" type="image/png" href="assets/images/ucc-LOGO.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
 
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -23,13 +23,10 @@
 
 <div class="dashboard-layout">
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
-
         <div class="sidebar-top">
             <div class="logo-wrap">
-                <img src="images/ucc-LOGO.png" alt="UCC Logo">
-
+                <img src="assets/images/ucc-LOGO.png" alt="UCC Logo">
                 <div>
                     <h2>UCC Admin</h2>
                     <p>University of Caloocan City</p>
@@ -40,7 +37,6 @@
         <div class="gold-line"></div>
 
         <nav class="sidebar-nav">
-
             <a href="Dashboard.html">
                 <i data-lucide="house"></i>
                 <span>Dashboard</span>
@@ -51,20 +47,15 @@
                 <span>Posts</span>
             </a>
 
-            <div class="menu-group">
-                <button class="menu-title" type="button">
-                    <div>
-                        <i data-lucide="graduation-cap"></i>
-                        <span>Academics</span>
-                    </div>
-                    <i data-lucide="chevron-down" class="arrow"></i>
-                </button>
+            <a href="Academics.html">
 
-                <div class="submenu">
-                    <a href="Academics.html">Colleges</a>
-                    <a href="Masteral.html">Masteral</a>
-                </div>
-            </div>
+                <i data-lucide="graduation-cap"></i>
+
+                <span>
+                    Academics
+                </span>
+
+            </a>
 
             <div class="menu-group open">
                 <button class="menu-title active" type="button">
@@ -76,7 +67,9 @@
                 </button>
 
                 <div class="submenu">
-                    <a href="Executive-Officials.html">Executive Officials</a>
+                    <a href="Executive-Officials.html">
+                        Executive Officials
+                    </a>
                     <a href="Board-of-Regents.html" class="active">
                         Board of Regents
                     </a>
@@ -101,7 +94,6 @@
                     <a href="Quick-Links.html">Quick Links</a>
                 </div>
             </div>
-
         </nav>
 
         <div class="sidebar-bottom">
@@ -117,14 +109,11 @@
         </div>
 
         <div class="sidebar-art"></div>
-
     </aside>
 
-    <!-- MAIN CONTENT -->
     <main class="main-content">
 
         <header class="top-header">
-
             <div class="header-left">
                 <h1>Board of Regents</h1>
             </div>
@@ -147,285 +136,231 @@
             <div class="gold-divider">
                 <span></span>
             </div>
-
         </header>
 
-        <section class="bor-page">
+        <!-- PAGE CONTENT -->
+        <section class="officials-page">
 
-            <!-- PAGE TOOLBAR -->
             <div class="page-toolbar">
-
                 <div class="toolbar-copy">
-                    <p>
-                        Manage the members and official information of the
-                        University of Caloocan City Board of Regents.
-                    </p>
+                    <p>Manage the members and official information of the University of Caloocan City Board of Regents.</p>
                 </div>
 
-                <button class="primary-btn" id="addBorBtn" type="button">
-                    <i data-lucide="plus"></i>
-                    Add Regent
-                </button>
-
-            </div>
-
-            <!-- TABLE CARD -->
-            <div class="bor-card">
-
-                <!-- SEARCH AND FILTER -->
-                <div class="table-toolbar">
-
+                <div class="officials-toolbar-controls">
                     <div class="search-box">
                         <i data-lucide="search"></i>
-
-                        <input
-                            id="borSearch"
-                            type="search"
-                            placeholder="Search regent..."
-                            autocomplete="off"
-                            aria-label="Search regents"
-                        >
+                        <input id="borSearch" type="search" placeholder="Search regents..." aria-label="Search regents">
                     </div>
-
-                    <div class="bor-filter">
+                    <div class="filter-box">
                         <select id="borStatusFilter" aria-label="Filter by status">
-                            <option value="all">All Status</option>
+                            <option value="all">All Statuses</option>
                             <option value="active">Active</option>
-                            <option value="inactive">Inactive</option>
+                            <option value="hidden">Hidden</option>
                         </select>
                     </div>
-
-                    <div class="result-count" id="borCount">
-                        0 members
+                    <div class="filter-box order-filter-box">
+                        <select id="borOrderFilter" aria-label="Sort regents">
+                            <option value="ascending">Order: Low to High</option>
+                            <option value="descending">Order: High to Low</option>
+                            <option value="name">Name: A to Z</option>
+                        </select>
                     </div>
+                    <button class="primary-btn" id="addBorBtn" type="button">
+                        <i data-lucide="plus"></i> Add Regent
+                    </button>
+                </div>
+            </div>
 
+            <!-- OFFICIALS TABLE -->
+            <div class="officials-card">
+                <div class="officials-card-head">
+                    <h2>Board of Regents</h2>
+                    <span class="result-count table-regent-count" id="tableBorCount">23 regents</span>
                 </div>
 
-               
                 <div class="table-wrap" id="borTableWrap">
-
-                    <table class="bor-table">
-
+                    <table class="officials-table">
                         <thead>
-    <tr>
-        <th class="photo-column">Photo</th>
-        <th class="name-column">Name</th>
-        <th class="position-column">Position</th>
-        <th class="order-column">Display Order</th>
-        <th class="status-column">Status</th>
-        <th class="actions-head">Actions</th>
-    </tr>
-</thead>
-<tbody id="borTableBody"></tbody>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Order</th>
+                                <th>Status</th>
+                                <th class="actions-head">Actions</th>
+                            </tr>
+                        </thead>
 
-
-
-                        </tbody>
-
+                        <tbody id="borTableBody"></tbody>
                     </table>
-
                 </div>
 
-                <!-- EMPTY SEARCH RESULTS -->
                 <div class="empty-state" id="borEmpty" hidden>
-                    <i data-lucide="users-round"></i>
+                    <i data-lucide="user-round-search"></i>
                     <h3>No regents found</h3>
                     <p>Try a different search term or status filter.</p>
                 </div>
 
             </div>
-
+            <p class="officials-end-message" id="borEndMessage" hidden>-- No more items --</p>
+            <nav class="officials-pagination" id="borPagination" aria-label="Board of Regents pagination"></nav>
         </section>
 
-        <!-- ADD / EDIT MODAL -->
+        <!-- ADD / EDIT OFFICIAL MODAL -->
         <div class="modal-overlay" id="borModal" hidden>
-
             <div
                 class="official-modal"
                 role="dialog"
                 aria-modal="true"
-                aria-labelledby="borModalTitle"
-            >
+                aria-labelledby="modalTitle">
 
                 <div class="modal-header">
-
                     <div>
-                        <span class="modal-eyebrow">Board of Regents</span>
                         <h2 id="borModalTitle">Add Regent</h2>
+                        <p class="modal-description">Add or update a regent’s photo, name, position, biography, display order, and publication status.</p>
                     </div>
 
                     <button
                         class="modal-close"
                         id="closeBorModal"
                         type="button"
-                        aria-label="Close add/edit modal"
-                    >
+                        aria-label="Close modal">
                         <i data-lucide="x"></i>
                     </button>
-
                 </div>
 
                 <form id="borForm">
 
-                    <div class="form-grid">
-
-                        <!-- IMAGE UPLOAD -->
-                        <div class="form-field full">
-
-                            <label for="borPhoto">Regent Photo</label>
-
-                            <div class="image-upload-layout">
-
-                                <div class="upload-preview" id="borUploadPreview">
-                                    <img
-                                        id="borUploadImage"
-                                        alt="Regent photo preview"
-                                        hidden
-                                    >
-
-                                    <span id="borUploadInitials">BR</span>
-                                </div>
-
-                                <div class="upload-controls">
-                                   
-
-                                    <input
-                                        id="borPhoto"
-                                        type="file"
-                                        accept="image/*"
-                                    >
-
-                                 
-
-                                    <button
-                                        class="secondary-btn remove-image-btn"
-                                        id="removeBorPhoto"
-                                        type="button"
-                                    >
-                                    
-                                        Remove Photo
-                                    </button>
-
-                                </div>
-
-                            </div>
-
+                    <!-- PHOTO UPLOAD -->
+                    <div class="photo-upload-section">
+                        <div class="photo-upload-preview">
+                            <span id="borUploadInitials">BR</span>
+                            <img
+                                id="borUploadImage"
+                                alt="Official photo preview"
+                                hidden>
                         </div>
 
-                        
-                        <!-- NAME -->
+                        <div class="photo-upload-controls">
+                            <h3>Regent Photo</h3>
+                           
+
+                            <label
+                                class="secondary-btn upload-btn"
+                                for="borPhoto">
+                                <i data-lucide="upload"></i>
+                                Choose Photo
+                            </label>
+
+                            <input
+                                id="borPhoto"
+                                type="file"
+                                accept="image/*"
+                                hidden>
+
+                            <button
+                                class="post-btn post-btn-danger remove-photo-btn"
+                                id="removeBorPhoto"
+                                type="button"
+                                hidden>
+                                <i data-lucide="x" aria-hidden="true"></i> Remove Photo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- FORM FIELDS -->
+                    <div class="form-grid">
+
                         <label class="full">
                             <span>Full Name</span>
-
                             <input
                                 id="borName"
+                                name="name"
                                 type="text"
-                                maxlength="180"
                                 placeholder="Enter full name"
-                                required
-                            >
+                                required>
                         </label>
 
-                        <!-- POSITION -->
                         <label class="full">
                             <span>Position</span>
-
                             <input
                                 id="borPosition"
+                                name="position"
                                 type="text"
-                                maxlength="180"
-                                placeholder="Enter official position"
-                                required
-                            >
+                                placeholder="Enter regent position"
+                                required>
                         </label>
 
-                        <!-- BIOGRAPHY -->
                         <label class="full">
                             <span>Biography / Short Description</span>
-
                             <textarea
                                 id="borBio"
+                                name="bio"
                                 rows="4"
-                                maxlength="2000"
-                                placeholder="Enter biography or additional information"
-                            ></textarea>
+                                placeholder="Enter biography or additional role information"></textarea>
                         </label>
 
-                        <!-- DISPLAY ORDER -->
                         <label>
                             <span>Display Order</span>
-
                             <input
                                 id="borOrder"
+                                name="displayOrder"
                                 type="number"
                                 min="1"
-                                step="1"
                                 value="1"
-                                required
-                            >
-
+                                required>
                         </label>
 
-                        <!-- STATUS -->
                         <label>
                             <span>Status</span>
-
-                            <select id="borStatus" required>
+                            <select id="borStatus" name="status">
                                 <option value="Active">Active</option>
-                                <option value="Inactive">Inactive</option>
+                                <option value="Hidden">Hidden</option>
                             </select>
                         </label>
 
                     </div>
 
-                    <!-- FORM ACTIONS -->
-                    <div class="form-actions">
 
+                    <div class="form-actions">
                         <button
                             class="secondary-btn"
                             id="cancelBorBtn"
-                            type="button"
-                        >
+                            type="button">
                             Cancel
                         </button>
 
                         <button
                             class="secondary-btn"
                             id="previewBorFormBtn"
-                            type="button"
-                        >
+                            type="button">
                             <i data-lucide="eye"></i>
                             Preview
                         </button>
 
-                        <button class="primary-btn" type="submit">
+                        <button
+                            class="primary-btn"
+                            id="saveBorBtn"
+                            type="submit">
                             <i data-lucide="save"></i>
                             Save Regent
                         </button>
-
                     </div>
 
                 </form>
-
             </div>
-
         </div>
 
-        <!--
-            PUBLIC-FACING PREVIEW MODAL  -->
+        <!-- OFFICIAL PREVIEW MODAL -->
         <div class="modal-overlay" id="borPreviewModal" hidden>
-
             <div
-                class="official-modal view-modal"
+                class="official-modal preview-modal"
                 role="dialog"
                 aria-modal="true"
-                aria-labelledby="borPreviewTitle"
-            >
+                aria-labelledby="regentPreviewTitle">
 
                 <div class="modal-header">
-
                     <div>
-                        <span class="modal-eyebrow">Public Page Preview</span>
                         <h2 id="borPreviewTitle">Regent Preview</h2>
                     </div>
 
@@ -433,43 +368,30 @@
                         class="modal-close"
                         id="closeBorPreview"
                         type="button"
-                        aria-label="Close preview"
-                    >
+                        aria-label="Close preview">
                         <i data-lucide="x"></i>
                     </button>
-
                 </div>
 
                 <div class="details-layout">
-
-                    <div class="details-photo" id="borPreviewPhoto">
+                    <div class="details-photo">
+                        <span id="borPreviewInitials">BR</span>
                         <img
                             id="borPreviewImage"
-                            alt="Regent photo"
-                            hidden
-                        >
-                        <span id="borPreviewInitials">BR</span>
+                            alt="Official photo"
+                            hidden>
                     </div>
 
                     <div class="details-copy">
-
-                        <span class="preview-order" id="borPreviewOrder">
-                            Display Order: 1
-                        </span>
-
-                        <h3 id="borPreviewName">Regent Name</h3>
+                        <h3 id="borPreviewName">Official Name</h3>
 
                         <p
                             class="details-position"
-                            id="borPreviewPosition"
-                        >
-                            Position
-                        </p>
+                            id="borPreviewPosition"></p>
 
                         <span
                             class="status-badge"
-                            id="borPreviewStatus"
-                        >
+                            id="borPreviewStatus">
                             Active
                         </span>
 
@@ -481,101 +403,63 @@
 
                         <p
                             class="details-bio"
-                            id="borPreviewBio"
-                        >
-                            No additional description provided.
-                        </p>
+                            id="borPreviewBio"></p>
 
+                        <p
+                            class="details-order"
+                            id="borPreviewOrder"></p>
                     </div>
-
                 </div>
 
-                <div class="form-actions preview-actions">
-
-                    <button
-                        class="secondary-btn"
-                        id="backToBorForm"
-                        type="button"
-                    >
-                        Back to Form
-                    </button>
-
-                    <button
-                        class="primary-btn"
-                        id="saveFromPreview"
-                        type="button"
-                    >
-                        <i data-lucide="save"></i>
-                        Save Regent
-                    </button>
-
-                </div>
+                <section class="metadata-section modal-metadata" aria-labelledby="previewMetadataTitle">
+                    <div class="metadata-heading">
+                    </div>
+                    <div class="metadata-grid">
+                        <div><span>Record ID</span><strong id="borPreviewMetadataId">—</strong></div>
+                        <div><span>Record Type</span><strong>Board Regent</strong></div>
+                        
+                    </div>
+                </section>
 
             </div>
-
         </div>
 
-        <!--
-            TABLE ITEM PREVIEW MODAL
-
-        -->
+        <!-- VIEW OFFICIAL DETAILS MODAL -->
         <div class="modal-overlay" id="borViewModal" hidden>
-
             <div
                 class="official-modal view-modal"
                 role="dialog"
                 aria-modal="true"
-                aria-labelledby="borViewTitle"
-            >
+                aria-labelledby="viewModalTitle">
 
                 <div class="modal-header">
-
                     <div>
-                        <span class="modal-eyebrow">Regent Details</span>
-                        <h2 id="borViewTitle">Board Member</h2>
+                        <h2 id="borViewTitle">Regent Preview</h2>
                     </div>
 
                     <button
                         class="modal-close"
                         id="closeBorView"
                         type="button"
-                        aria-label="Close regent details"
-                    >
+                        aria-label="Close details">
                         <i data-lucide="x"></i>
                     </button>
-
                 </div>
 
                 <div class="details-layout">
-
-                    <div class="details-photo" id="borViewPhoto">
+                    <div class="details-photo">
+                        <span id="borViewInitials">BR</span>
                         <img
                             id="borViewImage"
-                            alt="Regent photo"
-                            hidden
-                        >
-                        <span id="borViewInitials">BR</span>
+                            alt="Official photo"
+                            hidden>
                     </div>
 
                     <div class="details-copy">
-
-                        <span class="preview-order" id="borViewOrder">
-                            Display Order: 1
-                        </span>
-
                         <h3 id="borViewName"></h3>
+                        <p class="details-position" id="borViewPosition"></p>
 
-                        <p
-                            class="details-position"
-                            id="borViewPosition"
-                        ></p>
-
-                        <span
-                            class="status-badge"
-                            id="borViewStatus"
-                        >
-                            Active
-                        </span>
+                        <span class="status-badge" id="borViewStatus"></span>
 
                         <div class="details-divider"></div>
 
@@ -583,25 +467,37 @@
                             Biography / Short Description
                         </p>
 
-                        <p
-                            class="details-bio"
-                            id="borViewBio"
-                        ></p>
-
+                        <p class="details-bio" id="borViewBio"></p>
+                        <p class="details-order" id="borViewOrder"></p>
                     </div>
-
                 </div>
 
-            </div>
+                <section class="metadata-section modal-metadata" aria-labelledby="viewMetadataTitle">
+                    <div class="metadata-heading">
+                    
+                    </div>
+                    <div class="metadata-grid">
+                        <div><span>Record ID</span><strong id="borViewMetadataId">—</strong></div>
+                        <div><span>Record Type</span><strong>Board Regent</strong></div>
+                       
+                    </div>
+                </section>
 
+            </div>
         </div>
 
     </main>
-
 </div>
 
 
 <script src="assets/js/boardOfRegents.js"></script>
+
+
+<script>
+    if (window.lucide) {
+        lucide.createIcons();
+    }
+</script>
 
 </body>
 </html>
