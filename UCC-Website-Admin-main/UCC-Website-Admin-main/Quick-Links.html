@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UCC Admin | Quick Links</title>
+	<link rel="icon" type="image/png" href="assets/images/ucc-LOGO.png">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+	<script src="https://unpkg.com/lucide@latest"></script>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="Quick-Links.css">
+	<link rel="stylesheet" href="assets/css/quickLinks.css">
+</head>
+<body data-page-title="Quick Links">
+	<div class="dashboard-layout">
+		<div id="sidebar-container"></div>
+		<main class="main-content">
+			<div id="header-container"></div>
+			<section class="quick-links-page">
+				<p class="quick-page-description">Manage the quick links shown to users. Add new destinations, update link details and featured images, control visibility, and set the order in which links appear.</p>
+				<div class="quick-links-toolbar">
+					<div class="quick-search">
+						<input type="search" id="quickSearch" placeholder="Search quick links..." aria-label="Search quick links">
+						<i data-lucide="search"></i>
+					</div>
+					<button class="quick-btn quick-btn-primary" type="button" id="addLinkBtn">
+						<i data-lucide="plus"></i>
+						Add Link
+					</button>
+				</div>
+				<section class="quick-links-card">
+					<div class="quick-links-card-header">
+						<div><h2>Quick Links</h2></div>
+						<div class="quick-links-count"><i data-lucide="link-2"></i><span><strong id="totalLinks">0</strong> links</span></div>
+					</div>
+					<div class="table-wrapper">
+						<table class="quick-links-table">
+							<thead>
+								<tr>
+									<th>Order</th>
+									<th>Link Name</th>
+									<th>URL</th>
+									<th>Status</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody id="quickLinksBody"></tbody>
+						</table>
+					</div>
+					<div class="quick-empty" id="quickEmpty">
+						<div class="quick-empty-icon"><i data-lucide="link-2-off"></i></div>
+						<h3>No quick links found</h3>
+						<p>Add a quick link or try a different search.</p>
+					</div>
+				</section>
+			</section>
+		</main>
+	</div>
+	<div class="quick-modal" id="quickModal" aria-hidden="true">
+		<div class="quick-modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+			<div class="quick-modal-header">
+				<h2 id="modalTitle">Add Quick Link</h2>
+				<button class="quick-modal-close" type="button" id="closeModalBtn" aria-label="Close">
+					<i data-lucide="x"></i>
+				</button>
+			</div>
+			<form class="quick-form" id="quickLinkForm" novalidate>
+				<input type="hidden" id="editingIndex" value="">
+				<div class="form-field featured-image-field">
+					<label for="featuredImage">Featured Image</label>
+					<div class="quick-image-upload" id="imageUploadPreview">
+						<div class="quick-image-empty"><i data-lucide="image-plus"></i><span>No image selected</span></div>
+						<img id="selectedImagePreview" alt="Selected featured image" hidden>
+						<div class="quick-image-actions">
+							<button class="quick-btn quick-btn-outline" type="button" id="chooseImageBtn"><i data-lucide="upload"></i> Choose Photo</button>
+							<button class="quick-btn quick-btn-outline" type="button" id="removeImageBtn" hidden><i data-lucide="x"></i> Remove Photo</button>
+						</div>
+					</div>
+					<input id="featuredImage" class="visually-hidden-file" type="file" accept="image/*">
+				</div>
+				<div class="form-field">
+					<label for="linkName">Link Name <span>*</span></label>
+					<input type="text" id="linkName" maxlength="100" placeholder="Enter link name" required>
+					<div class="field-error" id="linkNameError"></div>
+				</div>
+				<div class="form-field">
+					<label for="linkUrl">URL <span>*</span></label>
+					<input type="url" id="linkUrl" placeholder="https://example.com" required>
+					<div class="field-error" id="linkUrlError"></div>
+				</div>
+				<div class="form-field">
+					<label for="displayOrder">Display Order <span>*</span></label>
+					<input type="number" id="displayOrder" min="1" step="1" placeholder="1" required>
+					<div class="field-error" id="displayOrderError"></div>
+				</div>
+				<div class="form-field">
+					<label for="linkStatus">Status</label>
+					<select id="linkStatus"><option value="Active">Active</option><option value="Hidden">Hidden</option></select>
+				</div>
+				<div class="quick-metadata" id="quickMetadata" hidden>
+					<h3>Metadata</h3>
+					<p><span>Created by</span><strong id="metadataCreatedBy">Admin</strong></p>
+					<p><span>Date created</span><strong id="metadataCreatedDate">—</strong></p>
+					<p><span>Last updated by</span><strong id="metadataUpdatedBy">—</strong></p>
+				</div>
+			</form>
+			<div class="quick-modal-footer">
+				<button class="quick-btn quick-btn-outline" type="button" id="cancelModalBtn">Cancel</button>
+				<div class="quick-modal-footer-actions">
+				<button class="quick-btn quick-btn-outline" type="button" id="previewLinkBtn"><i data-lucide="eye"></i> Preview</button>
+				<button class="quick-btn quick-btn-primary" type="submit" form="quickLinkForm">
+					<i data-lucide="save"></i>
+					Save Link
+				</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="quick-preview-modal" id="quickPreviewModal" aria-hidden="true">
+		<div class="quick-preview-card" role="dialog" aria-modal="true" aria-labelledby="quickPreviewTitle">
+			<div class="quick-modal-header"><h2 id="quickPreviewTitle">Quick Link Preview</h2><button class="quick-modal-close" type="button" id="closePreviewBtn" aria-label="Close preview"><i data-lucide="x"></i></button></div>
+			<div class="quick-preview-content"><img id="previewImage" alt="Featured image" hidden><div class="quick-preview-status" id="previewStatus">Active</div><h3 id="previewName">Link name</h3><p id="previewUrl"></p><a id="previewVisitLink" href="#" target="_blank" rel="noopener noreferrer" class="quick-btn quick-btn-success"><i data-lucide="external-link"></i> View Link</a></div>
+		</div>
+	</div>
+	<div class="quick-toast" id="quickToast" role="status" aria-live="polite">
+		<i data-lucide="check-circle-2"></i>
+		<span id="toastMessage"></span>
+	</div>
+	
+	<script>
+		"use strict";
+		async function loadSharedLayout() {
+			const sidebarContainer = document.getElementById("sidebar-container");
+			const headerContainer = document.getElementById("header-container");
+			try {
+				const [sidebarResponse, headerResponse] = await Promise.all([
+					fetch("sidebar.html"),
+					fetch("header.html")
+				]);
+				if (!sidebarResponse.ok || !headerResponse.ok) {
+					throw new Error("Unable to load sidebar.html or header.html.");
+				}
+				sidebarContainer.innerHTML = await sidebarResponse.text();
+				headerContainer.innerHTML = await headerResponse.text();
+				const pageTitle = document.body.dataset.pageTitle || "Quick Links";
+				const headerTitle = document.getElementById("pageTitle");
+				if (headerTitle) {
+					headerTitle.textContent = pageTitle;
+				}
+				const currentPage = window.location.pathname.split("/").pop().toLowerCase();
+				document.querySelectorAll(".sidebar [data-page]").forEach(link => {
+					link.classList.toggle("active", link.dataset.page.toLowerCase() === currentPage);
+				});
+				document.querySelectorAll(".sidebar .menu-title").forEach(button => {
+					const menuGroup = button.closest(".menu-group");
+					const submenu = menuGroup?.querySelector(".submenu");
+					if (submenu?.querySelector(".active")) {
+						menuGroup.classList.add("open");
+						button.classList.add("active");
+						button.setAttribute("aria-expanded", "true");
+					}
+					button.addEventListener("click", () => {
+						menuGroup.classList.toggle("open");
+						button.setAttribute("aria-expanded", menuGroup.classList.contains("open") ? "true" : "false");
+					});
+				});
+				if (window.lucide) {
+					window.lucide.createIcons();
+				}
+			} catch (error) {
+				console.error("Error loading shared layout:", error);
+				sidebarContainer.innerHTML = "<p>Unable to load sidebar. Check that sidebar.html exists in the same folder.</p>";
+				headerContainer.innerHTML = "<p>Unable to load header. Check that header.html exists in the same folder.</p>";
+			}
+		}
+		
+		loadSharedLayout();
+	</script>
+<script src="assets/js/quickLinks.js"></script>
+</body>
+</html>

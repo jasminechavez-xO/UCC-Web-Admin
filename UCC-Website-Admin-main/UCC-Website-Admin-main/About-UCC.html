@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UCC Admin | About UCC</title>
+  <link rel="icon" type="image/png" href="assets/images/ucc-LOGO.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="assets/css/aboutUcc.css">
+</head>
+<body data-page-title="About UCC">
+  <div class="dashboard-layout">
+    <div id="sidebar-container"></div>
+    <main class="main-content">
+      <div id="header-container"></div>
+
+      <section class="about-ucc-page" aria-labelledby="aboutUccHeading">
+        <div class="about-ucc-intro">
+          <p>Manage the About UCC content displayed on the website.</p>
+        </div>
+
+        <div class="about-ucc-toolbar">
+          <label class="about-ucc-search" aria-label="Search About UCC posts">
+            <i data-lucide="search"></i>
+            <input id="aboutSearch" type="search" placeholder="Search posts..." autocomplete="off">
+          </label>
+          <select id="statusFilter" class="about-ucc-filter">
+            <option value="all">All statuses</option>
+            <option value="Active">Active</option>
+            <option value="Hidden">Hidden</option>
+          </select>
+          <button class="about-ucc-primary" type="button" id="addPostBtn"><i data-lucide="plus"></i> Add Post</button>
+        </div>
+
+        <div class="about-ucc-card">
+          <div class="about-ucc-card-heading">
+            <h2>About UCC Posts</h2>
+            <span id="postCount">5 posts</span>
+          </div>
+          <div class="about-ucc-table-wrap">
+            <table class="about-ucc-table">
+              <thead>
+                <tr>
+                  <th>Featured Image</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <!-- Intentionally hardcoded starter rows. JavaScript enhances these rows. -->
+              <tbody id="postsTableBody">
+                <tr data-id="1" data-status="Active">
+                  <td><img class="table-featured-image" src="assets/images/about-ucc.jpg" alt="About UCC featured image" onerror="this.style.display='none'"></td>
+                  <td class="table-post-name">About University of Caloocan City</td>
+                  <td class="table-post-description">Learn about UCC, its history, mission, and commitment to quality education.</td>
+                  <td><span class="about-status active">Active</span></td>
+                  <td><div class="about-row-actions"><button class="about-icon-btn view" type="button" data-action="preview" aria-label="Preview post"><i data-lucide="eye"></i></button><button class="about-icon-btn edit" type="button" data-action="edit" aria-label="Edit post"><i data-lucide="pencil"></i></button><button class="about-icon-btn delete" type="button" data-action="delete" aria-label="Delete post"><i data-lucide="trash-2"></i></button></div></td>
+                </tr>
+                <tr data-id="2" data-status="Active">
+                  <td><img class="table-featured-image" src="assets/images/about-ucc-campus.jpg" alt="UCC campus" onerror="this.style.display='none'"></td>
+                  <td class="table-post-name">Our History</td>
+                  <td class="table-post-description">Discover the milestones and growth that shaped the university.</td>
+                  <td><span class="about-status active">Active</span></td>
+                  <td><div class="about-row-actions"><button class="about-icon-btn view" type="button" data-action="preview" aria-label="Preview post"><i data-lucide="eye"></i></button><button class="about-icon-btn edit" type="button" data-action="edit" aria-label="Edit post"><i data-lucide="pencil"></i></button><button class="about-icon-btn delete" type="button" data-action="delete" aria-label="Delete post"><i data-lucide="trash-2"></i></button></div></td>
+                </tr>
+                <tr data-id="3" data-status="Hidden">
+                  <td><img class="table-featured-image" src="assets/images/about-ucc-mission.jpg" alt="UCC mission" onerror="this.style.display='none'"></td>
+                  <td class="table-post-name">Mission and Vision</td>
+                  <td class="table-post-description">Read the university's mission, vision, and guiding values.</td>
+                  <td><span class="about-status hidden">Hidden</span></td>
+                  <td><div class="about-row-actions"><button class="about-icon-btn view" type="button" data-action="preview" aria-label="Preview post"><i data-lucide="eye"></i></button><button class="about-icon-btn edit" type="button" data-action="edit" aria-label="Edit post"><i data-lucide="pencil"></i></button><button class="about-icon-btn delete" type="button" data-action="delete" aria-label="Delete post"><i data-lucide="trash-2"></i></button></div></td>
+                </tr>
+                <tr data-id="4" data-status="Active">
+                  <td><img class="table-featured-image" src="assets/images/about-ucc-community.jpg" alt="UCC community" onerror="this.style.display='none'"></td>
+                  <td class="table-post-name">Our Community</td>
+                  <td class="table-post-description">Meet the students, faculty, and community that make UCC unique.</td>
+                  <td><span class="about-status active">Active</span></td>
+                  <td><div class="about-row-actions"><button class="about-icon-btn view" type="button" data-action="preview" aria-label="Preview post"><i data-lucide="eye"></i></button><button class="about-icon-btn edit" type="button" data-action="edit" aria-label="Edit post"><i data-lucide="pencil"></i></button><button class="about-icon-btn delete" type="button" data-action="delete" aria-label="Delete post"><i data-lucide="trash-2"></i></button></div></td>
+                </tr>
+                <tr data-id="5" data-status="Hidden">
+                  <td><img class="table-featured-image" src="assets/images/about-ucc-programs.jpg" alt="UCC programs" onerror="this.style.display='none'"></td>
+                  <td class="table-post-name">Academic Excellence</td>
+                  <td class="table-post-description">An overview of UCC's academic offerings and learning environment.</td>
+                  <td><span class="about-status hidden">Hidden</span></td>
+                  <td><div class="about-row-actions"><button class="about-icon-btn view" type="button" data-action="preview" aria-label="Preview post"><i data-lucide="eye"></i></button><button class="about-icon-btn edit" type="button" data-action="edit" aria-label="Edit post"><i data-lucide="pencil"></i></button><button class="about-icon-btn delete" type="button" data-action="delete" aria-label="Delete post"><i data-lucide="trash-2"></i></button></div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="about-ucc-list-footer"><button id="showMoreBtn" type="button">Show more</button><p id="noMoreItems">— No more items —</p></div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Add/Edit form modal -->
+  <div class="about-modal-overlay" id="postFormOverlay" aria-hidden="true">
+    <section class="about-modal about-form-modal" role="dialog" aria-modal="true" aria-labelledby="formModalTitle">
+      <header class="about-modal-header">
+        <div><h2 id="formModalTitle">Add Post</h2><p class="about-modal-subtitle" id="formModalSubtitle">Add a new About UCC post and manage how it appears on the website.</p></div>
+        <button class="about-close-btn" type="button" data-close-form aria-label="Close form"><i data-lucide="x"></i></button>
+      </header>
+      <form id="postForm">
+        <input type="hidden" id="postId">
+        <div class="about-form-grid">
+         
+<div class="about-field about-full-field">
+  <label for="featuredImage">Featured Image</label>
+
+  <div class="image-upload-preview" id="imageUploadPreview">
+    <div class="image-upload-empty">
+      <i data-lucide="image-plus"></i>
+      <span>Featured Image</span>
+    </div>
+
+    <div class="image-upload-actions">
+      <button class="choose-image-btn" type="button" id="chooseImageBtn">
+        <i data-lucide="upload"></i> Choose Photo
+      </button>
+
+      <button class="remove-image-btn" type="button" id="removeImageBtn" hidden>
+        <i data-lucide="x"></i> Remove Photo
+      </button>
+    </div>
+
+    <img id="selectedImagePreview" alt="Selected featured image" hidden>
+  </div>
+
+  <input id="featuredImage" class="visually-hidden-file" type="file" accept="image/*">
+</div>
+
+          <div class="about-field about-full-field">
+            <label for="postName">Name</label>
+            <input id="postName" type="text" required maxlength="160" placeholder="Enter post name">
+          </div>
+          <div class="about-field about-full-field">
+            <label for="postDescription">Description</label>
+            <textarea id="postDescription" required rows="5" placeholder="Write the About UCC description..."></textarea>
+          </div>
+          <div class="about-field">
+            <label for="postStatus">Status</label>
+            <select id="postStatus"><option value="Active">Active</option><option value="Hidden">Hidden</option></select>
+          </div>
+        </div>
+        <div class="about-form-actions">
+          <button class="about-cancel-btn" type="button" data-close-form>Cancel</button>
+          <div class="about-form-actions-right">
+            <button class="about-secondary-btn" type="button" id="formPreviewBtn"><i data-lucide="eye"></i> Preview</button>
+            <button class="about-save-btn" type="submit"><i data-lucide="save"></i> <span id="savePostLabel">Save Post</span></button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <!-- Preview modal: intentionally has only the X close control -->
+  <div class="about-modal-overlay" id="postPreviewOverlay" aria-hidden="true">
+    <section class="about-modal about-preview-modal" role="dialog" aria-modal="true" aria-labelledby="previewName">
+      <header class="about-modal-header">
+        <div><h2>About UCC Post Preview</h2></div>
+        <button class="about-close-btn" type="button" data-close-preview aria-label="Close preview"><i data-lucide="x"></i></button>
+      </header>
+      <div class="about-preview-content">
+        <img id="previewImage" class="about-preview-image" alt="Featured image preview" hidden>
+        <div class="about-preview-copy"><span id="previewStatus" class="about-status active">Active</span><h3 id="previewName">Post name</h3><p id="previewDescription">Post description will appear here.</p></div>
+      </div>
+      <section class="about-metadata" id="postMetadata" aria-label="Post metadata">
+        <div class="about-metadata-grid">
+          <div><span>WHO CREATED</span><p id="metadataCreatedBy">Admin</p></div>
+          <div><span>DATE CREATED</span><p id="metadataCreatedDate">—</p></div>
+          <div><span>WHO UPDATED</span><p id="metadataUpdatedBy">—</p></div>
+        </div>
+      </section>
+    </section>
+  </div>
+
+  <script>
+    async function loadSharedLayout() {
+      const sidebarContainer = document.getElementById("sidebar-container");
+      const headerContainer = document.getElementById("header-container");
+      try {
+        const [sidebarResponse, headerResponse] = await Promise.all([
+          fetch("sidebar.html"),
+          fetch("header.html")
+        ]);
+        if (!sidebarResponse.ok || !headerResponse.ok) {
+          throw new Error("Unable to load the shared header or sidebar.");
+        }
+        sidebarContainer.innerHTML = await sidebarResponse.text();
+        headerContainer.innerHTML = await headerResponse.text();
+        const currentPage = window.location.pathname.split("/").pop().toLowerCase();
+        const pageTitle = document.body.dataset.pageTitle || "About UCC";
+        const titleElement = document.getElementById("pageTitle");
+        if (titleElement) {
+          titleElement.textContent = pageTitle;
+        }
+        document.querySelectorAll(".sidebar [data-page]").forEach(link => {
+          if (link.dataset.page.toLowerCase() === currentPage) {
+            link.classList.add("active");
+            const menuGroup = link.closest(".menu-group");
+            if (menuGroup) {
+              menuGroup.classList.add("open");
+              const menuButton = menuGroup.querySelector(".menu-title");
+              if (menuButton) {
+                menuButton.classList.add("active");
+                menuButton.setAttribute("aria-expanded", "true");
+              }
+            }
+          }
+        });
+        document.querySelectorAll(".menu-title").forEach(button => {
+          button.addEventListener("click", () => {
+            const menuGroup = button.parentElement;
+            const isOpen = menuGroup.classList.toggle("open");
+            button.setAttribute("aria-expanded", String(isOpen));
+          });
+        });
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+      } catch (error) {
+        console.error("Shared layout loading error:", error);
+        sidebarContainer.textContent = "Unable to load sidebar. Check that sidebar.html exists.";
+        headerContainer.textContent = "Unable to load header. Check that header.html exists.";
+      }
+    }
+    loadSharedLayout();
+  </script>
+  <script src="assets/js/aboutUcc.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+</body>
+</html>

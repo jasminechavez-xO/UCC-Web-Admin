@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UCC Admin | Board of Regents</title>
+	<link rel="icon" type="image/png" href="assets/images/ucc-LOGO.png">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+	<script src="https://unpkg.com/lucide@latest"></script>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="assets/css/boardOfRegents.css">
+</head>
+<body data-page-title="Board of Regents">
+	<div class="dashboard-layout">
+		<div id="sidebar-container"></div>
+		<main class="main-content">
+			<div id="header-container"></div>
+			<section class="officials-page">
+				<div class="page-toolbar">
+					<div class="toolbar-copy">
+						<p>Manage the members and official information of the University of Caloocan City Board of Regents.</p>
+					</div>
+					<div class="officials-toolbar-controls">
+						<div class="search-box">
+							<i data-lucide="search"></i>
+							<input id="borSearch" type="search" placeholder="Search regents..." aria-label="Search regents">
+						</div>
+						<div class="filter-box">
+							<select id="borStatusFilter" aria-label="Filter by status">
+								<option value="all">All Statuses</option>
+								<option value="active">Active</option>
+								<option value="hidden">Hidden</option>
+							</select>
+						</div>
+						<div class="filter-box order-filter-box">
+							<select id="borOrderFilter" aria-label="Sort regents">
+								<option value="ascending">Order: Low to High</option>
+								<option value="descending">Order: High to Low</option>
+								<option value="name">Name: A to Z</option>
+							</select>
+						</div>
+						<button class="primary-btn" id="addBorBtn" type="button">
+							<i data-lucide="plus"></i> Add Regent
+						</button>
+					</div>
+				</div>
+				<div class="officials-card">
+					<div class="officials-card-head">
+						<h2>Board of Regents</h2>
+						<span class="result-count table-regent-count" id="tableBorCount">23 regents</span>
+					</div>
+					<div class="table-wrap" id="borTableWrap">
+						<table class="officials-table">
+							<thead>
+								<tr>
+									<th>Photo</th>
+									<th>Name</th>
+									<th>Position</th>
+									<th>Order</th>
+									<th>Status</th>
+									<th class="actions-head">Actions</th>
+								</tr>
+							</thead>
+							<tbody id="borTableBody"></tbody>
+						</table>
+					</div>
+					<div class="empty-state" id="borEmpty" hidden>
+						<i data-lucide="user-round-search"></i>
+						<h3>No regents found</h3>
+						<p>Try a different search term or status filter.</p>
+					</div>
+				</div>
+				<p class="officials-end-message" id="borEndMessage" hidden>-- No more items --</p>
+				<nav class="officials-pagination" id="borPagination" aria-label="Board of Regents pagination"></nav>
+			</section>
+			<div class="modal-overlay" id="borModal" hidden>
+				<div class="official-modal" role="dialog" aria-modal="true" aria-labelledby="borModalTitle">
+					<div class="modal-header">
+						<div>
+							<h2 id="borModalTitle">Add Regent</h2>
+							<p class="modal-description">Add or update a regent’s photo, name, position, biography, display order, and publication status.</p>
+						</div>
+						<button class="modal-close" id="closeBorModal" type="button" aria-label="Close modal">
+							<i data-lucide="x"></i>
+						</button>
+					</div>
+					<form id="borForm">
+						<div class="photo-upload-section">
+							<div class="photo-upload-preview">
+								<span id="borUploadInitials">BR</span>
+								<img id="borUploadImage" alt="Official photo preview" hidden>
+							</div>
+							<div class="photo-upload-controls">
+								<h3>Regent Photo</h3>
+								<label class="secondary-btn upload-btn" for="borPhoto">
+									<i data-lucide="upload"></i>
+									Choose Photo
+								</label>
+								<input id="borPhoto" type="file" accept="image/*" hidden>
+								<button class="post-btn post-btn-danger remove-photo-btn" id="removeBorPhoto" type="button" hidden>
+									<i data-lucide="x" aria-hidden="true"></i> Remove Photo
+								</button>
+							</div>
+						</div>
+						<div class="form-grid">
+							<label class="full">
+								<span>Full Name</span>
+								<input id="borName" name="name" type="text" placeholder="Enter full name" required>
+							</label>
+							<label class="full">
+								<span>Position</span>
+								<input id="borPosition" name="position" type="text" placeholder="Enter regent position" required>
+							</label>
+							<label class="full">
+								<span>Biography / Short Description</span>
+								<textarea id="borBio" name="bio" rows="4" placeholder="Enter biography or additional role information"></textarea>
+							</label>
+							<label>
+								<span>Display Order</span>
+								<input id="borOrder" name="displayOrder" type="number" min="1" value="1" required>
+							</label>
+							<label>
+								<span>Status</span>
+								<select id="borStatus" name="status">
+									<option value="Active">Active</option>
+									<option value="Hidden">Hidden</option>
+								</select>
+							</label>
+						</div>
+						<div class="form-actions">
+							<button class="secondary-btn" id="cancelBorBtn" type="button">Cancel</button>
+							<button class="secondary-btn" id="previewBorFormBtn" type="button">
+								<i data-lucide="eye"></i>
+								Preview
+							</button>
+							<button class="primary-btn" id="saveBorBtn" type="submit">
+								<i data-lucide="save"></i>
+								Save Regent
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="modal-overlay" id="borPreviewModal" hidden>
+				<div class="official-modal preview-modal" role="dialog" aria-modal="true" aria-labelledby="borPreviewTitle">
+					<div class="modal-header">
+						<div>
+							<h2 id="borPreviewTitle">Regent Preview</h2>
+						</div>
+						<button class="modal-close" id="closeBorPreview" type="button" aria-label="Close preview">
+							<i data-lucide="x"></i>
+						</button>
+					</div>
+					<div class="details-layout">
+						<div class="details-photo">
+							<span id="borPreviewInitials">BR</span>
+							<img id="borPreviewImage" alt="Official photo" hidden>
+						</div>
+						<div class="details-copy">
+							<h3 id="borPreviewName">Official Name</h3>
+							<p class="details-position" id="borPreviewPosition"></p>
+							<span class="status-badge" id="borPreviewStatus">Active</span>
+							<div class="details-divider"></div>
+							<p class="details-label">Biography / Short Description</p>
+							<p class="details-bio" id="borPreviewBio"></p>
+							<p class="details-order" id="borPreviewOrder"></p>
+						</div>
+					</div>
+					<section class="metadata-section modal-metadata" aria-labelledby="previewMetadataTitle">
+						<div class="metadata-heading"></div>
+						<div class="metadata-grid">
+							<div><span>Record ID</span><strong id="borPreviewMetadataId">—</strong></div>
+							<div><span>Record Type</span><strong>Board Regent</strong></div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="modal-overlay" id="borViewModal" hidden>
+				<div class="official-modal view-modal" role="dialog" aria-modal="true" aria-labelledby="borViewTitle">
+					<div class="modal-header">
+						<div>
+							<h2 id="borViewTitle">Regent Preview</h2>
+						</div>
+						<button class="modal-close" id="closeBorView" type="button" aria-label="Close details">
+							<i data-lucide="x"></i>
+						</button>
+					</div>
+					<div class="details-layout">
+						<div class="details-photo">
+							<span id="borViewInitials">BR</span>
+							<img id="borViewImage" alt="Official photo" hidden>
+						</div>
+						<div class="details-copy">
+							<h3 id="borViewName"></h3>
+							<p class="details-position" id="borViewPosition"></p>
+							<span class="status-badge" id="borViewStatus"></span>
+							<div class="details-divider"></div>
+							<p class="details-label">Biography / Short Description</p>
+							<p class="details-bio" id="borViewBio"></p>
+							<p class="details-order" id="borViewOrder"></p>
+						</div>
+					</div>
+					<section class="metadata-section modal-metadata" aria-labelledby="viewMetadataTitle">
+						<div class="metadata-heading"></div>
+						<div class="metadata-grid">
+							<div><span>Record ID</span><strong id="borViewMetadataId">—</strong></div>
+							<div><span>Record Type</span><strong>Board Regent</strong></div>
+						</div>
+					</section>
+				</div>
+			</div>
+		</main>
+	</div>
+	<script src="assets/js/boardOfRegents.js"></script>
+	<script>
+		async function loadSharedLayout() {
+			const sidebarContainer = document.getElementById("sidebar-container");
+			const headerContainer = document.getElementById("header-container");
+			try {
+				const [sidebarResponse, headerResponse] = await Promise.all([
+					fetch("sidebar.html"),
+					fetch("header.html")
+				]);
+				if (!sidebarResponse.ok || !headerResponse.ok) {
+					throw new Error("Unable to load sidebar.html or header.html.");
+				}
+				sidebarContainer.innerHTML = await sidebarResponse.text();
+				headerContainer.innerHTML = await headerResponse.text();
+				const pageTitle = document.body.dataset.pageTitle || "Board of Regents";
+				const headerTitle = document.getElementById("pageTitle");
+				if (headerTitle) {
+					headerTitle.textContent = pageTitle;
+				}
+				const currentPage = window.location.pathname.split("/").pop().toLowerCase();
+				document.querySelectorAll(".sidebar [data-page]").forEach(link => {
+					const linkPage = link.dataset.page.toLowerCase();
+					link.classList.toggle("active", linkPage === currentPage);
+				});
+				document.querySelectorAll(".sidebar .menu-title").forEach(button => {
+					const menuGroup = button.closest(".menu-group");
+					const submenu = menuGroup?.querySelector(".submenu");
+					const hasActiveLink = submenu?.querySelector(".active");
+					if (hasActiveLink) {
+						menuGroup.classList.add("open");
+						button.classList.add("active");
+						button.setAttribute("aria-expanded", "true");
+					}
+					button.addEventListener("click", () => {
+						menuGroup.classList.toggle("open");
+						button.setAttribute("aria-expanded", menuGroup.classList.contains("open") ? "true" : "false");
+					});
+				});
+				if (window.lucide) {
+					window.lucide.createIcons();
+				}
+			} catch (error) {
+				console.error("Error loading shared layout:", error);
+				sidebarContainer.innerHTML = "<p>Unable to load sidebar.</p>";
+				headerContainer.innerHTML = "<p>Unable to load header.</p>";
+			}
+		}
+		loadSharedLayout();
+	</script>
+</body>
+</html>

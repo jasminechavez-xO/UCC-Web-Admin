@@ -1,0 +1,887 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Services | UCC Admin</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/css/eServices.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+
+
+  <div class="dashboard-layout">
+
+
+    <div id="sidebar-container"></div>
+
+
+    <main class="main-content">
+
+   
+      <div id="header-container"></div>
+
+   
+      <section class="services-admin">
+
+        <div class="services-page-heading">
+          <p>Manage the online services available to the UCC community.</p>
+        </div>
+
+        <!-- SEARCH, FILTERS, AND ADD BUTTON -->
+        <div class="services-toolbar">
+
+          <div class="services-tools-left">
+
+            <label class="services-search">
+              <i data-lucide="search" aria-hidden="true"></i>
+              <input
+                id="serviceSearch"
+                type="search"
+                placeholder="Search e-services..."
+                aria-label="Search e-services"
+              >
+            </label>
+
+            <select id="serviceStatusFilter" aria-label="Filter by status">
+              <option value="all">All Statuses</option>
+              <option value="Active">Active</option>
+              <option value="Hidden">Hidden</option>
+            </select>
+
+            <select id="serviceSort" aria-label="Sort services">
+              <option value="name-asc">Name: A–Z</option>
+              <option value="name-desc">Name: Z–A</option>
+              <option value="newest">Newest First</option>
+              <option value="oldest">Oldest First</option>
+            </select>
+
+          </div>
+
+          <button
+            class="service-add-btn"
+            id="addServiceBtn"
+            type="button"
+          >
+            <i data-lucide="plus" aria-hidden="true"></i>
+            Add E-Service
+          </button>
+
+        </div>
+
+        <!-- SERVICES TABLE -->
+        <section class="services-table-card">
+
+          <div class="services-table-heading">
+            <h3>Available E-Services</h3>
+            <span id="serviceCount" class="services-count">5 services</span>
+          </div>
+
+          <div class="services-table-wrap">
+
+            <table class="services-table">
+
+              <thead>
+                <tr>
+                  <th scope="col">Service</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Website URL</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+
+              <!-- INITIAL SAMPLE DATA -->
+              <tbody id="servicesTableBody">
+
+                <!-- SERVICE 1 -->
+                <tr data-id="1">
+
+                  <td>
+                    <div class="service-name-cell">
+                      <div class="service-logo-cell">
+                        <i data-lucide="globe" aria-hidden="true"></i>
+                      </div>
+
+                      <div>
+                        <strong>City of Caloocan</strong>
+                        <small>E-Service</small>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>
+                    Official website of the City Government of Caloocan.
+                  </td>
+
+                  <td>
+                    <a
+                      class="service-link"
+                      href="https://caloocancity.gov.ph/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      https://caloocancity.gov.ph/
+                    </a>
+                  </td>
+
+                  <td>
+                    <span class="service-status active">Active</span>
+                  </td>
+
+                  <td>
+                    <div class="service-row-actions">
+
+                      <button
+                        class="service-action preview-action"
+                        type="button"
+                        data-action="preview"
+                        data-id="1"
+                        title="View"
+                        aria-label="View City of Caloocan service"
+                      >
+                        <i data-lucide="eye" aria-hidden="true"></i>
+                      </button>
+
+                      <button
+                        class="service-action edit-action"
+                        type="button"
+                        data-action="edit"
+                        data-id="1"
+                        title="Edit"
+                        aria-label="Edit City of Caloocan service"
+                      >
+                        <i data-lucide="pencil" aria-hidden="true"></i>
+                      </button>
+
+                      <button
+                        class="service-action delete-action"
+                        type="button"
+                        data-action="delete"
+                        data-id="1"
+                        title="Delete"
+                        aria-label="Delete City of Caloocan service"
+                      >
+                        <i data-lucide="trash-2" aria-hidden="true"></i>
+                      </button>
+
+                    </div>
+                  </td>
+
+                </tr>
+
+                <!-- SERVICE 2 -->
+                <tr data-id="2">
+
+                  <td>
+                    <div class="service-name-cell">
+                      <div class="service-logo-cell">
+                        <i data-lucide="globe" aria-hidden="true"></i>
+                      </div>
+
+                      <div>
+                        <strong>Commission on Higher Education</strong>
+                        <small>E-Service</small>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>
+                    Official higher education information and services.
+                  </td>
+
+                  <td>
+                    <a
+                      class="service-link"
+                      href="https://ched.gov.ph/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      https://ched.gov.ph/
+                    </a>
+                  </td>
+
+                  <td>
+                    <span class="service-status active">Active</span>
+                  </td>
+
+                  <td>
+                    <div class="service-row-actions">
+
+                      <button
+                        class="service-action preview-action"
+                        type="button"
+                        data-action="preview"
+                        data-id="2"
+                        title="View"
+                        aria-label="View Commission on Higher Education service"
+                      >
+                        <i data-lucide="eye" aria-hidden="true"></i>
+                      </button>
+
+                      <button
+                        class="service-action edit-action"
+                        type="button"
+                        data-action="edit"
+                        data-id="2"
+                        title="Edit"
+                        aria-label="Edit Commission on Higher Education service"
+                      >
+                        <i data-lucide="pencil" aria-hidden="true"></i>
+                      </button>
+
+                      <button
+                        class="service-action delete-action"
+                        type="button"
+                        data-action="delete"
+                        data-id="2"
+                        title="Delete"
+                        aria-label="Delete Commission on Higher Education service"
+                      >
+                        <i data-lucide="trash-2" aria-hidden="true"></i>
+                      </button>
+
+                    </div>
+                  </td>
+
+                </tr>
+
+                <!-- SERVICE 3 -->
+                <tr data-id="3">
+
+                  <td>
+                    <div class="service-name-cell">
+                      <div class="service-logo-cell">
+                        <i data-lucide="globe" aria-hidden="true"></i>
+                      </div>
+
+                      <div>
+                        <strong>AIMS Faculty Portal</strong>
+                        <small>E-Service</small>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>
+                    Academic Information Management System faculty portal.
+                  </td>
+
+                  <td>
+                    <span class="muted">No website URL</span>
+                  </td>
+
+                  <td>
+                    <span class="service-status active">Active</span>
+                  </td>
+
+                  <td>
+                    <div class="service-row-actions">
+
+                      <button
+                        class="service-action preview-action"
+                        type="button"
+                        data-action="preview"
+                        data-id="3"
+                        title="View"
+                        aria-label="View AIMS Faculty Portal service"
+                      >
+                        <i data-lucide="eye" aria-hidden="true"></i>
+                      </button>
+
+                      <button
+                        class="service-action edit-action"
+                        type="button"
+                        data-action="edit"
+                        data-id="3"
+                        title="Edit"
+                        aria-label="Edit AIMS Faculty Portal service"
+                      >
+                        <i data-lucide="pencil" aria-hidden="true"></i>
+                      </button>
+
+                      <button
+                        class="service-action delete-action"
+                        type="button"
+                        data-action="delete"
+                        data-id="3"
+                        title="Delete"
+                        aria-label="Delete AIMS Faculty Portal service"
+                      >
+                        <i data-lucide="trash-2" aria-hidden="true"></i>
+                      </button>
+
+                    </div>
+                  </td>
+
+                </tr>
+
+                <!-- SERVICE 4 -->
+                <tr data-id="4">
+
+                  <td>
+                    <div class="service-name-cell">
+                      <div class="service-logo-cell">
+                        <i data-lucide="globe" aria-hidden="true"></i>
+                      </div>
+
+                      <div>
+                        <strong>AIMS Student Portal</strong>
+                        <small>E-Service</small>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>
+                    Academic Information Management System student portal.
+                  </td>
+
+                  <td>
+                    <span class="muted">No website URL</span>
+                  </td>
+
+                  <td>
+                    <span class="service-status active">Active</span>
+                  </td>
+
+                  <td>
+                    <div class="service-row-actions">
+
+                      <button
+                        class="service-action preview-action"
+                        type="button"
+                        data-action="preview"
+                        data-id="4"
+                        title="View"
+                        aria-label="View AIMS Student Portal service"
+                      >
+                        <i data-lucide="eye" aria-hidden="true"></i>
+                      </button>
+
+                      <button
+                        class="service-action edit-action"
+                        type="button"
+                        data-action="edit"
+                        data-id="4"
+                        title="Edit"
+                        aria-label="Edit AIMS Student Portal service"
+                      >
+                        <i data-lucide="pencil" aria-hidden="true"></i>
+                      </button>
+
+                      <button
+                        class="service-action delete-action"
+                        type="button"
+                        data-action="delete"
+                        data-id="4"
+                        title="Delete"
+                        aria-label="Delete AIMS Student Portal service"
+                      >
+                        <i data-lucide="trash-2" aria-hidden="true"></i>
+                      </button>
+
+                    </div>
+                  </td>
+
+                </tr>
+
+                <!-- SERVICE 5 -->
+                <tr data-id="5">
+
+                  <td>
+                    <div class="service-name-cell">
+                      <div class="service-logo-cell">
+                        <i data-lucide="globe" aria-hidden="true"></i>
+                      </div>
+
+                      <div>
+                        <strong>
+                          Department of Information and Communication Technology
+                        </strong>
+                        <small>E-Service</small>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>
+                    Information and communication technology services and resources.
+                  </td>
+
+                  <td>
+                    <a
+                      class="service-link"
+                      href="https://dict.gov.ph/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      https://dict.gov.ph/
+                    </a>
+                  </td>
+
+                  <td>
+                    <span class="service-status active">Active</span>
+                  </td>
+
+                  <td>
+                    <div class="service-row-actions">
+
+                      <button
+                        class="service-action preview-action"
+                        type="button"
+                        data-action="preview"
+                        data-id="5"
+                        title="View"
+                        aria-label="View DICT service"
+                      >
+                        <i data-lucide="eye" aria-hidden="true"></i>
+                      </button>
+
+                      <button
+                        class="service-action edit-action"
+                        type="button"
+                        data-action="edit"
+                        data-id="5"
+                        title="Edit"
+                        aria-label="Edit DICT service"
+                      >
+                        <i data-lucide="pencil" aria-hidden="true"></i>
+                      </button>
+
+                      <button
+                        class="service-action delete-action"
+                        type="button"
+                        data-action="delete"
+                        data-id="5"
+                        title="Delete"
+                        aria-label="Delete DICT service"
+                      >
+                        <i data-lucide="trash-2" aria-hidden="true"></i>
+                      </button>
+
+                    </div>
+                  </td>
+
+                </tr>
+
+              </tbody>
+            </table>
+
+          </div>
+        </section>
+
+        <!-- TABLE FOOTER -->
+        <div class="services-list-footer">
+
+          <button
+            class="services-show-more"
+            id="showMoreServicesBtn"
+            type="button"
+            hidden
+          >
+            Show more
+          </button>
+
+          <p class="services-end-message" id="servicesEndMessage" hidden>
+            -- No more items --
+          </p>
+
+        </div>
+
+      </section>
+
+
+    </main>
+  
+
+  </div>
+ 
+
+
+  <!-- ADD / EDIT E-SERVICE MODAL -->
+  <section
+    class="service-modal"
+    id="serviceModal"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+  >
+
+    <div class="service-modal-backdrop" data-close-modal></div>
+
+    <div class="service-modal-box">
+
+      <header class="service-modal-header">
+
+        <div>
+          <h3 id="modalTitle">Add E-Service</h3>
+          <p id="modalSubtitle">
+            Enter the information for this e-service.
+          </p>
+        </div>
+
+        <button
+          class="modal-close"
+          id="modalClose"
+          type="button"
+          aria-label="Close form"
+        >
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+
+      </header>
+
+      <form id="serviceForm">
+
+        <div class="form-grid">
+
+			<!-- SERVICE PHOTO UPLOAD -->
+          <div class="form-group form-group-wide">
+
+            <label for="serviceLogo">
+              Service Photo
+             
+            </label>
+
+            <div class="logo-upload-box">
+
+              <div class="logo-preview" id="logoPreviewContainer">
+
+                <i
+                  id="defaultLogoIcon"
+                  data-lucide="image"
+                  aria-hidden="true"
+                ></i>
+
+                <img
+                  id="serviceLogoPreview"
+                  alt="Service photo preview"
+                  hidden
+                >
+
+              </div>
+
+              <div class="logo-upload-controls">
+
+                <input
+                  id="serviceLogo"
+                  name="serviceLogo"
+                  type="file"
+                  accept="image/*"
+                  hidden
+                >
+
+                <button
+                  class="choose-photo-btn"
+                  id="chooseServicePhoto"
+                  type="button"
+                >
+                  <i data-lucide="upload" aria-hidden="true"></i>
+                  Choose Photo
+                </button>
+
+                <button
+                  class="remove-logo-btn"
+                  id="removeServiceLogo"
+                  type="button"
+                  hidden
+                >
+                  <i data-lucide="x" aria-hidden="true"></i>
+                  Remove Photo
+                </button>
+
+              </div>
+
+            </div>
+
+          <div class="form-group form-group-wide">
+            <label for="serviceName">
+              Service Name
+            </label>
+
+            <input
+              id="serviceName"
+              name="serviceName"
+              type="text"
+              maxlength="150"
+              required
+              placeholder="Enter service name"
+            >
+          </div>
+
+          <div class="form-group form-group-wide">
+            <label for="serviceDescription">
+              Description 
+            </label>
+
+            <textarea
+              id="serviceDescription"
+              name="serviceDescription"
+              required
+              maxlength="600"
+              placeholder="Describe this e-service"
+            ></textarea>
+          </div>
+
+          <div class="form-group form-group-wide">
+            <label for="serviceUrl">
+              Website URL <span class="optional-label">(Optional)</span>
+            </label>
+
+            <input
+              id="serviceUrl"
+              name="serviceUrl"
+              type="url"
+              placeholder="https://example.com"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="serviceStatus">Status</label>
+
+            <select id="serviceStatus" name="serviceStatus">
+              <option value="Active">Active</option>
+              <option value="Hidden">Hidden</option>
+            </select>
+          </div>
+
+          
+          </div>
+
+        </div>
+
+        <!-- AUDIT METADATA -->
+        <section class="service-audit-metadata">
+
+          <h4>E-Service Metadata</h4>
+
+          <div class="service-metadata-grid">
+
+            <div>
+              <span>CREATED BY</span>
+              <strong id="metadataCreatedBy">—</strong>
+            </div>
+
+            <div>
+              <span>CREATED DATE</span>
+              <strong id="metadataCreatedDate">—</strong>
+            </div>
+
+            <div>
+              <span>LAST UPDATED BY</span>
+              <strong id="metadataUpdatedBy">—</strong>
+            </div>
+
+          </div>
+
+        </section>
+
+        <!-- FORM ACTIONS -->
+        <footer class="modal-footer-row">
+
+          <button
+            class="modal-cancel"
+            id="modalCancel"
+            type="button"
+          >
+            Cancel
+          </button>
+
+          <div class="modal-actions">
+
+            <button
+              class="modal-preview-btn"
+              id="previewServiceBtn"
+              type="button"
+            >
+              <i data-lucide="eye" aria-hidden="true"></i>
+              Preview
+            </button>
+
+            <button class="modal-save" type="submit">
+              <i data-lucide="save" aria-hidden="true"></i>
+              Save Service
+            </button>
+
+          </div>
+
+        </footer>
+
+      </form>
+
+    </div>
+  </section>
+ 
+
+
+  <!-- SERVICE PREVIEW MODAL -->
+  <section
+    class="service-preview-modal"
+    id="servicePreviewModal"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="previewServiceName"
+  >
+
+    <div class="service-modal-backdrop" data-close-preview></div>
+
+    <div class="service-preview-box">
+
+      <header class="service-preview-header">
+
+        <div>
+  
+          <h3>E-Sevice Preview</h3>
+        </div>
+
+        <button
+          class="modal-close"
+          id="closeServicePreview"
+          type="button"
+          aria-label="Close preview"
+        >
+          <i data-lucide="x" aria-hidden="true"></i>
+        </button>
+
+      </header>
+
+      <div class="service-preview-content">
+
+        <div class="preview-service-card">
+
+          <div class="preview-service-logo" id="previewServiceIcon">
+
+            <i
+              id="previewDefaultIcon"
+              data-lucide="globe"
+              aria-hidden="true"
+            ></i>
+
+            <img
+              id="previewServiceLogo"
+              alt="Service photo"
+              hidden
+            >
+
+          </div>
+
+          <div class="preview-service-copy">
+
+            <span class="service-status active" id="previewServiceStatus">
+              Active
+            </span>
+
+            <h3 id="previewServiceName">Service name</h3>
+
+            <p id="previewServiceDescription">Service description</p>
+
+          </div>
+
+          <a
+            class="preview-website-link"
+            id="previewServiceLink"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Visit Website
+            <i data-lucide="arrow-up-right" aria-hidden="true"></i>
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+ 
+
+
+
+  <script src="assets/js/eServices.js"></script>
+
+  <!-- LOAD SHARED SIDEBAR AND HEADER -->
+  <script>
+    
+    fetch("sidebar.html")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Sidebar could not be loaded.");
+        }
+
+        return response.text();
+      })
+      .then(html => {
+        const sidebarContainer =
+          document.getElementById("sidebar-container");
+
+        sidebarContainer.innerHTML = html;
+
+        // Highlight the current page in the sidebar.
+        const currentPage =
+          window.location.pathname.split("/").pop() || "eServices.html";
+
+        sidebarContainer.querySelectorAll("a[href]").forEach(link => {
+          const linkPage = link.getAttribute("href").split("/").pop();
+
+          if (linkPage === currentPage) {
+            link.classList.add("active");
+
+            link.closest(".menu-group")?.classList.add("open");
+          }
+        });
+
+        // Initialize icons in the loaded sidebar.
+        if (window.lucide) {
+          window.lucide.createIcons();
+        }
+      })
+      .catch(error => {
+        console.error("Sidebar loading error:", error);
+      });
+
+
+    // Load the header.
+    fetch("header.html")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("Header could not be loaded.");
+        }
+
+        return response.text();
+      })
+      .then(html => {
+        document.getElementById("header-container").innerHTML = html;
+
+    
+        if (window.lucide) {
+          window.lucide.createIcons();
+        }
+      })
+      .catch(error => {
+        console.error("Header loading error:", error);
+      });
+
+
+   
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.lucide) {
+        window.lucide.createIcons();
+      }
+    });
+  </script>
+
+</body>
+</html>

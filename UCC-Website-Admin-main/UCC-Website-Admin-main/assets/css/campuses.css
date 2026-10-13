@@ -1,0 +1,675 @@
+/* Campuses page styles; shared dashboard styling remains in style.css */
+
+.campuses-page{padding:28px 30px 42px;min-width:0;color:#243247}
+
+.campuses-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}
+
+.campuses-intro p{margin:0;color:#718078;font:400 15px "DM Sans",sans-serif}
+
+.campus-primary-btn,.campus-secondary-btn,.campus-cancel-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;min-height:48px;padding:0 17px;border-radius:14px;font:700 14px "DM Sans",sans-serif;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
+
+.campus-primary-btn{border:1px solid #245c40;background:#245c40;color:#fff;box-shadow:0 5px 14px rgba(36,92,64,.12)}
+
+.campus-primary-btn:hover{background:#19472f;transform:translateY(-1px)}
+
+.campus-secondary-btn{border:1px solid #e4ddd2;background:#fffdfa;color:#254c38}
+
+.campus-secondary-btn:hover{background:#f5f1e9;border-color:#cfc5b5}
+
+.campus-cancel-btn{border:1px solid #e4ddd2;background:#fff;color:#526156}
+
+.campus-cancel-btn:hover{background:#f7f4ee}
+
+.campus-primary-btn svg,.campus-secondary-btn svg{width:16px;height:16px}
+
+.campuses-tools{display:flex;align-items:center;gap:12px;margin-bottom:22px;width:100%}
+
+.campus-search{position:relative;display:flex;align-items:center;gap:12px;flex:1 1 auto;min-width:0;height:48px;padding:0 16px 0 48px;border:1px solid #e8e3d8;border-radius:16px;background:#fff;box-sizing:border-box}
+
+.campus-search>svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:#6f7e74;flex:none}
+
+.campus-search input{width:100%;min-width:60px;border:0;outline:0;background:transparent;color:#243247;font:400 14px "DM Sans",sans-serif}
+
+.campus-search input::placeholder{color:#9099a7}
+
+.campuses-table-card{overflow:hidden;border:1px solid #e7dfd4;border-radius:15px;background:#fffdfa;box-shadow:0 8px 28px rgba(34,49,39,.045)}
+
+.campuses-table-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:19px 23px;border-bottom:1px solid #e8e0d6}
+
+.campuses-table-heading h3{margin:0;color:#162f25;font:700 19px "DM Sans",sans-serif}
+
+.campuses-table-heading span{color:#788176;font:400 13px "DM Sans",sans-serif}
+
+.campuses-table-heading strong{color:#17613e;margin-right:5px}
+
+.campuses-table-wrap{width:100%;overflow-x:auto}
+
+.campuses-table{width:100%;border-collapse:collapse;table-layout:auto}
+
+.campuses-table thead{background:#f5f0e8}
+
+.campuses-table th{padding:14px 20px;text-align:left;color:#59685f;font:700 11px "DM Sans",sans-serif;letter-spacing:.055em;white-space:nowrap;border-bottom:1px solid #e7dfd4}
+
+.campuses-table td{padding:15px 20px;border-bottom:1px solid #eee8df;color:#536257;font:400 13px "DM Sans",sans-serif;vertical-align:middle}
+
+.campuses-table tbody tr:last-child td{border-bottom:0}
+
+.campuses-table tbody tr:hover{background:#fdfbf7}
+
+.campuses-table th:first-child,.campuses-table td:first-child{width:86px}
+
+.campuses-table th:last-child,.campuses-table td:last-child{text-align:right;width:140px}
+
+.campus-thumb{width:58px;height:54px;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:10px;background:#f4f0e8;color:#8e9a91}
+
+.campus-thumb img{width:100%;height:100%;object-fit:cover}
+
+.campus-thumb svg{width:22px;height:22px}
+
+.campuses-table td:nth-child(2) strong{display:block;color:#172b22;font-size:13px;font-weight:700}
+
+.campus-subtitle{display:block;margin-top:4px;color:#829087;font-size:12px}
+
+.campuses-table td:nth-child(3){min-width:160px;white-space:pre-line;line-height:1.55}
+
+.campuses-table td:nth-child(4) small{display:block;margin-top:5px;color:#8a938b;font-size:11px}
+
+.campus-map-link{display:inline-flex;align-items:center;gap:6px;color:#276c49;text-decoration:none;font-size:12px;font-weight:700;white-space:nowrap}
+
+.campus-map-link:hover{text-decoration:underline}
+
+.campus-map-link svg{width:14px;height:14px}
+
+.campus-row-actions{display:flex;justify-content:flex-end;gap:7px}
+
+.campus-icon-btn{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid #e8e0d6;border-radius:10px;background:#fffdfa;cursor:pointer;transition:background .18s,border-color .18s}
+
+.campus-icon-btn svg{width:17px;height:17px}
+
+.campus-view{color:#328153}.campus-view:hover{background:#eaf5ed;border-color:#c7e1ce}
+
+.campus-edit{color:#b98a24}.campus-edit:hover{background:#fbf3df;border-color:#e9d7a8}
+
+.campus-delete{color:#c64c4c}.campus-delete:hover{background:#fff0ee;border-color:#f0cbc7}
+
+.campus-empty-state{padding:42px 16px;text-align:center;color:#7d887f;font-size:14px}
+
+.campus-modal-overlay{position:fixed;inset:0;z-index:1200;display:none;align-items:center;justify-content:center;padding:22px;background:rgba(14,29,21,.56);backdrop-filter:blur(3px)}
+
+.campus-modal-overlay.is-open{display:flex}
+
+.campus-modal,.campus-preview-modal{width:min(100%,700px);max-height:calc(100vh - 44px);overflow:auto;border:1px solid #e7dfd4;border-radius:16px;background:#fffdfa;box-shadow:0 22px 70px rgba(8,26,16,.24);animation:campusModalIn .18s ease-out}
+
+.campus-preview-modal{width:min(100%,760px)}
+
+@keyframes campusModalIn{from{opacity:0;transform:translateY(8px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+.campus-modal-header{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:22px 25px;border-bottom:1px solid #e8e0d6;background:#fffdfa}
+
+.campus-modal-header h2{margin:3px 0 0;color:#152d22;font:700 22px "DM Sans",sans-serif}
+
+.campus-eyebrow{margin:0;color:#6c806f;font:700 10px "DM Sans",sans-serif;letter-spacing:.12em}
+
+.campus-close-btn{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid #e7dfd4;border-radius:10px;background:#fff;color:#243b2e;cursor:pointer}
+
+.campus-close-btn svg{width:19px;height:19px}
+
+#campusForm{padding:23px 25px 25px}
+
+.campus-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+.campus-form-field{display:flex;flex-direction:column;gap:8px;min-width:0}
+
+.campus-form-field>label{color:#34493b;font-size:12px;font-weight:700}
+
+.campus-form-field>label span{color:#c84d43}
+
+.campus-form-field input:not([type=file]),.campus-form-field textarea{width:100%;border:1px solid #e1dace;border-radius:9px;padding:11px 12px;outline:none;background:#fff;color:#25382c;font:400 13px "DM Sans",sans-serif;transition:border-color .15s,box-shadow .15s}
+
+.campus-form-field input:focus,.campus-form-field textarea:focus{border-color:#679477;box-shadow:0 0 0 3px rgba(69,130,91,.12)}
+
+.campus-form-field textarea{resize:vertical;min-height:92px}
+
+.campus-full-field{grid-column:1/-1}
+
+.campus-form-field small,.campus-upload-controls small{color:#879188;font-size:11px;line-height:1.5}
+
+.campus-upload-row{display:flex;align-items:center;justify-content:space-between;gap:15px;width:100%;padding:16px;border:1px dashed #e3b75f;border-radius:20px;background:#fbf6ee;box-sizing:border-box}
+
+.campus-upload-preview{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:128px;height:92px;overflow:hidden;border:1px dashed #d8d1c6;border-radius:10px;background:#f5f0e8;color:#8b978d;text-align:center;font-size:10px;flex:none}
+
+.campus-upload-preview svg{width:22px;height:22px}
+
+.campus-upload-preview img{width:100%;height:100%;object-fit:cover}
+
+.campus-upload-controls{display:flex;align-items:flex-end;flex-direction:column;gap:10px;margin-left:auto}
+
+.campus-remove-image{padding:0;border:0;background:transparent;color:#c44343;font:700 12px "DM Sans",sans-serif;cursor:pointer}
+
+.campus-remove-image[hidden]{display:none}
+
+.campus-form-actions{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:26px;padding-top:18px;border-top:1px solid #ece5db}
+
+.campus-form-actions-right{display:flex;align-items:center;gap:10px}
+
+.campus-preview-content{padding:22px 25px 25px}
+
+.campus-preview-image{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;width:100%;height:260px;overflow:hidden;border-radius:11px;background:linear-gradient(135deg,#f7f1e7 0%,#efe5d5 100%);color:#8e9a91;font-size:14px}
+
+.campus-preview-image svg{width:42px;height:42px;stroke-width:1.8}
+
+.campus-preview-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.campus-preview-copy{padding:22px 10px 4px}
+
+.campus-preview-copy h3{margin:0 0 10px;color:#142d21;font:700 26px "Libre Baskerville",serif;overflow-wrap:anywhere}
+
+.campus-preview-copy p{margin:0;color:#5f6f63;font:400 14px/1.7 "DM Sans",sans-serif;white-space:pre-line;overflow-wrap:anywhere}
+
+@media(max-width:900px){.campuses-page{padding:22px 20px 32px}.campuses-table th,.campuses-table td{padding:13px 14px}}
+
+@media(max-width:640px){.campuses-page{padding:18px 13px 28px}.campuses-toolbar{align-items:flex-start;flex-direction:column}.campuses-tools{align-items:stretch}.campuses-tools>.campus-primary-btn{padding:0 12px}.campus-search{width:auto}.campuses-table-heading{padding:16px}.campuses-table th,.campuses-table td{padding:12px}.campus-modal-overlay{padding:10px}.campus-modal,.campus-preview-modal{max-height:calc(100vh - 20px)}.campus-modal-header{padding:18px}.campus-form-grid{grid-template-columns:1fr;gap:17px}#campusForm{padding:18px}.campus-full-field{grid-column:auto}.campus-form-actions{align-items:stretch}.campus-form-actions-right{gap:7px}.campus-form-actions button{padding:0 11px}.campus-preview-content{padding:16px}.campus-preview-image{height:200px}.campus-preview-copy h3{font-size:22px}}
+
+
+
+/* Keep campus image controls aligned like the Posts featured-image uploader. */
+
+.campus-upload-preview{width:110px;height:78px;border-radius:12px}
+
+.campus-upload-controls .campus-secondary-btn{min-width:190px;border-radius:14px;border-color:#dcae43;background:#fbf5eb;height:48px}
+
+.campus-upload-controls .campus-secondary-btn:hover{background:#f6eddd}
+
+.campus-remove-image{align-self:flex-end}
+
+@media(max-width:480px){.campuses-tools{flex-wrap:wrap}.campuses-tools>.campus-primary-btn{width:100%}.campus-search{flex-basis:100%}.campus-upload-row{padding:12px}.campus-upload-controls .campus-secondary-btn{min-width:0;padding:0 12px}}
+
+
+
+
+
+/* Explicit layout refinements for the requested Campus form and toolbar. */
+
+.campuses-tools{display:flex;align-items:center;gap:10px;margin:20px 0 22px}
+
+.campus-search{height:48px;min-height:48px;border-radius:16px;flex:1 1 auto}
+
+.campuses-tools>.campus-primary-btn{height:48px;min-height:48px;border-radius:16px;padding:0 20px;white-space:nowrap;flex:0 0 auto}
+
+.campuses-intro p{margin:0;color:#718078;font:400 15px/1.6 "DM Sans",sans-serif}
+
+.campus-upload-row{min-height:112px;padding:16px 22px;display:flex;align-items:center;gap:18px;border:1px dashed #e3b75f;border-radius:22px;background:#fbf5eb}
+
+.campus-upload-label{display:flex;align-items:center;gap:12px;color:#172b22;font:700 15px "DM Sans",sans-serif;min-width:0}
+
+.campus-upload-label svg{width:25px;height:25px;color:#5d6d62;flex:none}
+
+.campus-upload-controls{display:flex;align-items:center;flex-direction:column;gap:8px;margin-left:auto;flex:none}
+
+.campus-upload-controls .campus-secondary-btn{order:0;min-width:204px;height:48px;min-height:48px;border-radius:17px;border-color:#dcae43;background:#fbf5eb;color:#245c40}
+
+.campus-upload-preview{order:1;width:204px;height:104px;border-radius:12px;border:1px solid #e4ddd2;background:#fff;overflow:hidden}
+
+.campus-upload-preview[hidden]{display:none!important}
+
+.campus-upload-preview img{display:block;width:100%;height:100%;object-fit:cover}
+
+.campus-remove-image{order:2;align-self:flex-end;color:#c44343;font:700 12px "DM Sans",sans-serif}
+
+.campus-remove-image[hidden]{display:none!important}
+
+.campus-preview-metadata{padding:18px 28px 24px;margin:0 8px;border-top:1px solid #e8e0d6;display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+
+.campus-preview-metadata>div{min-width:0;overflow-wrap:anywhere}
+
+.campus-preview-metadata p{margin:8px 0 0;line-height:1.65;overflow-wrap:anywhere}
+
+
+
+
+
+
+
+/* Campus image upload section */
+
+.campus-image-field {
+
+ display: flex;
+
+ flex-direction: column;
+
+ gap: 12px;
+
+}
+
+
+
+.campus-upload-row {
+
+ display: flex;
+
+ align-items: center;
+
+ justify-content: space-between;
+
+ gap: 16px;
+
+ width: 100%;
+
+}
+
+
+
+.campus-upload-label {
+
+ display: flex;
+
+ align-items: center;
+
+ gap: 8px;
+
+}
+
+
+
+.campus-upload-controls {
+
+ display: flex;
+
+ align-items: center;
+
+ justify-content: flex-end;
+
+ gap: 8px;
+
+}
+
+
+
+/* Selected image preview */
+
+.campus-upload-preview {
+
+ width: 100%;
+
+ margin-top: 4px;
+
+}
+
+
+
+.campus-upload-preview img {
+
+ display: block;
+
+ width: 100%;
+
+ max-height: 220px;
+
+ object-fit: cover;
+
+ border-radius: 12px;
+
+}
+
+
+
+/* Campus Name below the preview */
+
+.campus-name-field {
+
+ width: 100%;
+
+ margin-top: 4px;
+
+}
+
+
+
+.campus-name-field input {
+
+ width: 100%;
+
+ box-sizing: border-box;
+
+}
+
+
+
+
+
+
+
+@media(max-width:640px){.campuses-tools{gap:10px}.campuses-tools>.campus-primary-btn{width:auto}.campus-upload-row{padding:14px;align-items:flex-start}.campus-upload-label{font-size:13px}.campus-upload-controls .campus-secondary-btn{min-width:150px}.campus-upload-preview{width:150px;height:90px}.campus-preview-metadata{padding:16px;margin:0 4px;flex-direction:column}}
+
+@media(max-width:480px){.campuses-tools{flex-wrap:nowrap}.campus-search{flex:1 1 auto;min-width:0}.campuses-tools>.campus-primary-btn{width:auto;padding:0 12px;font-size:12px}.campus-upload-row{gap:10px}.campus-upload-controls .campus-secondary-btn{min-width:130px;padding:0 10px}}
+
+
+/* Campus image uploader — corrected layout */
+.campus-image-field {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+}
+
+.campus-image-field .campus-upload-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+    min-height: 140px;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px dashed #e3b75f;
+    border-radius: 22px;
+    background: #fbf5eb;
+}
+
+.campus-image-field .campus-upload-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+    color: #172b22;
+    font: 700 15px/1.4 "DM Sans", sans-serif;
+}
+
+.campus-image-field .campus-upload-label svg,
+.campus-image-field .campus-upload-label i {
+    width: 25px;
+    height: 25px;
+    flex: 0 0 auto;
+    color: #5d6d62;
+}
+
+.campus-image-field .campus-upload-label span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.campus-image-field .campus-upload-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    min-width: 0;
+    margin-left: 0;
+}
+
+.campus-image-field .campus-upload-controls .campus-secondary-btn,
+.campus-image-field #chooseCampusImage {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: auto;
+    min-width: 190px;
+    max-width: 100%;
+    height: 48px;
+    min-height: 48px;
+    padding: 0 20px;
+    border: 1px solid #dcae43;
+    border-radius: 14px;
+    background: #fbf5eb;
+    color: #245c40;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.campus-image-field .campus-upload-controls .campus-secondary-btn:hover,
+.campus-image-field #chooseCampusImage:hover {
+    background: #f6eddd;
+}
+
+.campus-image-field .campus-upload-preview {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    height: auto;
+    min-height: 0;
+    margin-top: 4px;
+    overflow: hidden;
+    border: 1px solid #e4ddd2;
+    border-radius: 12px;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.campus-image-field .campus-upload-preview[hidden] {
+    display: none !important;
+}
+
+.campus-image-field .campus-upload-preview img {
+    display: block;
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+.campus-image-field .campus-remove-image {
+    align-self: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #c44343;
+    font: 700 12px "DM Sans", sans-serif;
+}
+
+.campus-image-field .campus-remove-image[hidden] {
+    display: none !important;
+}
+
+.campus-name-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+    margin-top: 4px;
+    box-sizing: border-box;
+}
+
+.campus-name-field input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+@media (max-width: 640px) {
+    .campus-image-field .campus-upload-row {
+        padding: 16px;
+        min-height: 0;
+    }
+
+    .campus-image-field .campus-upload-controls {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .campus-image-field .campus-upload-controls .campus-secondary-btn,
+    .campus-image-field #chooseCampusImage {
+        width: 100%;
+        min-width: 0;
+    }
+}
+
+
+/* Final campus form layout: image and all fields use the full form width */
+#campusForm .campus-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+}
+
+#campusForm .campus-image-field,
+#campusForm .campus-name-field,
+#campusForm .campus-full-field {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+}
+
+/* Full-width image upload panel with controls aligned to the right */
+#campusForm .campus-image-field .campus-upload-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    min-height: 112px;
+    padding: 18px 22px;
+    box-sizing: border-box;
+}
+
+#campusForm .campus-image-field .campus-upload-label {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+}
+
+#campusForm .campus-image-field .campus-upload-controls {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: auto;
+    margin: 0 0 0 auto;
+}
+
+#campusForm .campus-image-field #chooseCampusImage,
+#campusForm .campus-image-field .campus-upload-controls .campus-secondary-btn {
+    min-width: 190px;
+    width: auto;
+    flex: 0 0 auto;
+}
+
+/* Preview sits below the upload panel and matches its width */
+#campusForm .campus-image-field > .campus-upload-preview {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    min-height: 0;
+    margin-top: 0;
+    border: 0;
+    background: transparent;
+    overflow: visible;
+}
+
+#campusForm .campus-image-field > .campus-upload-preview img {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border: 1px solid #e4ddd2;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+/* Remove Photo is a red outlined button beside Choose Photo */
+#campusForm .campus-image-field #removeCampusImage {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    align-self: auto;
+    min-width: 170px;
+    min-height: 48px;
+    padding: 0 18px;
+    border: 1px solid #c44343;
+    border-radius: 14px;
+    background: #fff;
+    color: #c44343;
+    font: 700 14px "DM Sans", sans-serif;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+#campusForm .campus-image-field #removeCampusImage:hover {
+    background: #fff1f1;
+    border-color: #a92f2f;
+    color: #a92f2f;
+}
+
+#campusForm .campus-image-field #removeCampusImage[hidden] {
+    display: none !important;
+}
+
+
+
+/* Add Campus image preview */
+.campus-image-field .campus-upload-preview {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: auto;
+    min-height: 0;
+    margin: 12px 0 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    box-sizing: border-box;
+}
+
+.campus-image-field .campus-upload-preview[hidden] {
+    display: none !important;
+}
+
+.campus-image-field .campus-upload-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 260px;
+    object-fit: contain;
+    object-position: left center;
+    border: 1px solid #e5ddd1;
+    border-radius: 12px;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+
+@media (max-width: 640px) {
+    #campusForm .campus-image-field .campus-upload-row {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 14px;
+        padding: 16px;
+    }
+
+    #campusForm .campus-image-field .campus-upload-label {
+        width: 100%;
+    }
+
+    #campusForm .campus-image-field .campus-upload-controls {
+        align-items: stretch;
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+    }
+
+    #campusForm .campus-image-field #chooseCampusImage,
+    #campusForm .campus-image-field #removeCampusImage,
+    #campusForm .campus-image-field .campus-upload-controls .campus-secondary-btn {
+        width: 100%;
+        min-width: 0;
+    }
+}

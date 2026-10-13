@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UCC Admin | Campuses</title>
+	<link rel="icon" type="image/png" href="assets/images/ucc-LOGO.png">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+	<script src="https://unpkg.com/lucide@latest"></script>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="assets/css/campuses.css">
+</head>
+<body data-page-title="Campuses">
+	<div class="dashboard-layout">
+		<div id="sidebar-container"></div>
+		<main class="main-content">
+			<div id="header-container"></div>
+			<section class="campuses-page">
+				<div class="campuses-toolbar">
+					<div class="campuses-intro">
+						<p>Manage campus details, contact information, and locations.</p>
+					</div>
+				</div>
+
+				<div class="campuses-tools">
+					<label class="campus-search"><i data-lucide="search"></i><input id="campusSearch" type="search" placeholder="Search campuses..." aria-label="Search campuses"></label>
+					<button class="campus-primary-btn" id="openCampusForm" type="button"><i data-lucide="plus"></i> Add Campus</button>
+				</div>
+
+				<section class="campuses-table-card" aria-labelledby="campusTableTitle">
+					<div class="campuses-table-heading"><h3 id="campusTableTitle">Campuses</h3><span><strong id="campusCount">2</strong> campuses</span></div>
+					<div class="campuses-table-wrap">
+						<table class="campuses-table">
+							<thead><tr><th>IMAGE</th><th>CAMPUS NAME</th><th>CONTACT</th><th>LOCATION</th><th>ACTIONS</th></tr></thead>
+							<tbody id="campusTableBody">
+								<tr data-campus-row data-id="1" data-name="main campus" data-contact="(02) 8888-0000" data-location="University of Caloocan City, South Campus"><td><div class="campus-thumb campus-no-image"><i data-lucide="image"></i></div></td><td><strong>Main Campus</strong><span class="campus-subtitle">University of Caloocan City</span></td><td> (02) 8888-0000</td><td><a class="campus-map-link" href="https://www.google.com/maps/search/?api=1&query=University+of+Caloocan+City+South+Campus" target="_blank" rel="noopener noreferrer"><i data-lucide="map-pin"></i> View map</a><small>South Campus, Caloocan City</small></td><td><div class="campus-row-actions"><button class="campus-icon-btn campus-view" type="button" data-action="preview" aria-label="Preview Main Campus" title="Preview"><i data-lucide="eye"></i></button><button class="campus-icon-btn campus-edit" type="button" data-action="edit" aria-label="Edit Main Campus" title="Edit"><i data-lucide="pencil"></i></button><button class="campus-icon-btn campus-delete" type="button" data-action="delete" aria-label="Delete Main Campus" title="Delete"><i data-lucide="trash-2"></i></button></div></td></tr>
+								<tr data-campus-row data-id="2" data-name="north campus" data-contact="(02) 8888-0001" data-location="University of Caloocan City, North Campus"><td><div class="campus-thumb campus-no-image"><i data-lucide="image"></i></div></td><td><strong>North Campus</strong><span class="campus-subtitle">University of Caloocan City</span></td><td>(02) 8888-0001</td><td><a class="campus-map-link" href="https://www.google.com/maps/search/?api=1&query=University+of+Caloocan+City+North+Campus" target="_blank" rel="noopener noreferrer"><i data-lucide="map-pin"></i> View map</a><small>North Campus, Caloocan City</small></td><td><div class="campus-row-actions"><button class="campus-icon-btn campus-view" type="button" data-action="preview" aria-label="Preview North Campus" title="Preview"><i data-lucide="eye"></i></button><button class="campus-icon-btn campus-edit" type="button" data-action="edit" aria-label="Edit North Campus" title="Edit"><i data-lucide="pencil"></i></button><button class="campus-icon-btn campus-delete" type="button" data-action="delete" aria-label="Delete North Campus" title="Delete"><i data-lucide="trash-2"></i></button></div></td></tr>
+							</tbody>
+						</table>
+						<div class="campus-empty-state" id="campusEmptyState" hidden>No campuses found.</div>
+					</div>
+				</section>
+			</section>
+
+			<div class="campus-modal-overlay" id="campusFormModal" aria-hidden="true">
+				<section class="campus-modal" role="dialog" aria-modal="true" aria-labelledby="campusFormTitle">
+					<div class="campus-modal-header"><div><h2 id="campusFormTitle">Add Campus</h2></div><button class="campus-close-btn" type="button" data-close-form aria-label="Close"><i data-lucide="x"></i></button></div>
+					<form id="campusForm">
+						<input type="hidden" id="campusId">
+						<div class="campus-form-grid">
+
+							
+
+<div class="campus-form-field campus-image-field">
+    <label>Campus Image</label>
+
+    <div class="campus-upload-row">
+    <div class="campus-upload-preview" id="campusImagePreview" hidden></div>
+
+    <div class="campus-upload-controls">
+        <input id="campusImageInput" type="file" accept="image/*" hidden>
+
+        <button type="button" id="chooseCampusImage"
+                class="campus-secondary-btn">
+            <i data-lucide="upload"></i>
+            Choose Photo
+        </button>
+
+        <button type="button" id="removeCampusImage"
+                class="campus-remove-image" hidden>
+            <i data-lucide="x"></i>
+            Remove Photo
+        </button>
+    </div>
+</div>
+
+    <div class="campus-upload-preview" id="campusImagePreview" hidden></div>
+</div>
+
+<div class="campus-form-field campus-name-field">
+    <label for="campusName">Campus Name</label>
+    <input
+        type="text"
+        id="campusName"
+        name="campusName"
+        placeholder="Enter campus name"
+    />
+</div>
+
+
+							<div class="campus-form-field campus-full-field"><label for="campusContact">Contact Information</label><textarea id="campusContact" name="campusContact" rows="3" placeholder="Enter phone number, email, or other contact details"></textarea></div>
+							<div class="campus-form-field campus-full-field"><label for="campusLocation">Location / Google Maps</label><input id="campusLocation" name="campusLocation" type="text" placeholder="Paste Google Maps URL or enter campus address"></div>
+						</div>
+						<div class="campus-form-actions"><button class="campus-cancel-btn" type="button" data-close-form>Cancel</button><div class="campus-form-actions-right"><button class="campus-secondary-btn" type="button" id="previewCampusBtn"><i data-lucide="eye"></i> Preview</button><button class="campus-primary-btn" type="submit"><i data-lucide="save"></i> <span id="saveCampusLabel">Save Campus</span></button></div></div>
+					</form>
+				</section>
+			</div>
+
+			<div class="campus-modal-overlay campus-preview-overlay" id="campusPreviewModal" aria-hidden="true">
+				<section class="campus-preview-modal" role="dialog" aria-modal="true" aria-labelledby="campusPreviewHeading">
+					<div class="campus-modal-header"><div><h2 id="campusPreviewHeading">Campus Preview</h2></div><button class="campus-close-btn" type="button" data-close-preview aria-label="Close preview"><i data-lucide="x"></i></button></div>
+					<div class="campus-preview-content"><div class="campus-preview-image" id="campusPreviewImage"><i data-lucide="image"></i><span>Campus image</span></div><div class="campus-preview-copy"><h3 id="campusPreviewName">Campus name</h3><p id="campusPreviewContact"></p></div></div>
+					<div class="campus-preview-metadata"><div><span>LOCATION</span><p id="campusPreviewLocation">Not provided</p></div><a id="campusPreviewMap" href="#" target="_blank" rel="noopener noreferrer" hidden><i data-lucide="map-pin"></i> Open in Google Maps</a></div>
+				</section>
+			</div>
+		</main>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+	<script>
+		async function loadSharedLayout() {
+			const sidebarContainer = document.getElementById("sidebar-container");
+			const headerContainer = document.getElementById("header-container");
+			try {
+				const [sidebarResponse, headerResponse] = await Promise.all([
+					fetch("sidebar.html"),
+					fetch("header.html")
+				]);
+				if (!sidebarResponse.ok || !headerResponse.ok) {
+					throw new Error("Unable to load sidebar.html or header.html.");
+				}
+				sidebarContainer.innerHTML = await sidebarResponse.text();
+				headerContainer.innerHTML = await headerResponse.text();
+				const pageTitle = document.body.dataset.pageTitle || "Campuses";
+				const headerTitle = document.getElementById("pageTitle");
+				if (headerTitle) {
+					headerTitle.textContent = pageTitle;
+				}
+				const currentPage = window.location.pathname.split("/").pop().toLowerCase();
+				document.querySelectorAll(".sidebar [data-page]").forEach(link => {
+					link.classList.toggle("active", link.dataset.page.toLowerCase() === currentPage);
+				});
+				document.querySelectorAll(".sidebar .menu-title").forEach(button => {
+					const menuGroup = button.closest(".menu-group");
+					const submenu = menuGroup?.querySelector(".submenu");
+					if (submenu?.querySelector(".active")) {
+						menuGroup.classList.add("open");
+						button.classList.add("active");
+						button.setAttribute("aria-expanded", "true");
+					}
+					button.addEventListener("click", () => {
+						menuGroup.classList.toggle("open");
+						button.setAttribute("aria-expanded", menuGroup.classList.contains("open") ? "true" : "false");
+					});
+				});
+				if (window.lucide) {
+					window.lucide.createIcons();
+				}
+			} catch (error) {
+				console.error("Error loading shared layout:", error);
+				sidebarContainer.innerHTML = "<p>Unable to load sidebar. Check that sidebar.html exists in the same folder.</p>";
+				headerContainer.innerHTML = "<p>Unable to load header. Check that header.html exists in the same folder.</p>";
+			}
+		}
+		loadSharedLayout();
+	</script>
+	<script src="assets/js/campuses.js"></script>
+</body>
+</html>

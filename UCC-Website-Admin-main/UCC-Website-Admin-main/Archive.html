@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>UCC Admin | Archive</title>
+	<link rel="icon" type="image/png" href="assets/images/ucc-LOGO.png">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Libre+Baskerville:wght@700&display=swap" rel="stylesheet">
+	<script src="https://unpkg.com/lucide@latest"></script>
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="assets/css/archive.css">
+</head>
+<body data-page-title="Archive">
+	<div class="dashboard-layout">
+		<div id="sidebar-container"></div>
+		<main class="main-content">
+			<div id="header-container"></div>
+			<section class="archive-content archive-page" aria-labelledby="archiveHeading">
+				<div class="archive-page-intro">
+					<p>Search archived content, preview its details, restore posts to the active list, or permanently delete items.</p>
+				</div>
+				<div class="archive-tools">
+					<label class="archive-search" for="archiveSearch"><i data-lucide="search"></i><input id="archiveSearch" type="search" placeholder="Search archived content..." autocomplete="off"></label>
+					<div class="archive-filters">
+						<label class="sr-only" for="categoryFilter">Filter by category</label>
+						<select id="categoryFilter"><option value="all">All categories</option><option>News</option><option>Announcement</option><option>Event</option><option>Student Life</option><option>Community Extension Services</option><option>Admission</option><option>Alumni</option><option>Careers</option><option>College News</option><option>Program News</option></select>
+						<label class="sr-only" for="orderFilter">Sort order</label>
+						<select id="orderFilter"><option value="newest">Newest publish date</option><option value="oldest">Oldest publish date</option><option value="az">Title A–Z</option><option value="za">Title Z–A</option></select>
+					</div>
+				</div>
+				<div class="archive-card">
+					<div class="archive-table-heading"><h2 id="archiveHeading">Archive</h2><div class="archive-count"><strong id="archiveCount">2</strong><span> archived items</span></div></div>
+					<div class="archive-table-wrap">
+						<table class="archive-table">
+							<thead><tr><th class="featured-image-heading">Featured image</th><th class="title-heading">Title</th><th>Category</th><th>Publish date</th><th>Archived date</th><th class="action-heading">Actions</th></tr></thead>
+							<tbody id="archiveTableBody">
+								<tr data-id="arc-101" data-title="UCC Opens Applications for the New Academic Year" data-category="Admission" data-publish="2026-06-12" data-archived="2026-10-10" data-excerpt="Application details, requirements, and important dates for incoming students." data-content="The University of Caloocan City announces the opening of applications for the upcoming academic year. Applicants are encouraged to review the admission requirements and submit complete documents within the published application period.">
+									<td class="archive-featured-image-cell"><span class="archive-thumb no-image"><i data-lucide="image"></i></span></td>
+									<td><div class="archive-content-copy"><span class="archive-content-title">UCC Opens Applications for the New Academic Year</span><span class="archive-content-excerpt">Application details, requirements, and important dates for incoming students.</span></div></td>
+									<td><span class="category-chip">Admission</span></td><td><span class="archive-date">Jun 12, 2026</span></td><td><span class="archive-date">Oct 10, 2026</span></td>
+									<td><div class="archive-actions"><button class="archive-action preview" type="button" data-action="preview" title="Preview post" aria-label="Preview post"><i data-lucide="eye"></i></button><button class="archive-action restore" type="button" data-action="restore" title="Unarchive post" aria-label="Unarchive post"><i data-lucide="archive-restore"></i></button><button class="archive-action delete" type="button" data-action="delete" title="Delete permanently" aria-label="Delete permanently"><i data-lucide="trash-2"></i></button></div></td>
+								</tr>
+								<tr data-id="arc-102" data-title="University Community Celebrates Founding Anniversary" data-category="News" data-publish="2026-05-28" data-archived="2026-10-09" data-excerpt="Highlights from the university’s founding anniversary celebration." data-content="The university community came together to celebrate its founding anniversary, recognizing the people and milestones that have shaped UCC. The celebration highlighted the university’s continuing commitment to accessible education and public service.">
+									<td class="archive-featured-image-cell"><span class="archive-thumb no-image"><i data-lucide="image"></i></span></td>
+									<td><div class="archive-content-copy"><span class="archive-content-title">University Community Celebrates Founding Anniversary</span><span class="archive-content-excerpt">Highlights from the university’s founding anniversary celebration.</span></div></td>
+									<td><span class="category-chip">News</span></td><td><span class="archive-date">May 28, 2026</span></td><td><span class="archive-date">Oct 9, 2026</span></td>
+									<td><div class="archive-actions"><button class="archive-action preview" type="button" data-action="preview" title="Preview post" aria-label="Preview post"><i data-lucide="eye"></i></button><button class="archive-action restore" type="button" data-action="restore" title="Unarchive post" aria-label="Unarchive post"><i data-lucide="archive-restore"></i></button><button class="archive-action delete" type="button" data-action="delete" title="Delete permanently" aria-label="Delete permanently"><i data-lucide="trash-2"></i></button></div></td>
+								</tr>
+							</tbody>
+						</table>
+						<div id="archiveEmpty" class="archive-empty" hidden><span class="empty-icon"><i data-lucide="archive"></i></span><strong>No archived content found</strong><p>Try changing your search or category filter.</p></div>
+					</div>
+					<div class="archive-footer"><p id="archiveEndMessage" class="archive-end" hidden>— No more items —</p><div class="archive-more-actions"><button id="showLessBtn" class="show-less-btn" type="button" hidden><i data-lucide="chevron-up"></i> Show less</button><button id="showMoreBtn" class="show-more-btn" type="button" hidden>Show more <i data-lucide="chevron-down"></i></button></div></div>
+				</div>
+			</section>
+			<div class="archive-modal-overlay" id="archivePreviewModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="previewTitle">
+				<article class="archive-preview-modal"><header class="preview-modal-header"><span class="preview-eyebrow">Archive Preview</span><button class="modal-close" type="button" data-close-preview aria-label="Close preview"><i data-lucide="x"></i></button></header><div class="preview-image-wrap no-image" id="previewImageWrap"><div class="preview-image-placeholder" id="previewImagePlaceholder"><i data-lucide="image"></i><span>Featured image</span></div></div><div class="preview-content"><h2 id="previewTitle" class="preview-post-title">Post title</h2><p id="previewExcerpt" class="preview-excerpt"></p><div id="previewBody" class="preview-body"></div></div></article>
+			</div>
+			<div id="archiveToast" class="archive-toast" role="status" aria-live="polite"></div>
+		</main>
+	</div>
+	<script>
+		async function loadSharedLayout() {
+			const sidebarContainer = document.getElementById("sidebar-container");
+			const headerContainer = document.getElementById("header-container");
+			try {
+				const [sidebarResponse, headerResponse] = await Promise.all([
+					fetch("sidebar.html"),
+					fetch("header.html")
+				]);
+				if (!sidebarResponse.ok || !headerResponse.ok) {
+					throw new Error("Unable to load the shared header or sidebar.");
+				}
+				sidebarContainer.innerHTML = await sidebarResponse.text();
+				headerContainer.innerHTML = await headerResponse.text();
+				const currentPage = window.location.pathname.split("/").pop().toLowerCase();
+				const pageTitle = document.body.dataset.pageTitle || "Archive";
+				const titleElement = document.getElementById("pageTitle");
+				if (titleElement) titleElement.textContent = pageTitle;
+				document.querySelectorAll(".sidebar [data-page]").forEach(link => {
+					if (link.dataset.page.toLowerCase() === currentPage) {
+						link.classList.add("active");
+						const menuGroup = link.closest(".menu-group");
+						if (menuGroup) { menuGroup.classList.add("open"); const menuButton = menuGroup.querySelector(".menu-title"); if (menuButton) { menuButton.classList.add("active"); menuButton.setAttribute("aria-expanded", "true"); } }
+					}
+				});
+				document.querySelectorAll(".menu-title").forEach(button => button.addEventListener("click", () => { const menuGroup = button.parentElement; const isOpen = menuGroup.classList.toggle("open"); button.setAttribute("aria-expanded", String(isOpen)); }));
+				if (window.lucide) lucide.createIcons();
+			} catch (error) { console.error("Shared layout loading error:", error); sidebarContainer.textContent = "Unable to load sidebar. Check that sidebar.html exists."; headerContainer.textContent = "Unable to load header. Check that header.html exists."; }
+		}
+		loadSharedLayout();
+	</script>
+	<script src="assets/js/archive.js" defer></script>
+</body>
+</html>
